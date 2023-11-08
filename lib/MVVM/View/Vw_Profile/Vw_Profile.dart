@@ -23,12 +23,12 @@ class _VwUserProfileState extends State<VwUserProfile> {
         onWillPop: () async {
           // Navigate back to the second screen
 
-          Get.toNamed(AppRoutes.vwCommonLayout);
           return false; // Prevent the app from being closed
         },
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
             title: Text(
               "My Profile",
@@ -47,6 +47,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
             //color: Colors.black,
             padding: const EdgeInsets.all(16.0),
             child: Stack(
+
               children: <Widget>[
                 Positioned(
                   top: PrHeight * 0.06,
@@ -55,6 +56,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                   child: SizedBox(
                     height: PrHeight * 0.20,
                     child: Container(
+
                       width: PrWidth * 0.500,
                       height: PrHeight * 0.30,
                       padding: EdgeInsets.all(PrHeight * 0.010),
@@ -114,7 +116,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                       height: PrHeight * 0.27,
                       padding: EdgeInsets.all(PrHeight * 0.010),
                       decoration: BoxDecoration(
-                        color: Colors.grey[100],
+                        color: Colors.deepOrange.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(

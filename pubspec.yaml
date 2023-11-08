@@ -46,6 +46,7 @@ dependencies:
   flutter_svg: ^2.0.8
   geolocator: ^10.1.0
   geocoding: ^2.1.1
+  workmanager: ^0.5.2
 
 
 

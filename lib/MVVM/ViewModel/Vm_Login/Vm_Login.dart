@@ -34,8 +34,6 @@ class Vm_Login extends GetxController {
     l_SharedPreferences.setString('l_driverID', l_ModUserData.data?.user?.id ?? '');
     l_SharedPreferences.setString('l_driverPasword', cmGlobalVariables.pbPassword ?? '');
     l_SharedPreferences.setString('l_driverfullname', l_ModUserData.data?.user?.fullName ?? '');
-
-
   }
 
   fncGetUserData() async {
@@ -48,7 +46,7 @@ class Vm_Login extends GetxController {
     final id = l_SharedPreferences.getString('l_driverID') ?? '';
     final password = l_SharedPreferences.getString('l_driverPasword') ?? '';
     final fullname = l_SharedPreferences.getString('l_driverfullname') ?? '';
-
+    cmGlobalVariables.Pb_Token = accessToken;
     ModDriverLocalData localData = ModDriverLocalData(
       email: email,
       phone: phone,
@@ -63,13 +61,12 @@ class Vm_Login extends GetxController {
     print(cmGlobalVariables.Pb_ModDriverLocalData);
   }
 
-
   Future<bool> fnc_Userlogin() async {
     try {
       ModUserData l_ModUserData = await Sl_UserLogin().fnc_Userlogin_apiCall();
 
       if (l_ModUserData != null) {
-        cmGlobalVariables.Pb_Token = l_ModUserData.data?.accessToken;
+        // cmGlobalVariables.Pb_Token = l_ModUserData.data?.accessToken;
         print(cmGlobalVariables.Pb_Token);
         cmGlobalVariables.Pb_ModUserData = l_ModUserData;
 

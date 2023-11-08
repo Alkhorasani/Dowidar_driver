@@ -24,14 +24,13 @@ class _Vw_SettingsState extends State<Vw_Settings> {
         onWillPop: () async {
           // Navigate back to the second screen
 
-          Get.toNamed(AppRoutes.vwCommonLayout);
           return false; // Prevent the app from being closed
         },
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
-
               title: Text(
                 "Settings",
                 style: GoogleFonts.ubuntu(

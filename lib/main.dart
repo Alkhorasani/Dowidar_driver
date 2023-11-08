@@ -1,8 +1,10 @@
+import 'package:dowidardriver/ClassModules/AppStartup/cmAppStartup.dart';
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workmanager/workmanager.dart';
 
 import 'MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'Routing/AppRoutes.dart';
@@ -10,80 +12,58 @@ import 'Routing/GetRoutes.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  print("here i am");
+  Workmanager().executeTask((task, inputData) async {
+    if (task == "get_user_location") {
+      try {
+        Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
+        cmGlobalVariables.pBUserLatitude = position.latitude;
+        cmGlobalVariables.pBUserLongitude = position.longitude;
 
+        print("Latitude: ${cmGlobalVariables.pBUserLatitude}");
+        print("Longitude: ${cmGlobalVariables.pBUserLongitude}");
 
-
-Future<Position?> getUserLocation() async {
-
-  try {
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    return position; // This Position object contains latitude and longitude.
-  } catch (e) {
-    print('Error getting user location: $e');
-    return null;
-  }
-}
-
-
-Future<bool> FncPermissions() async {
-  // Request app notification permission
-  final notificationStatus = await Permission.notification.request();
-
-  if (notificationStatus.isGranted) {
-    // Request user location permission
-    final locationStatus = await Permission.location.request();
-
-    Position? userLocation = await getUserLocation();
-
-    if (userLocation != null) {
-      cmGlobalVariables.pBUserLatitude = userLocation.latitude;
-      cmGlobalVariables.pBUserLongitude = userLocation.longitude;
-
-      // You can now use 'latitude' and 'longitude' in your app.
-    } else {
-      // Handle the case where user location couldn't be determined.
-      print('User location not available.');
+        print("service called");
+      } catch (e, stack) {
+        throw Exception([e, stack]);
+        // You can add additional error handling here if needed.
+      }
     }
-
-    if (locationStatus.isGranted) {
-      return true;
-    }
-
-    if (locationStatus.isDenied || locationStatus.isRestricted) {
-      // Show a pop-up to request the location permission
-      await Permission.location.request();
-    }
-  }
-
-  if (notificationStatus.isDenied || notificationStatus.isRestricted) {
-    // Show a pop-up to request the app notification permission
-    await Permission.notification.request();
-  }
-
-  return false;
+    return Future.value(true);
+  });
 }
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized.
 
-  FncPermissions();
-  final userLocation = await getUserLocation();
-  print(userLocation);
-  print(userLocation);
+  cmAppStartup().FncPermissions();
+  Workmanager().initialize(callbackDispatcher,
+      isInDebugMode: true
+
+  );
+
+  Workmanager().registerPeriodicTask(
+    'get_user_location', // Task name matches the one in callbackDispatcher
+    'get_user_location_key', // Unique key for this task
+    initialDelay: Duration(seconds: 1), // Initial delay before the first execution
+    frequency: Duration(seconds: 10), // Repeat every 10 seconds
+  );
 
 
   final sharedPreferences = await SharedPreferences.getInstance();
   final l_driverID = sharedPreferences.getString('l_driverID');
-  runApp(MyApp(initialRoute: l_driverID != null && l_driverID.isNotEmpty ? AppRoutes.vwCommonLayout : AppRoutes.initialRoute));
+  runApp(MyApp(
+      initialRoute: l_driverID != null && l_driverID.isNotEmpty ? AppRoutes.vwCommonLayout : AppRoutes.initialRoute));
 
   runApp(MyApp(
     // initialRoute: AppRoutes.initialRoute,
     initialRoute: AppRoutes.initialRoute,
   ));
 }
-
 
 class MyApp extends StatelessWidget {
   final String initialRoute;
@@ -93,9 +73,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-   // Get.put(Vm_Home());
+    // Get.put(Vm_Home());
     return GetMaterialApp(
-
       debugShowCheckedModeBanner: false,
       getPages: GetAppRoutes.Fnc_GetPages(),
       initialRoute: initialRoute,

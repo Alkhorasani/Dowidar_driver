@@ -35,83 +35,130 @@ class _CommonLayoutState extends State<CommonLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView(
-              controller: pageController,
-              onPageChanged: (index) {
+    return WillPopScope(
+      onWillPop: () async {
+        // Navigate back to the second screen
+        //Get.until((route) => route.settings.name == AppRoutes.initialRoute);
+        return false; // Prevent the app from being closed
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                physics: NeverScrollableScrollPhysics(), // Disable swipe to change pages
+
+                controller: pageController,
+                onPageChanged: (index) {
+                  onTabSelected(index);
+                },
+                children: [
+                  Vw_Home(),
+                  Vw_OrderHistory(),
+                  VwUserProfile(),
+                  Vw_Settings(),
+                ],
+              ),
+            ),
+            CustomBottomNavigationBar(
+              onSelected: (int index) {
                 onTabSelected(index);
               },
-              children: [
-                Vw_Home(),
-                Vw_OrderHistory(),
-                VwUserProfile(),
-                Vw_Settings(),
-              ],
-            ),
-          ),
-          CustomBottomNavigationBar(
-            onSelected: (int index) {
-              onTabSelected(index);
-            },
-            onItemTapped: (int index) async {
-              if (index == 0) {
-                Get.dialog(
-                  const Center(
-                    child: CircularProgressIndicator(), // Replace with your desired loading indicator widget
-                  ),
-                  barrierDismissible: false,
-                );
+              onItemTapped: (int index) async {
+                if (index == 0) {
+                  bool isCall = await l_Vm_CommonLayout.fnc_GetAllOrders();
+                  //bool isCustomerPortalUser = await l_Vmlogin.Fnc_IsUserPartOfCP();
 
-                bool isCall = await l_Vm_CommonLayout.fnc_GetAllOrders();
-                //bool isCustomerPortalUser = await l_Vmlogin.Fnc_IsUserPartOfCP();
-
-                Get.back(); // Close the loading indicator dialog
-
-                if (isCall) {
-                  print("Api called");
-                  Get.snackbar(
-                    "Updated current  Orders",
-                    "",
-                    backgroundColor: Colors.grey[50],
-                    icon: const Icon(Icons.check_circle, color: Colors.green),
-                    duration: const Duration(seconds: 3),
-                    snackPosition: SnackPosition.BOTTOM,
-                    margin: const EdgeInsets.all(16),
-                    borderRadius: 10,
-                    borderWidth: 1,
-                    borderColor: Colors.white,
-                    messageText: const Text(
-                      "----",
-                      style: TextStyle(color: Colors.black),
+                  if (isCall) {
+                    print("Api called");
+                    Get.snackbar(
+                      "Alert",
+                      "",
+                      backgroundColor: Colors.deepOrange.withOpacity(0.2),
+                      icon: const Icon(Icons.check_circle, color: Colors.deepOrange),
+                      duration: const Duration(seconds: 3),
+                      snackPosition: SnackPosition.TOP,
+                      margin: const EdgeInsets.all(16),
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      borderColor: Colors.white,
+                      messageText: const Text(
+                        "Updated current  Orders",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
+                  } else {
+                    Get.snackbar(
+                      "Alert",
+                      "",
+                      backgroundColor: Colors.deepOrange.withOpacity(0.2),
+                      icon: const Icon(Icons.error_outline, color: Colors.redAccent),
+                      duration: const Duration(seconds: 3),
+                      snackPosition: SnackPosition.TOP,
+                      margin: const EdgeInsets.all(16),
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      borderColor: Colors.white,
+                      messageText: const Text(
+                        "These are your current orders for now.",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
+                  }
+                } else if (index == 1) {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(), // Replace with your desired loading indicator widget
                     ),
+                    barrierDismissible: false,
                   );
-                } else {
-                  Get.snackbar(
-                    "These are your current orders for now.",
-                    "",
-                    backgroundColor: Colors.grey[50],
-                    icon: const Icon(Icons.error_outline, color: Colors.redAccent),
-                    duration: const Duration(seconds: 3),
-                    snackPosition: SnackPosition.BOTTOM,
-                    margin: const EdgeInsets.all(16),
-                    borderRadius: 10,
-                    borderWidth: 1,
-                    borderColor: Colors.white,
-                    messageText: const Text(
-                      "----",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  );
+
+                  bool isCall = await l_Vm_CommonLayout.filterOrderHistoryByStatus();
+
+                  //bool isCustomerPortalUser = await l_Vmlogin.Fnc_IsUserPartOfCP();
+
+                  Get.back(); // Close the loading indicator dialog
+
+                  if (isCall) {
+                    Get.snackbar(
+                      "Alert",
+                      "",
+                      backgroundColor: Colors.deepOrange.withOpacity(0.2),
+                      icon: const Icon(Icons.check_circle, color: Colors.deepOrange),
+                      duration: const Duration(seconds: 3),
+                      snackPosition: SnackPosition.TOP,
+                      margin: const EdgeInsets.all(16),
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      borderColor: Colors.white,
+                      messageText: const Text(
+                        "Updated Orders History ",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
+                  } else {
+                    Get.snackbar(
+                      "Alert",
+                      "",
+                      backgroundColor: Colors.deepOrange.withOpacity(0.2),
+                      icon: const Icon(Icons.error_outline, color: Colors.redAccent),
+                      duration: const Duration(seconds: 3),
+                      snackPosition: SnackPosition.BOTTOM,
+                      margin: const EdgeInsets.all(16),
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      borderColor: Colors.white,
+                      messageText: const Text(
+                        "---",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
+                  }
                 }
-              } else if (index == 1) {
-                await l_Vm_CommonLayout.filterOrderHistoryByStatus();
-              }
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

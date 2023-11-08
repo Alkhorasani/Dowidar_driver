@@ -10,10 +10,14 @@ class Vm_CommonLayout extends GetxController {
   RxDouble iconSize = 28.0.obs;
   RxList<Datum>? RxListModUserAllOrders = <Datum>[].obs;
   RxList<Datum>? RxListModOrderHistory = <Datum>[].obs;
-  RxBool isLoading = false.obs;
+  RxList<Datum>? RxListModOrderHistoryPenidng = <Datum>[].obs;
+  RxBool isLoadingAllOrders = false.obs;
+  RxBool isLoadingPendingOrders = false.obs;
 
   Future<bool> fnc_GetAllOrders() async {
     try {
+      isLoadingAllOrders.value = true; // Show loading indicator
+
       ModGetAllOrders l_ModGetAllOrders = await Sl_GetAllOrders().fnc_GetAllorders_apiCall();
       List<Datum> l_list_ModGetAllOrders = [];
       List<Datum> ordersList = [];
@@ -29,14 +33,18 @@ class Vm_CommonLayout extends GetxController {
         }).toList();
 
         RxListModUserAllOrders?.value = l_list_ModGetAllOrders ?? [];
-        print(RxListModUserAllOrders);
-        print(RxListModUserAllOrders);
+        isLoadingAllOrders.value = false; // Hide loading indicator
+
         // print(l_list_ModGetAllOrders);
 
         print("Called");
+        isLoadingAllOrders.value = false; // Hide loading indicator
+
         return true;
       } else {
         print("failed");
+        isLoadingAllOrders.value = false; // Hide loading indicator
+
         return false;
       }
     } catch (e) {
@@ -44,22 +52,84 @@ class Vm_CommonLayout extends GetxController {
       return false; // You can handle the error as needed
     }
   }
+
   ////
 
   bool filterOrderHistoryByStatus() {
     try {
       // Assuming that RxListModUserAllOrders is a list of Datum objects
       if (RxListModUserAllOrders != null) {
-        final filteredOrders = RxListModUserAllOrders!.where((order) => order.status == 'cancelled').toList();
+        final filteredOrders = RxListModUserAllOrders!
+            .where((order) => order.status == DatumStatus.CANCELLED) // Use the enum value for 'cancelled'
+            .toList();
+        RxListModOrderHistory?.clear();
+
         RxListModOrderHistory?.assignAll(filteredOrders);
-        return true;  // Filtering and assignment succeeded
+
+        return true; // Filtering and assignment succeeded
       } else {
-        return false;  // RxListModUserAllOrders is null
+        return false; // RxListModUserAllOrders is null
       }
     } catch (error) {
       print("Error in filterOrderHistoryByStatus: $error");
-      return false;  // Error occurred
+      return false; // Error occurred
     }
   }
 
+  bool fncPendingOrderFilter() {
+    try {
+      isLoadingPendingOrders.value = true;
+
+      if (RxListModUserAllOrders != null) {
+        final filteredOrders = RxListModUserAllOrders!
+            .where((order) => order.status == DatumStatus.PENDING) // U.se the enum value for 'cancelled'
+            .toList();
+        RxListModOrderHistoryPenidng?.clear();
+        RxListModOrderHistoryPenidng?.assignAll(filteredOrders);
+        isLoadingPendingOrders.value = false;
+        return true; // Filtering and assignment succeeded
+      } else {
+        isLoadingPendingOrders.value = false;
+
+        return false; // RxListModUserAllOrders is null
+      }
+    } catch (error) {
+      isLoadingPendingOrders.value = false;
+
+      print("Error in filterOrderHistoryByStatus: $error");
+      return false; // Error occurred
+    }
+  }
+
+  Future<bool> fnc_RefreshAllOrders() async {
+    try {
+      isLoadingAllOrders.value = true; // Show loading indicator
+
+      ModGetAllOrders l_ModGetAllOrders = await Sl_GetAllOrders().fnc_GetAllorders_apiCall();
+      List<Datum> l_list_ModGetAllOrders = [];
+      List<Datum> ordersList = [];
+
+      if (l_ModGetAllOrders != null) {
+        ordersList.clear();
+        l_list_ModGetAllOrders.clear();
+        RxListModUserAllOrders?.value.clear();
+        ordersList = l_ModGetAllOrders.data.data;
+
+        l_list_ModGetAllOrders = ordersList.map((orderJson) {
+          return orderJson;
+        }).toList();
+
+        RxListModUserAllOrders?.value = l_list_ModGetAllOrders ?? [];
+        isLoadingAllOrders.value = false; // Hide loading indicator
+        return true;
+      } else {
+        isLoadingAllOrders.value = false; // Hide loading indicator on failure
+        return false;
+      }
+    } catch (e) {
+      isLoadingAllOrders.value = false; // Hide loading indicator on error
+      print("Error in fnc_RefreshAllOrders: $e");
+      return false;
+    }
+  }
 }
