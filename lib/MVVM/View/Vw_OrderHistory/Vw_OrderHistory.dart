@@ -60,66 +60,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.red.withOpacity(0.3), // Set the background color to white
 
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                'Red = Canncelled',
-                                style: GoogleFonts.ubuntu(
-                                  textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    letterSpacing: 0.6,
-                                  ),
-                                ),
-                              )),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blue.withOpacity(0.3), // Set the background color to white
-
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                'Blue = Processing',
-                                style: GoogleFonts.ubuntu(
-                                  textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    letterSpacing: 0.6,
-                                  ),
-                                ),
-                              )),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.green.withOpacity(0.3), // Set the background color to white
-
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                'Green = Pending',
-                                style: GoogleFonts.ubuntu(
-                                  textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    letterSpacing: 0.6,
-                                  ),
-                                ),
-                              )),
-                        ),
                       ],
                     ),
                   ),

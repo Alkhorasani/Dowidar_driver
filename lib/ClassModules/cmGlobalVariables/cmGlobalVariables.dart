@@ -14,6 +14,12 @@ class cmGlobalVariables {
   static ModDriverLocalData? Pb_ModDriverLocalData;
   static double? pBUserLongitude ;
   static double? pBUserLatitude ;
+  static bool? pBisAccepted;
+  static int? pBOrderId;
+  static int? pBOrderStatusId;
+  static String? pBOrderStatus;
+
+  static bool? pBisSwitch_onOff;
  // static List<Datum> ? pB_list_ModGetAllOrders;
 
 

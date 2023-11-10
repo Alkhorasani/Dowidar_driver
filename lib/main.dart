@@ -1,5 +1,7 @@
 import 'package:dowidardriver/ClassModules/AppStartup/cmAppStartup.dart';
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
+import 'package:dowidardriver/MVVM/Model/ModDriverStatus/ModDriverStatus.dart';
+import 'package:dowidardriver/ServiceLayer/Sl_DriverLocation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -26,6 +28,9 @@ void callbackDispatcher() {
         print("Latitude: ${cmGlobalVariables.pBUserLatitude}");
         print("Longitude: ${cmGlobalVariables.pBUserLongitude}");
 
+        await Future.delayed(Duration(seconds: 2000));
+
+        await fnc_UpdateDriverLocation();
         print("service called");
       } catch (e, stack) {
         throw Exception([e, stack]);
@@ -36,15 +41,29 @@ void callbackDispatcher() {
   });
 }
 
+Future<bool> fnc_UpdateDriverLocation() async {
+  try {
+    ModDriverLocation l_ModDriverLocation = await Sl_DriverLocation().fnc_driverLoction();
+
+    if (l_ModDriverLocation != null) {
+      print("Called");
+      return true;
+    } else {
+      print("failed");
+      return false;
+    }
+  } catch (e) {
+    print("Error in fnc_GetAllOrders: $e");
+    return false; // You can handle the error as needed
+  }
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized.
 
+  cmGlobalVariables.pBisSwitch_onOff = false;
   cmAppStartup().FncPermissions();
-  Workmanager().initialize(callbackDispatcher,
-      isInDebugMode: true
-
-  );
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 
   Workmanager().registerPeriodicTask(
     'get_user_location', // Task name matches the one in callbackDispatcher
@@ -52,7 +71,6 @@ Future<void> main() async {
     initialDelay: Duration(seconds: 1), // Initial delay before the first execution
     frequency: Duration(seconds: 10), // Repeat every 10 seconds
   );
-
 
   final sharedPreferences = await SharedPreferences.getInstance();
   final l_driverID = sharedPreferences.getString('l_driverID');

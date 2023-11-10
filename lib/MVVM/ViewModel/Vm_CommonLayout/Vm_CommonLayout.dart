@@ -13,6 +13,7 @@ class Vm_CommonLayout extends GetxController {
   RxList<Datum>? RxListModOrderHistoryPenidng = <Datum>[].obs;
   RxBool isLoadingAllOrders = false.obs;
   RxBool isLoadingPendingOrders = false.obs;
+  RxBool isLoadingOrderHistory = false.obs;
 
   Future<bool> fnc_GetAllOrders() async {
     try {
@@ -57,7 +58,7 @@ class Vm_CommonLayout extends GetxController {
 
   bool filterOrderHistoryByStatus() {
     try {
-      // Assuming that RxListModUserAllOrders is a list of Datum objects
+      isLoadingOrderHistory.value = true;
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
             .where((order) => order.status == DatumStatus.CANCELLED) // Use the enum value for 'cancelled'
@@ -65,9 +66,12 @@ class Vm_CommonLayout extends GetxController {
         RxListModOrderHistory?.clear();
 
         RxListModOrderHistory?.assignAll(filteredOrders);
+        isLoadingOrderHistory.value = false;
 
         return true; // Filtering and assignment succeeded
       } else {
+        isLoadingOrderHistory.value = false;
+
         return false; // RxListModUserAllOrders is null
       }
     } catch (error) {

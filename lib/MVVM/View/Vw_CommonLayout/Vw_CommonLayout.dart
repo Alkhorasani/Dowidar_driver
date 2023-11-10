@@ -106,18 +106,12 @@ class _CommonLayoutState extends State<CommonLayout> {
                     );
                   }
                 } else if (index == 1) {
-                  Get.dialog(
-                    const Center(
-                      child: CircularProgressIndicator(), // Replace with your desired loading indicator widget
-                    ),
-                    barrierDismissible: false,
-                  );
+
 
                   bool isCall = await l_Vm_CommonLayout.filterOrderHistoryByStatus();
 
                   //bool isCustomerPortalUser = await l_Vmlogin.Fnc_IsUserPartOfCP();
 
-                  Get.back(); // Close the loading indicator dialog
 
                   if (isCall) {
                     Get.snackbar(

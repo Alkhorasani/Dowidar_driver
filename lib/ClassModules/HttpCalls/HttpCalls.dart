@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Urls/ApiUrls.dart';
 
@@ -13,12 +14,14 @@ class HttpCalls {
   }
 
   Future<http.Response> Fnc_HttpWeb(String lControllerUrl, List<int> lUtfContent) async {
-    String? lToken;
-    lToken = ApiUrls.Pb_Token;
+
+    final l_SharedPreferences = await SharedPreferences.getInstance();
+    final accessToken = l_SharedPreferences.getString('l_token') ?? '';
+
     Uri lUri = Uri.parse(ApiUrls.Pb_BaseAPIURL + lControllerUrl);
     Map<String, String> lStringContect = {
       HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
-      //HttpHeaders.authorizationHeader: 'Bearer $lToken',
+      HttpHeaders.authorizationHeader: 'Bearer $accessToken',
     };
     final lResponse = await http.post(lUri, headers: lStringContect, body: lUtfContent);
     return lResponse;
