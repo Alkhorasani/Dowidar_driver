@@ -7,5 +7,6 @@ class AppRoutes {
   static String vwOrderHistory = '/Vw_OrderHistory';
   static String vwCommonLayout = '/CommonLayout';
   static String vwChat = '/ChatView';
+  static String vwOrderDetails = '/Vw_OrderDetails';
 
 }

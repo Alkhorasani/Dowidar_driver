@@ -117,7 +117,8 @@ class _CommonLayoutState extends State<CommonLayout> {
                         ),
                       );
                     }
-                  } else if (index == 1) {
+                  }
+                  else if (index == 1) {
 
                     l_VmHome. isSelectedred.value = false;
                     l_VmHome. isSelectedblue.value = false;
@@ -164,6 +165,7 @@ class _CommonLayoutState extends State<CommonLayout> {
                       );
                     }
                   }
+
                 },
               ),
             ],

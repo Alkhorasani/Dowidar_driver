@@ -1,6 +1,7 @@
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Login/Vm_Login.dart';
+import 'package:dowidardriver/Routing/AppRoutes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
@@ -116,7 +117,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                               Get.dialog(
                                 const Center(
                                   child:
-                                  CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                      CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                 ),
                                 barrierDismissible: false,
                               );
@@ -254,7 +255,6 @@ class _Vw_HomeState extends State<Vw_Home> {
                                         l_Vm_Home.isSelectedblue.value = true;
                                         l_Vm_Home.isSelectedfreen.value = false;
 
-
                                         l_Vm_Home.fncfilterProcessing();
                                         l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
                                         print('Container tapped');
@@ -352,10 +352,9 @@ class _Vw_HomeState extends State<Vw_Home> {
                                       return ListView.separated(
                                         itemCount: l_Vm_CommonLayout.RxListModUserAllOrders!.length,
                                         shrinkWrap: true,
-                                        separatorBuilder: (context, index) =>
-                                            SizedBox(
-                                              height: G_height * 0.02,
-                                            ),
+                                        separatorBuilder: (context, index) => SizedBox(
+                                          height: G_height * 0.02,
+                                        ),
                                         padding: EdgeInsets.only(left: G_width * 0.03, right: G_width * 0.03),
                                         itemBuilder: (context, index) {
                                           final order = l_Vm_CommonLayout.RxListModUserAllOrders![index];
@@ -376,80 +375,99 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             tileColor = Colors.white; // Default color for other statuses
                                           }
 
-                                          return Container(
-                                            height: 100,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                SvgPicture.asset(
-                                                  'assets/icons/blueberry-pancake.svg',
-                                                  width: 65,
-                                                  height: 65,
-                                                ),
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          "Order NO:",
-                                                          style: const TextStyle(
-                                                            fontWeight: FontWeight.w500,
-                                                            color: Colors.black45,
-                                                            fontSize: 16,
+                                          return GestureDetector(
+                                            onTap: () async {
+                                              cmGlobalVariables.pBOntapOrderId = order.id;
+
+                                              // Get.dialog(
+                                              //   const Center(
+                                              //     child:
+                                              //         CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                              //   ),
+                                              //   barrierDismissible: false,
+                                              // );
+                                              // bool isCall = await l_Vm_Home.fnc_OrderDetails();
+                                              // Get.back(); // Close the loading indicator dialog
+                                              // if (isCall) {
+                                              //   Get.toNamed(AppRoutes.vwOrderDetails);
+                                              // } else {}
+
+                                               Get.toNamed(AppRoutes.vwOrderDetails);
+
+                                              print(cmGlobalVariables.pBOntapOrderId);
+                                            },
+                                            child: Container(
+                                              height: 100,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    'assets/icons/blueberry-pancake.svg',
+                                                    width: 65,
+                                                    height: 65,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "Order NO:",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black45,
+                                                              fontSize: 16,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          order.orderNo.toString(),
-                                                          style: const TextStyle(
-                                                            fontWeight: FontWeight.w500,
-                                                            color: Colors.black,
-                                                            fontSize: 16,
+                                                          Text(
+                                                            order.orderNo.toString(),
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black,
+                                                              fontSize: 16,
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          "Status:",
-                                                          style: const TextStyle(
-                                                            fontWeight: FontWeight.w500,
-                                                            color: Colors.black45,
-                                                            fontSize: 16,
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "Status:",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black45,
+                                                              fontSize: 16,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          "${status != null ? status
-                                                              .toString()
-                                                              .split('.')
-                                                              .last : ''}",
-                                                          style: const TextStyle(
-                                                            fontWeight: FontWeight.w500,
-                                                            color: Colors.black,
-                                                            fontSize: 16,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    // Display items' names
-                                                    // Display items' names
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: tileColor, // Set the determined color
-                                              borderRadius: BorderRadius.circular(10),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: const Color(0xff1D1617).withOpacity(0.07),
-                                                  offset: const Offset(0, 10),
-                                                  blurRadius: 40,
-                                                  spreadRadius: 0,
-                                                ),
-                                              ],
+                                                          Text(
+                                                            "${status != null ? status.toString().split('.').last : ''}",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black,
+                                                              fontSize: 16,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      // Display items' names
+                                                      // Display items' names
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: tileColor, // Set the determined color
+                                                borderRadius: BorderRadius.circular(10),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: const Color(0xff1D1617).withOpacity(0.07),
+                                                    offset: const Offset(0, 10),
+                                                    blurRadius: 40,
+                                                    spreadRadius: 0,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           );
                                         },
@@ -501,10 +519,9 @@ class _Vw_HomeState extends State<Vw_Home> {
                                       return ListView.separated(
                                         itemCount: l_Vm_CommonLayout.RxListModOrderHistoryPenidng!.length,
                                         shrinkWrap: true,
-                                        separatorBuilder: (context, index) =>
-                                            SizedBox(
-                                              height: G_height * 0.02,
-                                            ),
+                                        separatorBuilder: (context, index) => SizedBox(
+                                          height: G_height * 0.02,
+                                        ),
                                         padding: EdgeInsets.only(left: G_width * 0.03, right: G_width * 0.03),
                                         itemBuilder: (context, index) {
                                           final order = l_Vm_CommonLayout.RxListModOrderHistoryPenidng![index];
@@ -579,10 +596,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            "${status != null ? status
-                                                                .toString()
-                                                                .split('.')
-                                                                .last : ''}",
+                                                            "${status != null ? status.toString().split('.').last : ''}",
                                                             style: const TextStyle(
                                                               fontWeight: FontWeight.w500,
                                                               color: Colors.black,
@@ -607,7 +621,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               Get.dialog(
                                                                 const Center(
                                                                   child:
-                                                                  CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                                                      CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                                                 ),
                                                                 barrierDismissible: false,
                                                               );
@@ -701,7 +715,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               Get.dialog(
                                                                 const Center(
                                                                   child:
-                                                                  CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                                                      CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                                                 ),
                                                                 barrierDismissible: false,
                                                               );
@@ -822,9 +836,9 @@ class _Vw_HomeState extends State<Vw_Home> {
 
     return GestureDetector(
       onTap: () {
-         l_Vm_Home. isSelectedred.value = false;
-         l_Vm_Home. isSelectedblue.value = false;
-         l_Vm_Home. isSelectedfreen.value = false;
+        l_Vm_Home.isSelectedred.value = false;
+        l_Vm_Home.isSelectedblue.value = false;
+        l_Vm_Home.isSelectedfreen.value = false;
         //when tap anywhere on screen keyboard dismiss
         FocusManager.instance.primaryFocus?.unfocus();
       },
@@ -833,14 +847,8 @@ class _Vw_HomeState extends State<Vw_Home> {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               //Get device's screen height and width.
-              double height = MediaQuery
-                  .of(context)
-                  .size
-                  .height;
-              double width = MediaQuery
-                  .of(context)
-                  .size
-                  .width;
+              double height = MediaQuery.of(context).size.height;
+              double width = MediaQuery.of(context).size.width;
 
               if (width >= 300 && width < 500) {
                 return _WidgetportraitMode(height, width);

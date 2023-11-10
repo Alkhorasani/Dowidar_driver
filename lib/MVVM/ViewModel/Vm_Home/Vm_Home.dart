@@ -1,7 +1,9 @@
 import 'package:dowidardriver/MVVM/Model/ModNewOrder/ModNewOrders.dart';
+import 'package:dowidardriver/MVVM/Model/ModOrderDetails/ModOrderDetials.dart';
 import 'package:dowidardriver/MVVM/Model/ModOrderStatus/ModOrderStatus.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_GetAllOrders.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_OrderAccRej.dart';
+import 'package:dowidardriver/ServiceLayer/Sl_OrderDetails.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_OrderStatus.dart';
 import 'package:get/get.dart';
 
@@ -22,10 +24,27 @@ class Vm_Home extends GetxController {
   RxBool isSelectedblue = false.obs;
   RxBool isSelectedfreen = false.obs;
 
+  RxList<Datum>? RxListModUserOrderDetails = <Datum>[].obs;
 
   final Vm_CommonLayout l_Vm_CommonLayout = Get.find<Vm_CommonLayout>();
 
+  ModOrderDetails? orderDetails; // Declare the model outside the method
 
+  Future<bool> fnc_OrderDetails() async {
+    try {
+      orderDetails = await Sl_OrderDetails().fnc_OrderDetails();
+
+      if (orderDetails != null && orderDetails?.data != null) {
+        return true; // Successfully fetched data
+      } else {
+        print("Failed");
+        return false; // Data not available or other failure cases
+      }
+    } catch (e) {
+      print("Error in fnc_OrderDetails: $e");
+      return false; // Handle the error case
+    }
+  }
 
   Future<bool> fnc_OrderAccRej() async {
     try {
@@ -96,19 +115,16 @@ class Vm_Home extends GetxController {
     }
   }
 
-
-
-
   Future<bool> fncfilterCancelled() async {
     try {
       isLoadingOrderHistory.value = true;
-        await l_Vm_CommonLayout.fnc_GetAllOrders();
-      if ( l_Vm_CommonLayout. RxListModUserAllOrders != null) {
-        final filteredOrders = l_Vm_CommonLayout. RxListModUserAllOrders!
+      await l_Vm_CommonLayout.fnc_GetAllOrders();
+      if (l_Vm_CommonLayout.RxListModUserAllOrders != null) {
+        final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
             .where((order) => order.status == DatumStatus.CANCELLED) // Use the enum value for 'cancelled'
             .toList();
 
-        l_Vm_CommonLayout. RxListModUserAllOrders?.assignAll(filteredOrders);
+        l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
         isLoadingOrderHistory.value = false;
 
         return true; // Filtering and assignment succeeded
@@ -129,11 +145,11 @@ class Vm_Home extends GetxController {
 
       isLoadingPendingOrders.value = true;
 
-      if (l_Vm_CommonLayout. RxListModUserAllOrders != null) {
-        final filteredOrders = l_Vm_CommonLayout. RxListModUserAllOrders!
+      if (l_Vm_CommonLayout.RxListModUserAllOrders != null) {
+        final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
             .where((order) => order.status == DatumStatus.PENDING) // U.se the enum value for 'cancelled'
             .toList();
-        l_Vm_CommonLayout. RxListModUserAllOrders?.assignAll(filteredOrders);
+        l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
         isLoadingPendingOrders.value = false;
         return true; // Filtering and assignment succeeded
       } else {
@@ -155,11 +171,11 @@ class Vm_Home extends GetxController {
 
       isLoadingPendingOrders.value = true;
 
-      if (l_Vm_CommonLayout. RxListModUserAllOrders != null) {
-        final filteredOrders = l_Vm_CommonLayout. RxListModUserAllOrders!
+      if (l_Vm_CommonLayout.RxListModUserAllOrders != null) {
+        final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
             .where((order) => order.status == DatumStatus.PROCESSING) // U.se the enum value for 'cancelled'
             .toList();
-        l_Vm_CommonLayout. RxListModUserAllOrders?.assignAll(filteredOrders);
+        l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
         isLoadingPendingOrders.value = false;
         return true; // Filtering and assignment succeeded
       } else {
@@ -174,9 +190,4 @@ class Vm_Home extends GetxController {
       return false; // Error occurred
     }
   }
-
-
-
-
-
 }

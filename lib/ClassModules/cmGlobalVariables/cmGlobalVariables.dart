@@ -16,10 +16,12 @@ class cmGlobalVariables {
   static double? pBUserLatitude ;
   static bool? pBisAccepted;
   static int? pBOrderId;
+  static int? pBOntapOrderId;
   static int? pBOrderStatusId;
   static String? pBOrderStatus;
 
   static bool? pBisSwitch_onOff;
+
  // static List<Datum> ? pB_list_ModGetAllOrders;
 
 

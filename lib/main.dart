@@ -33,7 +33,8 @@ void callbackDispatcher() {
 
         await fnc_UpdateDriverLocation();
         print("service called");
-      } catch (e, stack) {
+      }
+      catch (e, stack) {
         throw Exception([e, stack]);
         // You can add additional error handling here if needed.
       }
