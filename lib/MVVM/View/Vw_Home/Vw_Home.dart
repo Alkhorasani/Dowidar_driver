@@ -30,7 +30,6 @@ class _Vw_HomeState extends State<Vw_Home> {
   @override
   void initState() {
     // TODO: implement initState
-    l_Vm_Home.getPopulerdiets();
 
     final Vm_Login l_Vm_Login = Get.put(Vm_Login());
     l_Vm_Login.fncGetUserData();
@@ -117,7 +116,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                               Get.dialog(
                                 const Center(
                                   child:
-                                      CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                  CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                 ),
                                 barrierDismissible: false,
                               );
@@ -216,85 +215,108 @@ class _Vw_HomeState extends State<Vw_Home> {
                                   children: [
                                     GestureDetector(
                                       onTap: () async {
+                                        l_Vm_Home.isSelectedred.value = true;
+                                        l_Vm_Home.isSelectedfreen.value = false;
+                                        l_Vm_Home.isSelectedblue.value = false;
 
-                                         l_Vm_Home.fncfilterCancelled();
+                                        l_Vm_Home.fncfilterCancelled();
                                         l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
                                         print('Container tapped');
                                       },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.red.withOpacity(0.3),
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text(
-                                            'Red = Cancelled',
-                                            style: GoogleFonts.ubuntu(
-                                              textStyle: const TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 12,
-                                                color: Colors.white,
-                                                letterSpacing: 0.6,
+                                      child: Obx(() {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: l_Vm_Home.isSelectedred.value == true
+                                                ? Colors.red
+                                                : Colors.red.withOpacity(0.3),
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Text(
+                                              'Red = Cancelled',
+                                              style: GoogleFonts.ubuntu(
+                                                textStyle: const TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 12,
+                                                  color: Colors.white,
+                                                  letterSpacing: 0.6,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ),
+                                        );
+                                      }),
                                     ),
                                     GestureDetector(
                                       onTap: () {
+                                        l_Vm_Home.isSelectedred.value = false;
+                                        l_Vm_Home.isSelectedblue.value = true;
+                                        l_Vm_Home.isSelectedfreen.value = false;
+
+
                                         l_Vm_Home.fncfilterProcessing();
                                         l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
                                         print('Container tapped');
                                       },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.blue.withOpacity(0.3), // Set the background color to white
+                                      child: Obx(() {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: l_Vm_Home.isSelectedblue.value == true
+                                                ? Colors.blue
+                                                : Colors.blue.withOpacity(0.3), // Set the background color to white
 
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Text(
-                                              'Blue = Processing',
-                                              style: GoogleFonts.ubuntu(
-                                                textStyle: const TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                  color: Colors.white,
-                                                  letterSpacing: 0.6,
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: Text(
+                                                'Blue = Processing',
+                                                style: GoogleFonts.ubuntu(
+                                                  textStyle: const TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 12,
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.6,
+                                                  ),
                                                 ),
-                                              ),
-                                            )),
-                                      ),
+                                              )),
+                                        );
+                                      }),
                                     ),
                                     GestureDetector(
                                       onTap: () {
+                                        l_Vm_Home.isSelectedred.value = false;
+                                        l_Vm_Home.isSelectedblue.value = false;
+                                        l_Vm_Home.isSelectedfreen.value = true;
+
                                         l_Vm_Home.fncfilterPending();
                                         l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
                                         print('Container tapped');
                                       },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.green.withOpacity(0.3), // Set the background color to white
-
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Text(
-                                              'Green = Pending',
-                                              style: GoogleFonts.ubuntu(
-                                                textStyle: const TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                  color: Colors.white,
-                                                  letterSpacing: 0.6,
+                                      child: Obx(() {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: l_Vm_Home.isSelectedfreen.value == true
+                                                ? Colors.green
+                                                : Colors.green.withOpacity(0.3),
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: Text(
+                                                'Green = Pending',
+                                                style: GoogleFonts.ubuntu(
+                                                  textStyle: const TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 12,
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.6,
+                                                  ),
                                                 ),
-                                              ),
-                                            )),
-                                      ),
+                                              )),
+                                        );
+                                      }),
                                     ),
                                   ],
                                 ),
@@ -330,9 +352,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                       return ListView.separated(
                                         itemCount: l_Vm_CommonLayout.RxListModUserAllOrders!.length,
                                         shrinkWrap: true,
-                                        separatorBuilder: (context, index) => SizedBox(
-                                          height: G_height * 0.02,
-                                        ),
+                                        separatorBuilder: (context, index) =>
+                                            SizedBox(
+                                              height: G_height * 0.02,
+                                            ),
                                         padding: EdgeInsets.only(left: G_width * 0.03, right: G_width * 0.03),
                                         itemBuilder: (context, index) {
                                           final order = l_Vm_CommonLayout.RxListModUserAllOrders![index];
@@ -398,7 +421,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          "${status != null ? status.toString().split('.').last : ''}",
+                                                          "${status != null ? status
+                                                              .toString()
+                                                              .split('.')
+                                                              .last : ''}",
                                                           style: const TextStyle(
                                                             fontWeight: FontWeight.w500,
                                                             color: Colors.black,
@@ -475,9 +501,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                       return ListView.separated(
                                         itemCount: l_Vm_CommonLayout.RxListModOrderHistoryPenidng!.length,
                                         shrinkWrap: true,
-                                        separatorBuilder: (context, index) => SizedBox(
-                                          height: G_height * 0.02,
-                                        ),
+                                        separatorBuilder: (context, index) =>
+                                            SizedBox(
+                                              height: G_height * 0.02,
+                                            ),
                                         padding: EdgeInsets.only(left: G_width * 0.03, right: G_width * 0.03),
                                         itemBuilder: (context, index) {
                                           final order = l_Vm_CommonLayout.RxListModOrderHistoryPenidng![index];
@@ -552,7 +579,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            "${status != null ? status.toString().split('.').last : ''}",
+                                                            "${status != null ? status
+                                                                .toString()
+                                                                .split('.')
+                                                                .last : ''}",
                                                             style: const TextStyle(
                                                               fontWeight: FontWeight.w500,
                                                               color: Colors.black,
@@ -577,7 +607,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               Get.dialog(
                                                                 const Center(
                                                                   child:
-                                                                      CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                                                  CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                                                 ),
                                                                 barrierDismissible: false,
                                                               );
@@ -671,7 +701,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               Get.dialog(
                                                                 const Center(
                                                                   child:
-                                                                      CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                                                  CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                                                 ),
                                                                 barrierDismissible: false,
                                                               );
@@ -792,6 +822,9 @@ class _Vw_HomeState extends State<Vw_Home> {
 
     return GestureDetector(
       onTap: () {
+         l_Vm_Home. isSelectedred.value = false;
+         l_Vm_Home. isSelectedblue.value = false;
+         l_Vm_Home. isSelectedfreen.value = false;
         //when tap anywhere on screen keyboard dismiss
         FocusManager.instance.primaryFocus?.unfocus();
       },
@@ -800,8 +833,14 @@ class _Vw_HomeState extends State<Vw_Home> {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               //Get device's screen height and width.
-              double height = MediaQuery.of(context).size.height;
-              double width = MediaQuery.of(context).size.width;
+              double height = MediaQuery
+                  .of(context)
+                  .size
+                  .height;
+              double width = MediaQuery
+                  .of(context)
+                  .size
+                  .width;
 
               if (width >= 300 && width < 500) {
                 return _WidgetportraitMode(height, width);

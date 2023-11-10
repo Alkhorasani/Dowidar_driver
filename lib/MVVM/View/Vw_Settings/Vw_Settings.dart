@@ -98,6 +98,34 @@ class _Vw_SettingsState extends State<Vw_Settings> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.vwChat);
+
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(200, 50),
+                      // Set the width and height as needed
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.deepOrange.withOpacity(0.9),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                    ),
+                    child: Text(
+                      'Chat Support',
+                      style: GoogleFonts.ubuntu(
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 25,
+                          color: Colors.black54,
+                          letterSpacing: 0.5, // Removed the period before 5
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )),

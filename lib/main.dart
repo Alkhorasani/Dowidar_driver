@@ -2,6 +2,7 @@ import 'package:dowidardriver/ClassModules/AppStartup/cmAppStartup.dart';
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:dowidardriver/MVVM/Model/ModDriverStatus/ModDriverStatus.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_DriverLocation.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -60,6 +61,8 @@ Future<bool> fnc_UpdateDriverLocation() async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized.
+  await Firebase.initializeApp(); // Initialize Firebase
+
 
   cmGlobalVariables.pBisSwitch_onOff = false;
   cmAppStartup().FncPermissions();

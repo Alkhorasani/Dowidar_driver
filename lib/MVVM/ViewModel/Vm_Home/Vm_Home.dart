@@ -6,7 +6,6 @@ import 'package:dowidardriver/ServiceLayer/Sl_OrderStatus.dart';
 import 'package:get/get.dart';
 
 import '../../../ServiceLayer/Sl_DriverLocation.dart';
-import '../../../testmodel.dart';
 import '../../Model/ModDriverStatus/ModDriverStatus.dart';
 import '../../Model/ModGetAllOrders/ModGetAllOrders.dart';
 import '../Vm_CommonLayout/Vm_CommonLayout.dart';
@@ -19,14 +18,14 @@ class Vm_Home extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxDouble iconSize = 28.0.obs;
   RxBool isLoadingAccOrRej = false.obs;
+  RxBool isSelectedred = false.obs;
+  RxBool isSelectedblue = false.obs;
+  RxBool isSelectedfreen = false.obs;
+
 
   final Vm_CommonLayout l_Vm_CommonLayout = Get.find<Vm_CommonLayout>();
 
-  List<PopularDietsModel> l_PopularDiets = [];
 
-  void getPopulerdiets() {
-    l_PopularDiets = PopularDietsModel.getPopularDiets();
-  }
 
   Future<bool> fnc_OrderAccRej() async {
     try {
