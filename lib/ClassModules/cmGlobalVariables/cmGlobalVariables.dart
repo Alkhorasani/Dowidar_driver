@@ -21,8 +21,11 @@ class cmGlobalVariables {
   static String? pBOrderStatus;
 
   static bool? pBisSwitch_onOff;
+  static String? pbDriberID;
+  static String? pbUserID;
 
- // static List<Datum> ? pB_list_ModGetAllOrders;
+
+// static List<Datum> ? pB_list_ModGetAllOrders;
 
 
 }

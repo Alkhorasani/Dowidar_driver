@@ -5,6 +5,7 @@ import 'package:dowidardriver/MVVM/View/Vw_OrderDetails/Vw_OrderDetails.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
+import '../ChatModule/view/chat_screen.dart';
 import '../MVVM/View/View_Login/Vw_Login.dart';
 import '../MVVM/View/Vw_Home/Vw_Home.dart';
 import '../MVVM/View/Vw_OrderHistory/Vw_OrderHistory.dart';
@@ -23,7 +24,7 @@ class GetAppRoutes {
       GetPage(name: AppRoutes.vwSettings, page: () => Vw_Settings(), transition: Transition.native),
       GetPage(name: AppRoutes.vwOrderHistory, page: () => Vw_OrderHistory(), transition: Transition.native),
       GetPage(name: AppRoutes.vwCommonLayout, page: () => CommonLayout(), transition: Transition.native),
-      GetPage(name: AppRoutes.vwChat, page: () => ChatView(), transition: Transition.native),
+      GetPage(name: AppRoutes.vwChat, page: () => ChatScreen(fromSupport: false ,), transition: Transition.native),
       GetPage(name: AppRoutes.vwOrderDetails, page: () => Vw_OrderDetails(), transition: Transition.native),
     ];
   }

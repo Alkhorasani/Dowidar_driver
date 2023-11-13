@@ -37,140 +37,142 @@ class _CommonLayoutState extends State<CommonLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        // Navigate back to the second screen
-        //Get.until((route) => route.settings.name == AppRoutes.initialRoute);
-        return false; // Prevent the app from being closed
-      },
-      child: GestureDetector(
-        onTap: (){
-          l_VmHome. isSelectedred.value = false;
-          l_VmHome. isSelectedblue.value = false;
-          l_VmHome. isSelectedfreen.value = false;
-
+    return SafeArea(
+      child: WillPopScope(
+        onWillPop: () async {
+          // Navigate back to the second screen
+          //Get.until((route) => route.settings.name == AppRoutes.initialRoute);
+          return false; // Prevent the app from being closed
         },
-        child: Scaffold(
-          body: Column(
-            children: [
-              Expanded(
-                child: PageView(
-                  physics: NeverScrollableScrollPhysics(), // Disable swipe to change pages
+        child: GestureDetector(
+          onTap: (){
+            l_VmHome. isSelectedred.value = false;
+            l_VmHome. isSelectedblue.value = false;
+            l_VmHome. isSelectedfreen.value = false;
 
-                  controller: pageController,
-                  onPageChanged: (index) {
+          },
+          child: Scaffold(
+            body: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    physics: NeverScrollableScrollPhysics(), // Disable swipe to change pages
+
+                    controller: pageController,
+                    onPageChanged: (index) {
+                      onTabSelected(index);
+                    },
+                    children: [
+                      Vw_Home(),
+                      Vw_OrderHistory(),
+                      VwUserProfile(),
+                      Vw_Settings(),
+                    ],
+                  ),
+                ),
+                CustomBottomNavigationBar(
+                  onSelected: (int index) {
                     onTabSelected(index);
                   },
-                  children: [
-                    Vw_Home(),
-                    Vw_OrderHistory(),
-                    VwUserProfile(),
-                    Vw_Settings(),
-                  ],
+                  onItemTapped: (int index) async {
+                    if (index == 0) {
+                      l_VmHome. isSelectedred.value = false;
+                      l_VmHome. isSelectedblue.value = false;
+                      l_VmHome. isSelectedfreen.value = false;
+                      bool isCall = await l_Vm_CommonLayout.fnc_GetAllOrders();
+                      //bool isCustomerPortalUser = await l_Vmlogin.Fnc_IsUserPartOfCP();
+
+                      if (isCall) {
+                        print("Api called");
+                        Get.snackbar(
+                          "Alert",
+                          "",
+                          backgroundColor: Colors.deepOrange.withOpacity(0.2),
+                          icon: const Icon(Icons.check_circle, color: Colors.deepOrange),
+                          duration: const Duration(seconds: 3),
+                          snackPosition: SnackPosition.TOP,
+                          margin: const EdgeInsets.all(16),
+                          borderRadius: 10,
+                          borderWidth: 1,
+                          borderColor: Colors.white,
+                          messageText: const Text(
+                            "Updated current  Orders",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      } else {
+                        Get.snackbar(
+                          "Alert",
+                          "",
+                          backgroundColor: Colors.deepOrange.withOpacity(0.2),
+                          icon: const Icon(Icons.error_outline, color: Colors.redAccent),
+                          duration: const Duration(seconds: 3),
+                          snackPosition: SnackPosition.TOP,
+                          margin: const EdgeInsets.all(16),
+                          borderRadius: 10,
+                          borderWidth: 1,
+                          borderColor: Colors.white,
+                          messageText: const Text(
+                            "These are your current orders for now.",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }
+                    }
+                    else if (index == 1) {
+
+                      l_VmHome. isSelectedred.value = false;
+                      l_VmHome. isSelectedblue.value = false;
+                      l_VmHome. isSelectedfreen.value = false;
+
+                      bool isCall = await l_Vm_CommonLayout.filterOrderHistoryByStatus();
+
+                      //bool isCustomerPortalUser = await l_Vmlogin.Fnc_IsUserPartOfCP();
+
+
+                      if (isCall) {
+                        Get.snackbar(
+                          "Alert",
+                          "",
+                          backgroundColor: Colors.deepOrange.withOpacity(0.2),
+                          icon: const Icon(Icons.check_circle, color: Colors.deepOrange),
+                          duration: const Duration(seconds: 3),
+                          snackPosition: SnackPosition.TOP,
+                          margin: const EdgeInsets.all(16),
+                          borderRadius: 10,
+                          borderWidth: 1,
+                          borderColor: Colors.white,
+                          messageText: const Text(
+                            "Updated Orders History ",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      } else {
+                        Get.snackbar(
+                          "Alert",
+                          "",
+                          backgroundColor: Colors.deepOrange.withOpacity(0.2),
+                          icon: const Icon(Icons.error_outline, color: Colors.redAccent),
+                          duration: const Duration(seconds: 3),
+                          snackPosition: SnackPosition.BOTTOM,
+                          margin: const EdgeInsets.all(16),
+                          borderRadius: 10,
+                          borderWidth: 1,
+                          borderColor: Colors.white,
+                          messageText: const Text(
+                            "---",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }
+                    }
+
+                  },
                 ),
-              ),
-              CustomBottomNavigationBar(
-                onSelected: (int index) {
-                  onTabSelected(index);
-                },
-                onItemTapped: (int index) async {
-                  if (index == 0) {
-                    l_VmHome. isSelectedred.value = false;
-                    l_VmHome. isSelectedblue.value = false;
-                    l_VmHome. isSelectedfreen.value = false;
-                    bool isCall = await l_Vm_CommonLayout.fnc_GetAllOrders();
-                    //bool isCustomerPortalUser = await l_Vmlogin.Fnc_IsUserPartOfCP();
+              ],
+            ),
 
-                    if (isCall) {
-                      print("Api called");
-                      Get.snackbar(
-                        "Alert",
-                        "",
-                        backgroundColor: Colors.deepOrange.withOpacity(0.2),
-                        icon: const Icon(Icons.check_circle, color: Colors.deepOrange),
-                        duration: const Duration(seconds: 3),
-                        snackPosition: SnackPosition.TOP,
-                        margin: const EdgeInsets.all(16),
-                        borderRadius: 10,
-                        borderWidth: 1,
-                        borderColor: Colors.white,
-                        messageText: const Text(
-                          "Updated current  Orders",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      );
-                    } else {
-                      Get.snackbar(
-                        "Alert",
-                        "",
-                        backgroundColor: Colors.deepOrange.withOpacity(0.2),
-                        icon: const Icon(Icons.error_outline, color: Colors.redAccent),
-                        duration: const Duration(seconds: 3),
-                        snackPosition: SnackPosition.TOP,
-                        margin: const EdgeInsets.all(16),
-                        borderRadius: 10,
-                        borderWidth: 1,
-                        borderColor: Colors.white,
-                        messageText: const Text(
-                          "These are your current orders for now.",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      );
-                    }
-                  }
-                  else if (index == 1) {
-
-                    l_VmHome. isSelectedred.value = false;
-                    l_VmHome. isSelectedblue.value = false;
-                    l_VmHome. isSelectedfreen.value = false;
-
-                    bool isCall = await l_Vm_CommonLayout.filterOrderHistoryByStatus();
-
-                    //bool isCustomerPortalUser = await l_Vmlogin.Fnc_IsUserPartOfCP();
-
-
-                    if (isCall) {
-                      Get.snackbar(
-                        "Alert",
-                        "",
-                        backgroundColor: Colors.deepOrange.withOpacity(0.2),
-                        icon: const Icon(Icons.check_circle, color: Colors.deepOrange),
-                        duration: const Duration(seconds: 3),
-                        snackPosition: SnackPosition.TOP,
-                        margin: const EdgeInsets.all(16),
-                        borderRadius: 10,
-                        borderWidth: 1,
-                        borderColor: Colors.white,
-                        messageText: const Text(
-                          "Updated Orders History ",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      );
-                    } else {
-                      Get.snackbar(
-                        "Alert",
-                        "",
-                        backgroundColor: Colors.deepOrange.withOpacity(0.2),
-                        icon: const Icon(Icons.error_outline, color: Colors.redAccent),
-                        duration: const Duration(seconds: 3),
-                        snackPosition: SnackPosition.BOTTOM,
-                        margin: const EdgeInsets.all(16),
-                        borderRadius: 10,
-                        borderWidth: 1,
-                        borderColor: Colors.white,
-                        messageText: const Text(
-                          "---",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      );
-                    }
-                  }
-
-                },
-              ),
-            ],
           ),
-
         ),
       ),
     );

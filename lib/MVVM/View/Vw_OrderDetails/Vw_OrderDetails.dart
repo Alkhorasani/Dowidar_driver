@@ -1,10 +1,13 @@
+import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_OrderDetails/Vm_OrderDeatils.dart';
+import 'package:dowidardriver/Routing/AppRoutes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../ViewModel/Vm_Login/Vm_Login.dart';
 
 class Vw_OrderDetails extends StatefulWidget {
@@ -28,6 +31,25 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
     Widget _WidgetportraitMode(double G_height, G_width) {
       return SafeArea(
         child: Scaffold(
+          floatingActionButton:  FloatingActionButton(
+            onPressed: () async {
+              final l_SharedPreferences = await SharedPreferences.getInstance();
+              final id = l_SharedPreferences.getString('l_driverID') ?? '';
+              cmGlobalVariables.pbDriberID = id;
+
+
+              print(cmGlobalVariables.pbDriberID );
+              print(cmGlobalVariables.pBOntapOrderId);
+              print(cmGlobalVariables.pbUserID);
+
+              Get.toNamed(AppRoutes.vwChat);
+
+
+              },
+            child: Icon(Icons.message),
+            mini: true, // Set to true to make it a small FAB
+            backgroundColor: Colors.deepOrange, // Customize the background color
+          ),
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Text(
@@ -54,6 +76,9 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                         child: CircularProgressIndicator(), // Show loading indicator
                       );
                     } else if (l_VmOrderDetails.orderDetails != null) {
+
+                      cmGlobalVariables.pbUserID = l_VmOrderDetails.orderDetails?.data?.order?.userId ;
+
                       // Data is available, show the card
                       return Container(
                         width: G_height * 0.450,

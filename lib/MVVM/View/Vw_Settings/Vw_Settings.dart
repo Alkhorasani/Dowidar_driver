@@ -20,115 +20,117 @@ class _Vw_SettingsState extends State<Vw_Settings> {
 
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
-      return WillPopScope(
-        onWillPop: () async {
-          // Navigate back to the second screen
+      return SafeArea(
+        child: WillPopScope(
+          onWillPop: () async {
+            // Navigate back to the second screen
 
-          return false; // Prevent the app from being closed
-        },
-        child: Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
+            return false; // Prevent the app from being closed
+          },
+          child: Scaffold(
               backgroundColor: Colors.white,
-              title: Text(
-                "Settings",
-                style: GoogleFonts.ubuntu(
-                    textStyle: const TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
-                        //fontWeight: FontWeight.w600,
-                        letterSpacing: .5)),
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: Colors.white,
+                title: Text(
+                  "Settings",
+                  style: GoogleFonts.ubuntu(
+                      textStyle: const TextStyle(
+                          fontSize: 22,
+                          color: Colors.black,
+                          //fontWeight: FontWeight.w600,
+                          letterSpacing: .5)),
+                ),
+                centerTitle: true,
               ),
-              centerTitle: true,
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      l_Vm_Settings.fnc_ClearData();
-                      Get.offAllNamed(AppRoutes.vwLogin);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200, 50),
-                      // Set the width and height as needed
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.deepOrange.withOpacity(0.9),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        l_Vm_Settings.fnc_ClearData();
+                        Get.offAllNamed(AppRoutes.vwLogin);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(200, 50),
+                        // Set the width and height as needed
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.deepOrange.withOpacity(0.9),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Logout',
-                      style: GoogleFonts.ubuntu(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25,
-                          color: Colors.black54,
-                          letterSpacing: 0.5, // Removed the period before 5
+                      child: Text(
+                        'Logout',
+                        style: GoogleFonts.ubuntu(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 25,
+                            color: Colors.black54,
+                            letterSpacing: 0.5, // Removed the period before 5
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20), // Add some spacing between the buttons
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200, 50),
-                      // Set the width and height as needed
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.deepOrange.withOpacity(0.9),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
+                    SizedBox(height: 20), // Add some spacing between the buttons
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(200, 50),
+                        // Set the width and height as needed
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.deepOrange.withOpacity(0.9),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Change Language',
-                      style: GoogleFonts.ubuntu(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25,
-                          color: Colors.black54,
-                          letterSpacing: 0.5, // Removed the period before 5
+                      child: Text(
+                        'Change Language',
+                        style: GoogleFonts.ubuntu(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 25,
+                            color: Colors.black54,
+                            letterSpacing: 0.5, // Removed the period before 5
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.vwChat);
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.vwChat);
 
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200, 50),
-                      // Set the width and height as needed
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.deepOrange.withOpacity(0.9),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
+                      },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(200, 50),
+                        // Set the width and height as needed
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.deepOrange.withOpacity(0.9),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Chat Support',
-                      style: GoogleFonts.ubuntu(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25,
-                          color: Colors.black54,
-                          letterSpacing: 0.5, // Removed the period before 5
+                      child: Text(
+                        'Chat Support',
+                        style: GoogleFonts.ubuntu(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 25,
+                            color: Colors.black54,
+                            letterSpacing: 0.5, // Removed the period before 5
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )),
+                  ],
+                ),
+              )),
+        ),
       );
     }
 
@@ -142,9 +144,8 @@ class _Vw_SettingsState extends State<Vw_Settings> {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               //Get device's screen height and width.
-              double height = constraints.maxHeight;
-              double width = constraints.maxWidth;
-
+              double height = MediaQuery.of(context).size.height;
+              double width = MediaQuery.of(context).size.width;
               if (width >= 300 && width < 500) {
                 return _WidgetportraitMode(height, width);
               } else {

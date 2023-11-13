@@ -17,11 +17,12 @@ import '../MVVM/Model/ModUserLogin/ModUserLogin.dart';
 import '../MVVM/Model/ModUserLogin/PeraModel.dart';
 
 class Sl_Chat {
-
-
   Future sendChatMessage(Map<String, String> fields, List<String>? files, String token) async {
     try {
-      final response = await HttpCalls().postMultipart(ApiUrls.chatmsg, fields, ['attachment[]'] , [files ?? []], token: token);
+      final completeUrl = "https://dowidar.tregix.com/api/chat/send-message"; // Update this to the complete URL
+
+      final response =
+          await HttpCalls().postMultipart(completeUrl, fields, ['attachment[]'], [files ?? []], token: token);
       print(response.body);
       if (response.statusCode == 200) {
         return jsonDecode(response.body);

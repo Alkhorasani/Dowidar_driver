@@ -16,6 +16,10 @@ class Vm_OrderDetails extends GetxController {
   RxBool isLoading = false.obs;
   ModOrderDetails? orderDetails ;
 
+
+
+
+
   Future<void> fnc_OrderDetails() async {
     try {
       isLoading.value = true; // Show loading indicator

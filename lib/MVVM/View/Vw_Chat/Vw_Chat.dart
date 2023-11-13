@@ -1,16 +1,30 @@
+import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../ViewModel/Vm_Chat/Vm_Chat.dart';
 
-class ChatView extends StatelessWidget {
+class ChatView extends StatefulWidget {
+  @override
+  State<ChatView> createState() => _ChatViewState();
+}
+
+class _ChatViewState extends State<ChatView> {
   final VmChat vmChat = Get.put(VmChat());
+
+  @override
+  void initState() {
+    vmChat.senderIdd = cmGlobalVariables.pbDriberID!;
+    vmChat.orderIdd = cmGlobalVariables.pBOntapOrderId!;
+    vmChat.receiverIdd = cmGlobalVariables.pbDriberID;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //when tap anywhere on screen keyboard dismiss
+        // When tapping anywhere on the screen, dismiss the keyboard
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
@@ -19,31 +33,31 @@ class ChatView extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Expanded(
-              child: Obx(() {
-                if (vmChat.isSendingMessage.value) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                return ListView.builder(
+            Obx(() {
+              if (vmChat.isSendingMessage.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return Expanded(
+                child: ListView.builder(
                   itemCount: vmChat.chatData.length,
                   itemBuilder: (context, index) {
                     final message = vmChat.chatData[index];
                     return ChatMessage(
                       message: message.message,
-                      isCurrentUser: message.senderId == vmChat.senderId,
+                      isCurrentUser: message.senderId == vmChat.senderIdd,
                     );
                   },
-                );
-              }),
-            ),
+                ),
+              );
+            }),
             ChatInputField(
               onSendMessage: (message) {
                 vmChat.sendAttachmentMessage(
-                  vmChat.senderId,
-                  [vmChat.receiverId], // Wrap the receiverId in a list
+                  vmChat.senderIdd!,
+                  [vmChat.receiverIdd!],
                   null,
                   message,
-                  vmChat.orderId,
+                  vmChat.orderIdd!,
                 );
               },
             ),

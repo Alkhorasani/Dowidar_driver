@@ -1,3 +1,4 @@
+import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_Chat.dart';
 import 'package:get/get.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -21,9 +22,9 @@ class VmChat extends GetxController {
   List<ChatMessage> chatData = [];  // Add this property
 
   // Define senderId, receiverId, and orderId properties
-  String senderId = '';
-  String receiverId = '';
-  String orderId = '';
+  String? senderIdd ;
+  String? receiverIdd;
+  int? orderIdd;
 
 
 
@@ -43,12 +44,17 @@ class VmChat extends GetxController {
   }
 
   Future<void> sendAttachmentMessage(
-      String senderId, List<String> receiverId, List<File>? files, String message, String orderId) async {
+      String senderId, List<String> receiverId, List<File>? files, String message, int orderId) async {
+
+    senderIdd = cmGlobalVariables.pbDriberID!;
+    orderIdd = cmGlobalVariables.pBOntapOrderId!;
+    receiverIdd = cmGlobalVariables.pbUserID ;
+
     isSendingMessage.value = true;
     final l_SharedPreferences = await SharedPreferences.getInstance();
     final accessToken = l_SharedPreferences.getString('l_token') ?? '';
     SendMessageRequest fields = SendMessageRequest(
-      orderId: orderId,
+      orderId: orderId.toString(),
       senderId: senderId, receiverId: receiverId, message: message,
     );
     print(fields.toJson());

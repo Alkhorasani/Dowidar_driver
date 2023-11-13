@@ -35,6 +35,9 @@ class HttpCalls {
       HttpHeaders.authorizationHeader: 'Bearer $authToken',
     };
 
+    final l_SharedPreferences = await SharedPreferences.getInstance();
+    final accessToken = l_SharedPreferences.getString('l_token') ?? '';
+
     final lResponse = await http.get(lUri, headers: lStringContent);
     return lResponse;
   }

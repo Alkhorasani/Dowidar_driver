@@ -39,9 +39,13 @@ class _Vw_LoginState extends State<Vw_Login> {
 
     Widget _WidgetportraitMode(double G_height, G_width) {
       return SafeArea(
+
         child: Scaffold(
+          resizeToAvoidBottomInset: true,
+
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
+
             child: Form(
               key: _formKey,
               child: Container(

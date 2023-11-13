@@ -4,11 +4,14 @@ import 'package:dowidardriver/MVVM/Model/ModDriverStatus/ModDriverStatus.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_DriverLocation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
+import 'ChatModule/provider/chat_provider.dart';
 import 'MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'Routing/AppRoutes.dart';
 import 'Routing/GetRoutes.dart';
@@ -78,13 +81,16 @@ Future<void> main() async {
 
   final sharedPreferences = await SharedPreferences.getInstance();
   final l_driverID = sharedPreferences.getString('l_driverID');
-  runApp(MyApp(
-      initialRoute: l_driverID != null && l_driverID.isNotEmpty ? AppRoutes.vwCommonLayout : AppRoutes.initialRoute));
+  runApp(
 
-  runApp(MyApp(
-    // initialRoute: AppRoutes.initialRoute,
-    initialRoute: AppRoutes.initialRoute,
-  ));
+      ChangeNotifierProvider(
+
+        create: (context) => ChatProvider(), // Create an instance of ChatProvider
+        child: MyApp(
+
+            initialRoute: l_driverID != null && l_driverID.isNotEmpty ? AppRoutes.vwCommonLayout : AppRoutes.initialRoute)
+      ),
+      );
 }
 
 class MyApp extends StatelessWidget {
@@ -96,14 +102,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get.put(Vm_Home());
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      getPages: GetAppRoutes.Fnc_GetPages(),
-      initialRoute: initialRoute,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-        useMaterial3: true,
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(428, 926),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      useInheritedMediaQuery: true,
+      builder: (BuildContext context, Widget? child)
+      {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          getPages: GetAppRoutes.Fnc_GetPages(),
+          initialRoute: initialRoute,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+            useMaterial3: true,
+          ),
+        );
+      }
+
     );
   }
 }
