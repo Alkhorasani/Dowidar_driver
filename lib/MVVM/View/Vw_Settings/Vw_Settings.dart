@@ -1,4 +1,5 @@
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Settings/Vm_Settings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -102,8 +103,7 @@ class _Vw_SettingsState extends State<Vw_Settings> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        Get.toNamed(AppRoutes.vwChat);
-
+                        context.setLocale(Locale('en', 'US')); // Change to Arabic
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(200, 50),
@@ -116,7 +116,7 @@ class _Vw_SettingsState extends State<Vw_Settings> {
                         ),
                       ),
                       child: Text(
-                        'Chat Support',
+                        'Change Language',
                         style: GoogleFonts.ubuntu(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.w600,

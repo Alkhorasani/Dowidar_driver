@@ -1,17 +1,16 @@
 
-
 class ModUserData {
-  String? message; // Make 'message' property nullable
-  Data? data; // Make 'data' property nullable
+  String? message;
+  Data? data;
 
   ModUserData({
     this.message,
     this.data,
   });
 
-  factory ModUserData.fromJson(Map<String, dynamic> json) => ModUserData(
-    message: json["message"],
-    data: Data.fromJson(json["data"]),
+  factory ModUserData.fromJson(Map<String, dynamic>? json) => ModUserData(
+    message: json?["message"],
+    data: json?["data"] == null ? null : Data.fromJson(json?["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -21,17 +20,17 @@ class ModUserData {
 }
 
 class Data {
-  User? user; // Make 'user' property nullable
-  String? accessToken; // Make 'accessToken' property nullable
+  User? user;
+  String? accessToken;
 
   Data({
     this.user,
     this.accessToken,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    user: User.fromJson(json["user"]),
-    accessToken: json["access_token"],
+  factory Data.fromJson(Map<String, dynamic>? json) => Data(
+    user: json?["user"] == null ? null : User.fromJson(json?["user"]),
+    accessToken: json?["access_token"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -47,23 +46,23 @@ class User {
   String? email;
   DateTime? emailVerifiedAt;
   String? phone;
-  DateTime? phoneVerifiedAt;
+  dynamic phoneVerifiedAt;
   String? status;
-  String? avatar;
-  dynamic? deletedAt;
+  dynamic avatar;
+  dynamic deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? roleId;
-  dynamic? createdBy;
-  dynamic? updatedBy;
-  dynamic? deletedBy;
-  String? device;
-  String? deviceId;
-  dynamic? latitude;
-  dynamic? longitude;
+  String? createdBy;
+  String? updatedBy;
+  dynamic deletedBy;
+  dynamic device;
+  dynamic deviceId;
+  dynamic latitude;
+  dynamic longitude;
   String? fullName;
   String? avatarUrl;
-  Role? role; // Make 'role' property nullable
+  Role? role;
 
   User({
     this.id,
@@ -91,30 +90,30 @@ class User {
     this.role,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json["id"],
-    firstname: json["firstname"],
-    lastname: json["lastname"],
-    email: json["email"],
-    emailVerifiedAt: DateTime.parse(json["email_verified_at"]),
-    phone: json["phone"],
-    phoneVerifiedAt: DateTime.parse(json["phone_verified_at"]),
-    status: json["status"],
-    avatar: json["avatar"],
-    deletedAt: json["deleted_at"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    roleId: json["role_id"],
-    createdBy: json["created_by"],
-    updatedBy: json["updated_by"],
-    deletedBy: json["deleted_by"],
-    device: json["device"],
-    deviceId: json["device_id"],
-    latitude: json["latitude"],
-    longitude: json["longitude"],
-    fullName: json["full_name"],
-    avatarUrl: json["avatar_url"],
-    role: Role.fromJson(json["role"]),
+  factory User.fromJson(Map<String, dynamic>? json) => User(
+    id: json?["id"],
+    firstname: json?["firstname"],
+    lastname: json?["lastname"],
+    email: json?["email"],
+    emailVerifiedAt: json?["email_verified_at"] == null ? null : DateTime.parse(json?["email_verified_at"]),
+    phone: json?["phone"],
+    phoneVerifiedAt: json?["phone_verified_at"],
+    status: json?["status"],
+    avatar: json?["avatar"],
+    deletedAt: json?["deleted_at"],
+    createdAt: json?["created_at"] == null ? null : DateTime.parse(json?["created_at"]),
+    updatedAt: json?["updated_at"] == null ? null : DateTime.parse(json?["updated_at"]),
+    roleId: json?["role_id"],
+    createdBy: json?["created_by"],
+    updatedBy: json?["updated_by"],
+    deletedBy: json?["deleted_by"],
+    device: json?["device"],
+    deviceId: json?["device_id"],
+    latitude: json?["latitude"],
+    longitude: json?["longitude"],
+    fullName: json?["full_name"],
+    avatarUrl: json?["avatar_url"],
+    role: json?["role"] == null ? null : Role.fromJson(json?["role"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -124,7 +123,7 @@ class User {
     "email": email,
     "email_verified_at": emailVerifiedAt?.toIso8601String(),
     "phone": phone,
-    "phone_verified_at": phoneVerifiedAt?.toIso8601String(),
+    "phone_verified_at": phoneVerifiedAt,
     "status": status,
     "avatar": avatar,
     "deleted_at": deletedAt,
@@ -149,9 +148,9 @@ class Role {
   String? name;
   String? description;
   String? abilities;
-  dynamic? createdBy;
-  dynamic? updatedBy;
-  dynamic? deletedBy;
+  dynamic createdBy;
+  dynamic updatedBy;
+  dynamic deletedBy;
   String? abilitiesList;
 
   Role({
@@ -165,15 +164,15 @@ class Role {
     this.abilitiesList,
   });
 
-  factory Role.fromJson(Map<String, dynamic> json) => Role(
-    id: json["id"],
-    name: json["name"],
-    description: json["description"],
-    abilities: json["abilities"],
-    createdBy: json["created_by"],
-    updatedBy: json["updated_by"],
-    deletedBy: json["deleted_by"],
-    abilitiesList: json["abilities_list"],
+  factory Role.fromJson(Map<String, dynamic>? json) => Role(
+    id: json?["id"],
+    name: json?["name"],
+    description: json?["description"],
+    abilities: json?["abilities"],
+    createdBy: json?["created_by"],
+    updatedBy: json?["updated_by"],
+    deletedBy: json?["deleted_by"],
+    abilitiesList: json?["abilities_list"],
   );
 
   Map<String, dynamic> toJson() => {

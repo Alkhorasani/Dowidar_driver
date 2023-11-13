@@ -383,7 +383,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                 print(cmGlobalVariables.pBOntapOrderId);
                                               },
                                               child: Container(
-                                                height: G_height*0.17,
+                                                height: G_height * 0.17,
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                   children: [

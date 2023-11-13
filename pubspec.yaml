@@ -61,6 +61,8 @@ dependencies:
   flutter_screenutil: ^5.8.1
   url_launcher:
   intl:
+  easy_localization: ^3.0.3
+
 
 
 
@@ -97,6 +99,9 @@ flutter:
     - assets/profilescreen/profile.png
     - assets/profilescreen/bk.png
     - assets/icons/
+#    - assets/translations/ar-SA.json
+#    - assets/translations/en-US.json
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

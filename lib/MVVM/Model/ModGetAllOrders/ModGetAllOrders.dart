@@ -1,25 +1,22 @@
+class ModGetAllOrders {
+  String? message;
+  List<Datum>? data;
 
+  ModGetAllOrders({
+    this.message,
+    this.data,
+  });
 
-  class ModGetAllOrders {
-    String message;
-    Data data;
+  factory ModGetAllOrders.fromJson(Map<String, dynamic> json) => ModGetAllOrders(
+    message: json["message"],
+    data: (json["data"] == null) ? [] : List<Datum>.from((json["data"] as List<dynamic>?)?.map((x) => Datum.fromJson(x)) ?? []),
+  );
 
-    ModGetAllOrders({
-      required this.message,
-      required this.data,
-    });
-
-    factory ModGetAllOrders.fromJson(Map<String, dynamic> json) => ModGetAllOrders(
-      message: json["message"],
-      data: Data.fromJson(json["data"]),
-    );
-
-    Map<String, dynamic> toJson() => {
-      "message": message,
-      "data": data.toJson(),
-    };
-  }
-
+  Map<String, dynamic> toJson() => {
+    "message": message,
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())),
+  };
+}
   class Data {
     int currentPage;
     List<Datum> data;

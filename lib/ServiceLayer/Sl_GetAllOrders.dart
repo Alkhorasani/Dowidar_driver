@@ -20,7 +20,7 @@ class Sl_GetAllOrders {
 
       print(authToken);
 
-      String dynamicUrl = ApiUrls.getAllOrders + "driver_id=${cmGlobalVariables.Pb_ModDriverLocalData?.id}&per_page=20";
+      String dynamicUrl = ApiUrls.getAllOrders + "driver_id=${cmGlobalVariables.Pb_ModDriverLocalData?.id}&limit=20";
 
       final lResponse = await HttpCalls().fnc_GetHttpRequests(dynamicUrl, authToken);
       if (lResponse.statusCode == 200) {

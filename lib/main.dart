@@ -2,6 +2,7 @@ import 'package:dowidardriver/ClassModules/AppStartup/cmAppStartup.dart';
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:dowidardriver/MVVM/Model/ModDriverStatus/ModDriverStatus.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_DriverLocation.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,8 @@ import 'ChatModule/provider/chat_provider.dart';
 import 'MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'Routing/AppRoutes.dart';
 import 'Routing/GetRoutes.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 import 'package:permission_handler/permission_handler.dart';
 
@@ -64,33 +67,31 @@ Future<bool> fnc_UpdateDriverLocation() async {
 }
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized.
-  await Firebase.initializeApp(); // Initialize Firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
+  await Firebase.initializeApp();
 
-  cmGlobalVariables.pBisSwitch_onOff = false;
-  cmAppStartup().FncPermissions();
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-
-  Workmanager().registerPeriodicTask(
-    'get_user_location', // Task name matches the one in callbackDispatcher
-    'get_user_location_key', // Unique key for this task
-    initialDelay: Duration(seconds: 1), // Initial delay before the first execution
-    frequency: Duration(seconds: 10), // Repeat every 10 seconds
-  );
+  // Initialize any other required variables or services here.
 
   final sharedPreferences = await SharedPreferences.getInstance();
   final l_driverID = sharedPreferences.getString('l_driverID');
+
   runApp(
-
-      ChangeNotifierProvider(
-
-        create: (context) => ChatProvider(), // Create an instance of ChatProvider
+    ChangeNotifierProvider(
+      create: (context) => ChatProvider(),
+      child: EasyLocalization(
+        supportedLocales: [Locale('en', 'US'), Locale('ar', 'SA')],
+        path: 'assets/translations',
+        fallbackLocale: Locale('en', 'US'),
         child: MyApp(
-
-            initialRoute: l_driverID != null && l_driverID.isNotEmpty ? AppRoutes.vwCommonLayout : AppRoutes.initialRoute)
+          initialRoute: l_driverID != null && l_driverID.isNotEmpty
+              ? AppRoutes.vwCommonLayout
+              : AppRoutes.initialRoute,
+        ),
       ),
-      );
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

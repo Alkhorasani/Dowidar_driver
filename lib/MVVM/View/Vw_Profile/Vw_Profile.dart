@@ -132,7 +132,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                               children: [
                                 SizedBox(width: PrWidth * 0.03), // Add a minor space from the left side
                                 Text(
-                                  "Email",
+                                  "Email".tr,
                                   style: GoogleFonts.ubuntu(
                                     textStyle: TextStyle(
                                       fontSize: 15,
@@ -147,7 +147,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                               children: [
                                 SizedBox(width: PrWidth * 0.03), // Add a minor space from the left side
                                 Text(
-                                  "${cmGlobalVariables.Pb_ModDriverLocalData?.email}",
+                                  "${cmGlobalVariables.Pb_ModDriverLocalData?.email}".tr,
                                   style: GoogleFonts.ubuntu(
                                     textStyle: TextStyle(
                                       fontSize: 18,

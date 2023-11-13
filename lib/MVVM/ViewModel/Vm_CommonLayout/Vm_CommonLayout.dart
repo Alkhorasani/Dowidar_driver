@@ -27,7 +27,7 @@ class Vm_CommonLayout extends GetxController {
         ordersList.clear();
         l_list_ModGetAllOrders.clear();
         RxListModUserAllOrders?.value.clear();
-        ordersList = l_ModGetAllOrders.data.data;
+        ordersList = l_ModGetAllOrders.data!;
 
         l_list_ModGetAllOrders = ordersList.map((orderJson) {
           return orderJson;
@@ -117,7 +117,7 @@ class Vm_CommonLayout extends GetxController {
         ordersList.clear();
         l_list_ModGetAllOrders.clear();
         RxListModUserAllOrders?.value.clear();
-        ordersList = l_ModGetAllOrders.data.data;
+        ordersList = l_ModGetAllOrders.data!;
 
         l_list_ModGetAllOrders = ordersList.map((orderJson) {
           return orderJson;

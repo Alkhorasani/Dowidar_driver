@@ -95,8 +95,8 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                               tileColor = Colors.red.withOpacity(0.3);
                             } else if (order.status == DatumStatus.PROCESSING) {
                               tileColor = Colors.lightBlue.withOpacity(0.3);
-                            } else if (order.status == DatumStatus.PENDING) {
-                              tileColor = Colors.green.withOpacity(0.3);
+                            // } else if (order.status == DatumStatus.PENDING) {
+                            //   tileColor = Colors.green.withOpacity(0.3);
                             } else {
                               tileColor = Colors.white; // Default color for other statuses
                             }
