@@ -1,4 +1,5 @@
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
+import 'package:dowidardriver/Enum/EnumStatus.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Login/Vm_Login.dart';
 import 'package:dowidardriver/Routing/AppRoutes.dart';
@@ -35,7 +36,7 @@ class _Vw_HomeState extends State<Vw_Home> {
 
     final Vm_Login l_Vm_Login = Get.put(Vm_Login());
     l_Vm_Login.fncGetUserData();
-
+    l_Vm_Home.fncTokenUpdate();
     l_Vm_CommonLayout.fnc_GetAllOrders();
     l_Vm_CommonLayout.fncPendingOrderFilter();
 
@@ -111,6 +112,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                               if (value) {
                                 print("Switch on");
 
+                                //await l_Vm_Home.fncTokenUpdate();
                                 Workmanager().registerOneOffTask(
                                   "get_user_location_task",
                                   "get_user_location", // Name of the task
@@ -218,6 +220,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                     children: [
                                       GestureDetector(
                                         onTap: () async {
+                                          //await l_Vm_Home.fncTokenUpdate();
                                           l_Vm_Home.isSelectedred.value = true;
                                           l_Vm_Home.isSelectedfreen.value = false;
                                           l_Vm_Home.isSelectedblue.value = false;
@@ -343,7 +346,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                         // Show "List is empty" message
                                         return Center(
                                           child: Text(
-                                            "You don't have any current orders",
+                                            "You don't have any orders",
                                             style: GoogleFonts.ubuntu(
                                               textStyle: const TextStyle(
                                                   fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
@@ -371,7 +374,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             } else if (order.status == DatumStatus.PENDING) {
                                               tileColor = Colors.green.withOpacity(0.3);
                                             } else {
-                                              tileColor = Colors.white; // Default color for other statuses
+                                              tileColor = Colors.deepPurpleAccent.withOpacity(0.3); // Default color for other statuses
                                             }
 
                                             return GestureDetector(
@@ -724,7 +727,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                 cmGlobalVariables.pBOrderId = order.id;
                                                                 cmGlobalVariables.pBOrderStatusId =
                                                                     cmGlobalVariables.pBOrderId = order.id;
-                                                                cmGlobalVariables.pBOrderStatus = "processing";
+                                                                cmGlobalVariables.pBOrderStatus = Status.Orderconfirmed;
                                                                 print(cmGlobalVariables.pBOrderId);
 
                                                                 Get.dialog(
@@ -818,7 +821,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                 cmGlobalVariables.pBOrderId = order.id;
                                                                 cmGlobalVariables.pBOrderStatusId =
                                                                     cmGlobalVariables.pBOrderId = order.id;
-                                                                cmGlobalVariables.pBOrderStatus = "cancelled";
+                                                                cmGlobalVariables.pBOrderStatus = Status.Ordercancelled;
                                                                 print(cmGlobalVariables.pBOrderId);
 
                                                                 Get.dialog(

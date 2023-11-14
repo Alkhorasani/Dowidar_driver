@@ -39,7 +39,6 @@ dependencies:
   google_fonts: ^5.1.0
   http: ^1.1.0
   path_provider: ^2.0.14
-  device_info_plus: ^9.0.2
   permission_handler: ^10.4.1
   shared_preferences: ^2.2.1
   flutter_glow: ^0.3.0
@@ -61,9 +60,9 @@ dependencies:
   flutter_screenutil: ^5.8.1
   url_launcher:
   intl:
-  easy_localization: ^3.0.3
   google_api_availability:
   huawei_push:
+  device_info_plus: ^9.1.0
   flutter_local_notifications: ^16.1.0
 
 
@@ -101,6 +100,7 @@ flutter:
     - assets/profilescreen/profile.png
     - assets/profilescreen/bk.png
     - assets/icons/
+    - assets/translations/
   #    - assets/translations/ar-SA.json
   #    - assets/translations/en-US.json
 

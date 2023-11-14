@@ -1,5 +1,7 @@
+import 'package:dowidardriver/ClassModules/cmFirebaseServices/cmFirebaseServices.dart';
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:dowidardriver/MVVM/Model/ModUserLogin/ModUserLogin.dart';
+import 'package:dowidardriver/ServiceLayer/Sl_FirebaseNotifications.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_UserLogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -85,12 +87,28 @@ class Vm_Login extends GetxController {
     }
   }
 
+
+  Future<void> fncTokenUpdate() async {
+    try {
+      cmGlobalVariables.pBFirebaseNotificationToken =  await FirebaseService.getDeviceToken();
+       await Sl_FirebaseNotifications().FncaddUserDevice();
+       print('called');
+
+    } catch (e, stack) {
+      throw Exception([e, stack]);
+    }
+  }
+
+
+
+
   Future<bool> fncBtnOntap_Login() async {
     cmGlobalVariables.pbEmail = phoneController.text;
     cmGlobalVariables.pbPassword = passswordController.text;
 
     try {
       if (await fnc_Userlogin() == true) {
+        await fncTokenUpdate();
         return true;
       }
     } catch (e) {

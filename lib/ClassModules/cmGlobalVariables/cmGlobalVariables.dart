@@ -23,6 +23,7 @@ class cmGlobalVariables {
   static bool? pBisSwitch_onOff;
   static String? pbDriberID;
   static String? pbUserID;
+  static String? pBFirebaseNotificationToken;
 
 
 // static List<Datum> ? pB_list_ModGetAllOrders;

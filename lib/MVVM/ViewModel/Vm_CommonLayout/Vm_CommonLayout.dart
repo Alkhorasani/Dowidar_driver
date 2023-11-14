@@ -59,13 +59,17 @@ class Vm_CommonLayout extends GetxController {
   bool filterOrderHistoryByStatus() {
     try {
       isLoadingOrderHistory.value = true;
+
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
-            .where((order) => order.status == DatumStatus.CANCELLED) // Use the enum value for 'cancelled'
+            .where((order) =>
+        order.status == DatumStatus.PROCESSING ||
+            order.status == DatumStatus.CANCELLED)
             .toList();
-        RxListModOrderHistory?.clear();
 
+        RxListModOrderHistory?.clear();
         RxListModOrderHistory?.assignAll(filteredOrders);
+
         isLoadingOrderHistory.value = false;
 
         return true; // Filtering and assignment succeeded

@@ -8,21 +8,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ClassModules/HttpCalls/HttpCalls.dart';
 import '../MVVM/Model/ModDriverStatus/ParaModel.dart';
-import '../MVVM/Model/ModGetAllOrders/ModGetAllOrders.dart';
-import '../MVVM/Model/ModNewOrder/ModNewOrders.dart';
-import '../MVVM/Model/ModNewOrder/ParaModel.dart';
-import '../MVVM/Model/ModOrderStatus/ModOrderStatus.dart';
-import '../MVVM/Model/ModOrderStatus/ParaModel.dart';
-import '../MVVM/Model/ModUserLogin/ModUserLogin.dart';
-import '../MVVM/Model/ModUserLogin/PeraModel.dart';
+
 
 class Sl_DriverLocation {
   Future<ModDriverLocation> fnc_driverLoction() async {
     try {
       Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
-      ParametrizedDriverLocationModel lParametrizedDriverLocationModel =
-          ParametrizedDriverLocationModel(latitude: position.latitude.toString(), longitude: position.longitude.toString());
+      ParametrizedDriverLocationModel lParametrizedDriverLocationModel = ParametrizedDriverLocationModel(
+          latitude: position.latitude.toString(), longitude: position.longitude.toString());
 
       String lJsonString = json.encode(lParametrizedDriverLocationModel.toJson());
       List<int> lUtfContent = utf8.encode(lJsonString);

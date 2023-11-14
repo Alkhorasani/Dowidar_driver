@@ -1,3 +1,4 @@
+import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:dowidardriver/MVVM/Model/ModNewOrder/ModNewOrders.dart';
 import 'package:dowidardriver/MVVM/Model/ModOrderDetails/ModOrderDetials.dart';
 import 'package:dowidardriver/MVVM/Model/ModOrderStatus/ModOrderStatus.dart';
@@ -7,7 +8,9 @@ import 'package:dowidardriver/ServiceLayer/Sl_OrderDetails.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_OrderStatus.dart';
 import 'package:get/get.dart';
 
+import '../../../ClassModules/cmFirebaseServices/cmFirebaseServices.dart';
 import '../../../ServiceLayer/Sl_DriverLocation.dart';
+import '../../../ServiceLayer/Sl_FirebaseNotifications.dart';
 import '../../Model/ModDriverStatus/ModDriverStatus.dart';
 import '../../Model/ModGetAllOrders/ModGetAllOrders.dart';
 import '../Vm_CommonLayout/Vm_CommonLayout.dart';
@@ -190,4 +193,19 @@ class Vm_Home extends GetxController {
       return false; // Error occurred
     }
   }
+
+
+
+  Future<void> fncTokenUpdate() async {
+    try {
+
+      cmGlobalVariables.pBFirebaseNotificationToken =  await FirebaseService.getDeviceToken();
+      await Sl_FirebaseNotifications().FncaddUserDevice();
+
+    } catch (e, stack) {
+      throw Exception([e, stack]);
+    }
+  }
+
+
 }

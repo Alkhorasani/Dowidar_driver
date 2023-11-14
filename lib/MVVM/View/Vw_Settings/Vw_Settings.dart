@@ -1,11 +1,12 @@
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Settings/Vm_Settings.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../CustomWidgets/CustomDilaog.dart';
 import '../../../Routing/AppRoutes.dart';
 
 class Vw_Settings extends StatefulWidget {
@@ -75,35 +76,13 @@ class _Vw_SettingsState extends State<Vw_Settings> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20), // Add some spacing between the buttons
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(200, 50),
-                        // Set the width and height as needed
-                        foregroundColor: Colors.black,
-                        backgroundColor: Colors.deepOrange.withOpacity(0.9),
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                      ),
-                      child: Text(
-                        'Change Language',
-                        style: GoogleFonts.ubuntu(
-                          textStyle: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 25,
-                            color: Colors.black54,
-                            letterSpacing: 0.5, // Removed the period before 5
-                          ),
-                        ),
-                      ),
-                    ),
+
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        context.setLocale(Locale('en', 'US')); // Change to Arabic
+
+                        Get.dialog(LanguageSelectionDialog());
+
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(200, 50),
