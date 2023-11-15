@@ -86,30 +86,6 @@ Future<void> _initializeNotifications() async {
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 }
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print("Handling a background message: ${message.messageId}");
-
-  final Map<String, dynamic> data = message.data;
-  final String title = data['title'] ?? 'Dowidar Rider';
-  final String body = data['body'] ?? 'New Order';
-
-  // You can customize this part based on your FCM payload structure
-  const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-    'your_channel_id', // Change this to your channel ID
-    'your_channel_name', // Change this to your channel name
-    importance: Importance.max,
-    priority: Priority.high,
-  );
-  const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
-
-  await FlutterLocalNotificationsPlugin().show(
-    0, // Notification ID
-    title,
-    body,
-    platformChannelSpecifics,
-    payload: data['your_custom_payload'], // Optional payload data
-  );
-}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

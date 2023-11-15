@@ -1,3 +1,4 @@
+import 'package:dowidardriver/ClassModules/cm_StringConstants/cm_StringConstantsVwCommomLayout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../ClassModules/AppImages/cmGlobal_AppImages.dart';
+import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwHome.dart';
 import '../../../Routing/AppRoutes.dart';
 import '../../Model/ModGetAllOrders/ModGetAllOrders.dart';
 import '../../ViewModel/Vm_CommonLayout/Vm_CommonLayout.dart';
@@ -38,7 +40,8 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
               automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
               title: Text(
-                "Order History",
+                "${'${cm_StringConstantsVwCommomLayout.strOrdersHistory}'.tr}",
+
                 style: GoogleFonts.ubuntu(
                     textStyle: const TextStyle(
                         fontSize: 22,
@@ -91,9 +94,9 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
 
                             // Define the color based on the order status
                             Color tileColor;
-                            if (order.status == DatumStatus.CANCELLED) {
+                            if (order.status == OrderStatus.CANCELLED) {
                               tileColor = Colors.red.withOpacity(0.3);
-                            } else if (order.status == DatumStatus.PROCESSING) {
+                            } else if (order.status == OrderStatus.PROCESSING) {
                               tileColor = Colors.lightBlue.withOpacity(0.3);
                             // } else if (order.status == DatumStatus.PENDING) {
                             //   tileColor = Colors.green.withOpacity(0.3);
@@ -118,7 +121,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                       Row(
                                         children: [
                                           Text(
-                                            "Order NO:",
+                                            "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black45,
@@ -138,7 +141,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                       Row(
                                         children: [
                                           Text(
-                                            "Status:",
+                                            "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black45,
@@ -158,7 +161,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                       Row(
                                         children: [
                                           Text(
-                                            "Resturent:",
+                                            "${'${cm_StringConstantsVwHome.strResturent}'.tr}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black45,
@@ -178,7 +181,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                       Row(
                                         children: [
                                           Text(
-                                            "Address:",
+                                            "${'${cm_StringConstantsVwHome.strAddress}'.tr}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black45,
@@ -198,7 +201,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                       Row(
                                         children: [
                                           Text(
-                                            "Created At:",
+                                            "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black45,

@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwProfile.dart';
 import '../../../Routing/AppRoutes.dart';
 
 class VwUserProfile extends StatefulWidget {
@@ -23,7 +24,6 @@ class _VwUserProfileState extends State<VwUserProfile> {
         child: WillPopScope(
           onWillPop: () async {
             // Navigate back to the second screen
-
             return false; // Prevent the app from being closed
           },
           child: Scaffold(
@@ -32,7 +32,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
               automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
               title: Text(
-                "My Profile",
+                "${'${cm_StringConstantsVwProfile.strMyPrsofile}'.tr}",
                 style: GoogleFonts.ubuntu(
                     textStyle: const TextStyle(
                         fontSize: 22,
@@ -48,7 +48,6 @@ class _VwUserProfileState extends State<VwUserProfile> {
               //color: Colors.black,
               padding: const EdgeInsets.all(16.0),
               child: Stack(
-
                 children: <Widget>[
                   Positioned(
                     top: PrHeight * 0.06,
@@ -57,15 +56,12 @@ class _VwUserProfileState extends State<VwUserProfile> {
                     child: SizedBox(
                       height: PrHeight * 0.20,
                       child: Container(
-
                         width: PrWidth * 0.500,
                         height: PrHeight * 0.30,
                         padding: EdgeInsets.all(PrHeight * 0.010),
                         decoration: BoxDecoration(
                           color: Colors.deepOrange.withOpacity(0.4),
-
                           image: DecorationImage(
-
                             image: AssetImage(cmGlobal_Appimages.splashScreen),
                             fit: BoxFit.none,
                           ),
@@ -132,7 +128,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                               children: [
                                 SizedBox(width: PrWidth * 0.03), // Add a minor space from the left side
                                 Text(
-                                  'name'.tr,
+                                  "${'${cm_StringConstantsVwProfile.strTitle}'.tr}",
                                   style: GoogleFonts.ubuntu(
                                     textStyle: TextStyle(
                                       fontSize: 15,
@@ -163,7 +159,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                               children: [
                                 SizedBox(width: PrWidth * 0.03), // Add a minor space from the left side
                                 Text(
-                                  "Status",
+                                  "${'${cm_StringConstantsVwProfile.strStatus}'.tr}",
                                   style: GoogleFonts.ubuntu(
                                     textStyle: TextStyle(
                                       fontSize: 15,
@@ -194,7 +190,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                               children: [
                                 SizedBox(width: PrWidth * 0.03), // Add a minor space from the left side
                                 Text(
-                                  "Phone Number",
+                                  "${'${cm_StringConstantsVwProfile.strPhoneNumber}'.tr}",
                                   style: GoogleFonts.ubuntu(
                                     textStyle: TextStyle(
                                       fontSize: 15,
@@ -225,7 +221,6 @@ class _VwUserProfileState extends State<VwUserProfile> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),

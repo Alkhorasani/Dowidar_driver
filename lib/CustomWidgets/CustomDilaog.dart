@@ -12,9 +12,9 @@ class LanguageSelectionDialog extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               Get.back(); // Close the dialog
-              Get.updateLocale(Locale('ur', 'PK')); // Set Urdu as the selected language
+              Get.updateLocale(Locale('ar', 'SA')); // Set Urdu as the selected language
             },
-            child: Text('اردو'),
+            child: Text('عربي'),
           ),
           ElevatedButton(
             onPressed: () {

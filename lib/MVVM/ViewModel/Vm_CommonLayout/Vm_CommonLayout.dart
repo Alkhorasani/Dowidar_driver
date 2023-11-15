@@ -8,9 +8,9 @@ import '../../Model/ModGetAllOrders/ModGetAllOrders.dart';
 class Vm_CommonLayout extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxDouble iconSize = 28.0.obs;
-  RxList<Datum>? RxListModUserAllOrders = <Datum>[].obs;
-  RxList<Datum>? RxListModOrderHistory = <Datum>[].obs;
-  RxList<Datum>? RxListModOrderHistoryPenidng = <Datum>[].obs;
+  RxList<Order>? RxListModUserAllOrders = <Order>[].obs;
+  RxList<Order>? RxListModOrderHistory = <Order>[].obs;
+  RxList<Order>? RxListModOrderHistoryPenidng = <Order>[].obs;
   RxBool isLoadingAllOrders = false.obs;
   RxBool isLoadingPendingOrders = false.obs;
   RxBool isLoadingOrderHistory = false.obs;
@@ -20,16 +20,16 @@ class Vm_CommonLayout extends GetxController {
       isLoadingAllOrders.value = true; // Show loading indicator
 
       ModGetAllOrders l_ModGetAllOrders = await Sl_GetAllOrders().fnc_GetAllorders_apiCall();
-      List<Datum> l_list_ModGetAllOrders = [];
-      List<Datum> ordersList = [];
+      List<Order> l_list_ModGetAllOrders = [];
+      List<Order>? ordersList = [];
 
       if (l_ModGetAllOrders != null) {
         ordersList.clear();
         l_list_ModGetAllOrders.clear();
         RxListModUserAllOrders?.value.clear();
-        ordersList = l_ModGetAllOrders.data!;
+        ordersList = l_ModGetAllOrders.data?.orders;
 
-        l_list_ModGetAllOrders = ordersList.map((orderJson) {
+        l_list_ModGetAllOrders = ordersList!.map((orderJson) {
           return orderJson;
         }).toList();
 
@@ -63,8 +63,8 @@ class Vm_CommonLayout extends GetxController {
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
             .where((order) =>
-        order.status == DatumStatus.PROCESSING ||
-            order.status == DatumStatus.CANCELLED)
+        order.status == OrderStatus.PROCESSING ||
+            order.status == OrderStatus.CANCELLED)
             .toList();
 
         RxListModOrderHistory?.clear();
@@ -90,7 +90,7 @@ class Vm_CommonLayout extends GetxController {
 
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
-            .where((order) => order.status == DatumStatus.PENDING) // U.se the enum value for 'cancelled'
+            .where((order) => order.status == OrderStatus.PENDING) // U.se the enum value for 'cancelled'
             .toList();
         RxListModOrderHistoryPenidng?.clear();
         RxListModOrderHistoryPenidng?.assignAll(filteredOrders);
@@ -114,16 +114,16 @@ class Vm_CommonLayout extends GetxController {
       isLoadingAllOrders.value = true; // Show loading indicator
 
       ModGetAllOrders l_ModGetAllOrders = await Sl_GetAllOrders().fnc_GetAllorders_apiCall();
-      List<Datum> l_list_ModGetAllOrders = [];
-      List<Datum> ordersList = [];
+      List<Order> l_list_ModGetAllOrders = [];
+      List<Order>? ordersList = [];
 
       if (l_ModGetAllOrders != null) {
         ordersList.clear();
         l_list_ModGetAllOrders.clear();
         RxListModUserAllOrders?.value.clear();
-        ordersList = l_ModGetAllOrders.data!;
+        ordersList = l_ModGetAllOrders.data?.orders;
 
-        l_list_ModGetAllOrders = ordersList.map((orderJson) {
+        l_list_ModGetAllOrders = ordersList!.map((orderJson) {
           return orderJson;
         }).toList();
 

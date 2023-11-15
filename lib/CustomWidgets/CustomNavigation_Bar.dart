@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../ClassModules/cm_StringConstants/cm_StringConstantsVwCommomLayout.dart';
 import '../Routing/AppRoutes.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -32,6 +33,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+
       return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex.value,
@@ -40,10 +42,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
         selectedFontSize: 14.0,
         unselectedFontSize: 14.0,
         items: <BottomNavigationBarItem>[
-          _buildAnimatedItem(0, Icons.home, 'Home'),
-          _buildAnimatedItem(1, Icons.shop, 'Orders History'),
-          _buildAnimatedItem(2, Icons.person, 'Profile'),
-          _buildAnimatedItem(3, Icons.settings, 'Settings'),
+          _buildAnimatedItem(0, Icons.home,  "${'${cm_StringConstantsVwCommomLayout.strHome}'.tr}", ),
+          _buildAnimatedItem(1, Icons.shop, "${'${cm_StringConstantsVwCommomLayout.strOrdersHistory}'.tr}"),
+          _buildAnimatedItem(2, Icons.person, "${'${cm_StringConstantsVwCommomLayout.strProfile}'.tr}"),
+          _buildAnimatedItem(3, Icons.settings, "${'${cm_StringConstantsVwCommomLayout.strSettings}'.tr}"),
         ],
         onTap: (index) {
           _onItemTapped(index);

@@ -14,7 +14,8 @@ import '../Vm_CommonLayout/Vm_CommonLayout.dart';
 
 class Vm_OrderDetails extends GetxController {
   RxBool isLoading = false.obs;
-  ModOrderDetails? orderDetails ;
+  Rx<ModOrderDetails?> orderDetails = Rx<ModOrderDetails?>(null);
+
 
 
 
@@ -28,7 +29,7 @@ class Vm_OrderDetails extends GetxController {
 
       if (orderData != null && orderData.data != null) {
         // Update the orderDetails with the fetched data
-        orderDetails = orderData;
+        orderDetails.value = orderData;
         isLoading.value = false; // Hide loading indicator
       } else {
         isLoading.value = false; // Hide loading indicator on failure

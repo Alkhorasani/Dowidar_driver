@@ -27,7 +27,7 @@ class Vm_Home extends GetxController {
   RxBool isSelectedblue = false.obs;
   RxBool isSelectedfreen = false.obs;
 
-  RxList<Datum>? RxListModUserOrderDetails = <Datum>[].obs;
+  RxList<Order>? RxListModUserOrderDetails = <Order>[].obs;
 
   final Vm_CommonLayout l_Vm_CommonLayout = Get.find<Vm_CommonLayout>();
 
@@ -124,7 +124,7 @@ class Vm_Home extends GetxController {
       await l_Vm_CommonLayout.fnc_GetAllOrders();
       if (l_Vm_CommonLayout.RxListModUserAllOrders != null) {
         final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
-            .where((order) => order.status == DatumStatus.CANCELLED) // Use the enum value for 'cancelled'
+            .where((order) => order.status == OrderStatus.CANCELLED) // Use the enum value for 'cancelled'
             .toList();
 
         l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
@@ -150,7 +150,7 @@ class Vm_Home extends GetxController {
 
       if (l_Vm_CommonLayout.RxListModUserAllOrders != null) {
         final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
-            .where((order) => order.status == DatumStatus.PENDING) // U.se the enum value for 'cancelled'
+            .where((order) => order.status == OrderStatus.PENDING) // U.se the enum value for 'cancelled'
             .toList();
         l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
         isLoadingPendingOrders.value = false;
@@ -176,7 +176,7 @@ class Vm_Home extends GetxController {
 
       if (l_Vm_CommonLayout.RxListModUserAllOrders != null) {
         final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
-            .where((order) => order.status == DatumStatus.PROCESSING) // U.se the enum value for 'cancelled'
+            .where((order) => order.status == OrderStatus.PROCESSING) // U.se the enum value for 'cancelled'
             .toList();
         l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
         isLoadingPendingOrders.value = false;

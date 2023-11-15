@@ -1,24 +1,137 @@
-
-
+import 'package:dowidardriver/ClassModules/cm_StringConstants/cm_StringConstantsVwHome.dart';
 import 'package:get/get_navigation/src/root/internacionalization.dart';
+
+import '../cm_StringConstants/cm_StringConstantsVwCommomLayout.dart';
+import '../cm_StringConstants/cm_StringConstantsVwOrderDetails.dart';
+import '../cm_StringConstants/cm_StringConstantsVwProfile.dart';
 
 class cm_LanguageController extends Translations {
   @override
-  // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
+        'en_US': {
+          // Home Screen
+          // 'hi': 'hi',
 
-    'en_US' : {
+          "${cm_StringConstantsVwHome.strHome}": 'Home',
+          "${cm_StringConstantsVwHome.strCurrentOrders}": 'Current Orders',
+          "${cm_StringConstantsVwHome.strNewOrders}": 'New Orders',
+          "${cm_StringConstantsVwHome.strStatus}": 'Status',
+          "${cm_StringConstantsVwHome.strSwitchon}": 'Switch on',
+          "${cm_StringConstantsVwHome.strAlert}": 'Alert',
+          "${cm_StringConstantsVwHome.strLocationLive}": 'Location Live',
+          "${cm_StringConstantsVwHome.strError}": 'Error',
+          "${cm_StringConstantsVwHome.strLocationoff}": 'Location Off',
+          "${cm_StringConstantsVwHome.strError}": 'Error',
+          "${cm_StringConstantsVwHome.strRedCancelled}": 'Red = Cancelled',
+          "${cm_StringConstantsVwHome.strBlueProcessing}": 'Blue = Processing',
+          "${cm_StringConstantsVwHome.strGreenPending}": 'Green = Pending',
+          "${cm_StringConstantsVwHome.strYoudont_haveanyorders}":
+              cm_StringConstantsVwHome.strYoudont_haveanyorders ?? 'You don\'t have any orders',
+          "${cm_StringConstantsVwHome.strOrderNO}": 'Order NO',
+          "${cm_StringConstantsVwHome.strResturent}": 'Restaurant',
+          "${cm_StringConstantsVwHome.CreatedAt}": 'Created At',
+          "${cm_StringConstantsVwHome.strAddress}": 'Address',
+          "${cm_StringConstantsVwHome.strOrderAccepted}": 'Accept',
+          "${cm_StringConstantsVwHome.strOrderRejected}": 'Reject',
+          "${cm_StringConstantsVwHome.strYoudont_haveNoneworders}":
+              cm_StringConstantsVwHome.strYoudont_haveNoneworders ?? 'You don\'t have any new orders',
+          // Vw Common layout
+          "${cm_StringConstantsVwCommomLayout.strHome}": 'Home',
+          "${cm_StringConstantsVwCommomLayout.strOrdersHistory}": 'Orders History',
+          "${cm_StringConstantsVwCommomLayout.strProfile}": 'Profile',
+          "${cm_StringConstantsVwCommomLayout.strSettings}": 'Settings',
+          "${cm_StringConstantsVwCommomLayout.strAlert}": 'Alert',
+          //VwProfile
+          "${cm_StringConstantsVwProfile.strMyPrsofile}": 'My Profile',
+          "${cm_StringConstantsVwProfile.strTitle}": 'Title',
+          "${cm_StringConstantsVwProfile.strStatus}": 'Status',
+          "${cm_StringConstantsVwProfile.strPhoneNumber}": 'Phone Number',
 
-      'email' : 'iam.umairimran@gmail.com',
-      'name' : 'umair'
-    },
-    'ur_PK' : {
+          //VwOrderDetails
+          "${cm_StringConstantsVwOrderDetails.strOrderDetails}": 'Order Details',
+          "${cm_StringConstantsVwOrderDetails.strRestaurantInfo}": 'Restaurant Info',
+          "${cm_StringConstantsVwOrderDetails.strRestaurantName}": 'Restaurant Name:',
+          "${cm_StringConstantsVwOrderDetails.strLocation}": 'Location',
+          "${cm_StringConstantsVwOrderDetails.strPhone}": 'Phone',
+          "${cm_StringConstantsVwOrderDetails.strClientInfo}": 'Client Info',
+          "${cm_StringConstantsVwOrderDetails.strClientName}": 'Client Name:',
+          "${cm_StringConstantsVwOrderDetails.strClientEmail}": 'Client Email:',
+          "${cm_StringConstantsVwOrderDetails.strClientAddress}": 'Client Address:',
+          "${cm_StringConstantsVwOrderDetails.strClientLocation}": 'Location',
+          "${cm_StringConstantsVwOrderDetails.strClientPhone}": 'Phone',
+          "${cm_StringConstantsVwOrderDetails.strOrderInfo}": 'Order Info',
+          "${cm_StringConstantsVwOrderDetails.strOrderNumber}": 'Order Number:',
+          "${cm_StringConstantsVwOrderDetails.strOrderStatus}": 'Order Status:',
+          "${cm_StringConstantsVwOrderDetails.strOrderCreatedAt}": 'Order Created At:',
+          "${cm_StringConstantsVwOrderDetails.strPaymentType}": 'Payment Type:',
+          "${cm_StringConstantsVwOrderDetails.strItems}": 'Items',
+          "${cm_StringConstantsVwOrderDetails.strItemName}": 'Item Name',
+          "${cm_StringConstantsVwOrderDetails.strResturent}": 'Restaurant:',
+          "${cm_StringConstantsVwOrderDetails.strDelivered}": 'Delivered:',
+          "${cm_StringConstantsVwOrderDetails.strYourOrderDeliverd}": 'Already Delivered',
 
-      'email' : 'iam.umairimran@gmail.com',
-      'name' : 'عمیر'
-    }
+        },
+        'ar_SA': {
+          // Home Screen
+          //'hi': 'الصفحة',
+          "${cm_StringConstantsVwHome.strHome}": 'الصفحة الرئيسية',
+          "${cm_StringConstantsVwHome.strCurrentOrders}": 'الطلبات الحالية',
+          "${cm_StringConstantsVwHome.strNewOrders}": 'طلبات جديدة',
+          "${cm_StringConstantsVwHome.strStatus}": 'الحالة',
+          "${cm_StringConstantsVwHome.strSwitchon}": 'تشغيل',
+          "${cm_StringConstantsVwHome.strAlert}": 'تنبيه',
+          "${cm_StringConstantsVwHome.strLocationLive}": 'الموقع المباشر',
+          "${cm_StringConstantsVwHome.strError}": 'خطأ',
+          "${cm_StringConstantsVwHome.strLocationoff}": 'إيقاف الموقع',
+          "${cm_StringConstantsVwHome.strError}": 'خطأ',
+          "${cm_StringConstantsVwHome.strRedCancelled}": 'أحمر = تم الإلغاء',
+          "${cm_StringConstantsVwHome.strBlueProcessing}": 'أزرق = قيد المعالجة',
+          "${cm_StringConstantsVwHome.strGreenPending}": 'أخضر = قيد الانتظار',
+          "${cm_StringConstantsVwHome.strYoudont_haveanyorders}":
+              cm_StringConstantsVwHome.strYoudont_haveanyorders ?? 'ليس لديك أي طلبات',
+          "${cm_StringConstantsVwHome.strOrderNO}": 'رقم الطلب',
+          "${cm_StringConstantsVwHome.strResturent}": 'المطعم',
+          "${cm_StringConstantsVwHome.CreatedAt}": 'تم الإنشاء في',
+          "${cm_StringConstantsVwHome.strAddress}": 'عنوان',
+          "${cm_StringConstantsVwHome.strOrderAccepted}": 'يقبل',
+          "${cm_StringConstantsVwHome.strOrderRejected}": 'يرفض',
+          "${cm_StringConstantsVwHome.strYoudont_haveNoneworders}": 'ليس لديك أي طلبات جديدة',
+          //VwCommonLayout
 
-  };
+          "${cm_StringConstantsVwCommomLayout.strHome}": 'الصفحة الرئيسية',
+          "${cm_StringConstantsVwCommomLayout.strOrdersHistory}": 'تاريخ الطلبات',
+          "${cm_StringConstantsVwCommomLayout.strProfile}": 'الملف الشخصي',
+          "${cm_StringConstantsVwCommomLayout.strSettings}": 'الإعدادات',
+          "${cm_StringConstantsVwCommomLayout.strAlert}": 'تنبيه',
+
+          //VwProfile
+          "${cm_StringConstantsVwProfile.strMyPrsofile}": 'ملفي الشخصي',
+          "${cm_StringConstantsVwProfile.strTitle}": 'العنوان',
+          "${cm_StringConstantsVwProfile.strStatus}": 'الحالة',
+          "${cm_StringConstantsVwProfile.strPhoneNumber}": 'رقم الهاتف',
+
+          //VwOrderDetails
+          "${cm_StringConstantsVwOrderDetails.strOrderDetails}": 'تفاصيل الطلب',
+          "${cm_StringConstantsVwOrderDetails.strRestaurantInfo}": 'معلومات المطعم',
+          "${cm_StringConstantsVwOrderDetails.strRestaurantName}": 'اسم المطعم:',
+          "${cm_StringConstantsVwOrderDetails.strLocation}": 'الموقع',
+          "${cm_StringConstantsVwOrderDetails.strPhone}": 'الهاتف',
+          "${cm_StringConstantsVwOrderDetails.strClientInfo}": 'معلومات العميل',
+          "${cm_StringConstantsVwOrderDetails.strClientName}": 'اسم العميل:',
+          "${cm_StringConstantsVwOrderDetails.strClientEmail}": 'بريد العميل الإلكتروني:',
+          "${cm_StringConstantsVwOrderDetails.strClientAddress}": 'عنوان العميل:',
+          "${cm_StringConstantsVwOrderDetails.strClientLocation}": 'الموقع',
+          "${cm_StringConstantsVwOrderDetails.strClientPhone}": 'الهاتف',
+          "${cm_StringConstantsVwOrderDetails.strOrderInfo}": 'معلومات الطلب',
+          "${cm_StringConstantsVwOrderDetails.strOrderNumber}": 'رقم الطلب:',
+          "${cm_StringConstantsVwOrderDetails.strOrderStatus}": 'حالة الطلب:',
+          "${cm_StringConstantsVwOrderDetails.strOrderCreatedAt}": 'تاريخ إنشاء الطلب:',
+          "${cm_StringConstantsVwOrderDetails.strPaymentType}": 'طريقة الدفع:',
+          "${cm_StringConstantsVwOrderDetails.strItems}": 'العناصر',
+          "${cm_StringConstantsVwOrderDetails.strItemName}": 'اسم العنصر',
+          "${cm_StringConstantsVwOrderDetails.strResturent}": 'المطعم:',
+          "${cm_StringConstantsVwOrderDetails.strDelivered}": 'تم التوصيل:',
+          "${cm_StringConstantsVwOrderDetails.strYourOrderDeliverd}": 'تم التوصيل:',
+        },
+      };
 }
-
-

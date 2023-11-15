@@ -2,7 +2,7 @@
 
 class ModGetAllOrders {
   String? message;
-  List<Datum>? data;
+  Data? data;
 
   ModGetAllOrders({
     this.message,
@@ -11,22 +11,42 @@ class ModGetAllOrders {
 
   factory ModGetAllOrders.fromJson(Map<String, dynamic> json) => ModGetAllOrders(
     message: json["message"],
-    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
     "message": message,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "data": data?.toJson(),
   };
 }
 
-class Datum {
+class Data {
+  int? total;
+  List<Order>? orders;
+
+  Data({
+    this.total,
+    this.orders,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    total: json["total"],
+    orders: json["orders"] == null ? [] : List<Order>.from(json["orders"]!.map((x) => Order.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "total": total,
+    "orders": orders == null ? [] : List<dynamic>.from(orders!.map((x) => x.toJson())),
+  };
+}
+
+class Order {
   int? id;
   String? orderNo;
   int? addressId;
   String? userId;
   int? restaurantId;
-  DatumStatus? status;
+  OrderStatus? status;
   int? paymentMethodId;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -38,7 +58,7 @@ class Datum {
   List<Item>? items;
   List<PaymentHistory>? paymentHistories;
 
-  Datum({
+  Order({
     this.id,
     this.orderNo,
     this.addressId,
@@ -57,18 +77,18 @@ class Datum {
     this.paymentHistories,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
     id: json["id"],
     orderNo: json["order_no"],
     addressId: json["address_id"],
     userId: json["user_id"],
     restaurantId: json["restaurant_id"],
-    status:   json["status"]  == null ? null :  datumStatusValues.map[json["status"]],
+    status: orderStatusValues.map[json["status"]],
     paymentMethodId: json["payment_method_id"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     driverId: json["driver_id"],
-    driverStatus: json["driver_status"]  == null ? null : driverStatusValues.map[json["driver_status"]],
+    driverStatus: driverStatusValues.map[json["driver_status"]]!,
     note: json["note"],
     restaurant: json["restaurant"] == null ? null : Restaurant.fromJson(json["restaurant"]),
     user: Map.from(json["user"]!).map((k, v) => MapEntry<String, String?>(k, v)),
@@ -82,7 +102,7 @@ class Datum {
     "address_id": addressId,
     "user_id": userId,
     "restaurant_id": restaurantId,
-    "status": datumStatusValues.reverse[status],
+    "status": orderStatusValues.reverse[status],
     "payment_method_id": paymentMethodId,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
@@ -238,6 +258,9 @@ class PaymentHistory {
   int? paymentMethodId;
   DateTime? createdAt;
   DateTime? updatedAt;
+  dynamic transactionTypeId;
+  dynamic reason;
+  dynamic reasonAr;
   PaymentMethod? paymentMethod;
 
   PaymentHistory({
@@ -250,6 +273,9 @@ class PaymentHistory {
     this.paymentMethodId,
     this.createdAt,
     this.updatedAt,
+    this.transactionTypeId,
+    this.reason,
+    this.reasonAr,
     this.paymentMethod,
   });
 
@@ -263,6 +289,9 @@ class PaymentHistory {
     paymentMethodId: json["payment_method_id"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    transactionTypeId: json["transaction_type_id"],
+    reason: json["reason"],
+    reasonAr: json["reason_ar"],
     paymentMethod: json["payment_method"] == null ? null : PaymentMethod.fromJson(json["payment_method"]),
   );
 
@@ -276,6 +305,9 @@ class PaymentHistory {
     "payment_method_id": paymentMethodId,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "transaction_type_id": transactionTypeId,
+    "reason": reason,
+    "reason_ar": reasonAr,
     "payment_method": paymentMethod?.toJson(),
   };
 }
@@ -298,10 +330,10 @@ class PaymentMethod {
   });
 
   factory PaymentMethod.fromJson(Map<String, dynamic> json) => PaymentMethod(
-    id:   json["id"]  == null ? null :  json["id"],
-    name:  json["name"]  == null ? null :  paymentMethodNameValues.map[json["name"]],
-    nameAr:   json["name_ar"] == null ? null : nameArValues.map[json["name_ar"]],
-    status:  json["status"]  == null ? null :  paymentMethodStatusValues.map[json["status"]],
+    id: json["id"],
+    name: paymentMethodNameValues.map[json["name"]]!,
+    nameAr: nameArValues.map[json["name_ar"]]!,
+    status: paymentMethodStatusValues.map[json["status"]]!,
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
@@ -372,7 +404,7 @@ class Restaurant {
   DeliveryTime? deliveryTime;
   DeliveryCharges? deliveryCharges;
   String? tax;
-  int? averageRating;
+  double? averageRating;
   int? totalRatings;
   String? logoUrl;
   String? coverPhotoUrl;
@@ -441,7 +473,7 @@ class Restaurant {
     deliveryTime: deliveryTimeValues.map[json["delivery_time"]]!,
     deliveryCharges: json["delivery_charges"] == null ? null : DeliveryCharges.fromJson(json["delivery_charges"]),
     tax: json["tax"],
-    averageRating: json["average_rating"],
+    averageRating: json["average_rating"]?.toDouble(),
     totalRatings: json["total_ratings"],
     logoUrl: json["logo_url"],
     coverPhotoUrl: json["cover_photo_url"],
@@ -485,27 +517,27 @@ class Restaurant {
 }
 
 enum RestaurantArName {
+  AR_NAME,
   EMPTY,
-  THE_1,
   THE_2
 }
 
 final restaurantArNameValues = EnumValues({
+  "مطعم": RestaurantArName.AR_NAME,
   "مطعم بوندو خان": RestaurantArName.EMPTY,
-  "مطعم 1": RestaurantArName.THE_1,
   "مطعم 2": RestaurantArName.THE_2
 });
 
 enum CoverPhoto {
-  THE_1698320255_JPG,
   THE_1699013616_JPG,
-  THE_1699260227_JPG
+  THE_1699260227_JPG,
+  THE_1699981271_JPG
 }
 
 final coverPhotoValues = EnumValues({
-  "1698320255.jpg": CoverPhoto.THE_1698320255_JPG,
   "1699013616.jpg": CoverPhoto.THE_1699013616_JPG,
-  "1699260227.jpg": CoverPhoto.THE_1699260227_JPG
+  "1699260227.jpg": CoverPhoto.THE_1699260227_JPG,
+  "1699981271.jpg": CoverPhoto.THE_1699981271_JPG
 });
 
 class DeliveryCharges {
@@ -549,20 +581,28 @@ final emailValues = EnumValues({
 });
 
 class Location {
+  double? latitude;
+  double? longitude;
   double? lat;
   double? lng;
 
   Location({
+    this.latitude,
+    this.longitude,
     this.lat,
     this.lng,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
+    latitude: json["latitude"]?.toDouble(),
+    longitude: json["longitude"]?.toDouble(),
     lat: json["lat"]?.toDouble(),
     lng: json["lng"]?.toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
+    "latitude": latitude,
+    "longitude": longitude,
     "lat": lat,
     "lng": lng,
   };
@@ -570,14 +610,14 @@ class Location {
 
 enum RestaurantName {
   BUNDU_KHAN_RESTAURANT,
-  RESTAURANT_1,
-  RESTURANT
+  RESTAURANT,
+  RESTURANT_3
 }
 
 final restaurantNameValues = EnumValues({
   "Bundu Khan Restaurant": RestaurantName.BUNDU_KHAN_RESTAURANT,
-  "Restaurant 1": RestaurantName.RESTAURANT_1,
-  "Resturant": RestaurantName.RESTURANT
+  "Restaurant": RestaurantName.RESTAURANT,
+  "Resturant 3": RestaurantName.RESTURANT_3
 });
 
 class OpeningHours {
@@ -665,25 +705,23 @@ final toValues = EnumValues({
 });
 
 enum RestaurantStatus {
-  BUSY,
   OPENED
 }
 
 final restaurantStatusValues = EnumValues({
-  "busy": RestaurantStatus.BUSY,
   "opened": RestaurantStatus.OPENED
 });
 
-enum DatumStatus {
+enum OrderStatus {
   CANCELLED,
   PENDING,
   PROCESSING
 }
 
-final datumStatusValues = EnumValues({
-  "cancelled": DatumStatus.CANCELLED,
-  "pending": DatumStatus.PENDING,
-  "processing": DatumStatus.PROCESSING
+final orderStatusValues = EnumValues({
+  "cancelled": OrderStatus.CANCELLED,
+  "pending": OrderStatus.PENDING,
+  "processing": OrderStatus.PROCESSING
 });
 
 class EnumValues<T> {

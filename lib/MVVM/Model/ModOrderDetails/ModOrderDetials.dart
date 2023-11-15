@@ -2,6 +2,8 @@
 //
 //     final ModOrderDetails = ModOrderDetailsFromJson(jsonString);
 
+import '../ModGetAllOrders/ModGetAllOrders.dart';
+
 class ModOrderDetails {
   Data? data;
 
@@ -124,93 +126,7 @@ class OrderDetail {
   }
 }
 
-class PaymentHistory {
-  int? id;
-  String? userId;
-  int? restaurantId;
-  int? walletId;
-  int? orderId;
-  String? amount;
-  int? paymentMethodId;
-  String? createdAt;
-  String? updatedAt;
-  PaymentMethod? paymentMethod;
 
-  PaymentHistory({
-    this.id,
-    this.userId,
-    this.restaurantId,
-    this.walletId,
-    this.orderId,
-    this.amount,
-    this.paymentMethodId,
-    this.createdAt,
-    this.updatedAt,
-    this.paymentMethod,
-  });
-
-  factory PaymentHistory.fromJson(Map<String, dynamic> json) => PaymentHistory(
-    id: json["id"],
-    userId: json["user_id"],
-    restaurantId: json["restaurant_id"],
-    walletId: json["wallet_id"],
-    orderId: json["order_id"],
-    amount: json["amount"],
-    paymentMethodId: json["payment_method_id"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
-    paymentMethod: json["payment_method"] == null ? null : PaymentMethod.fromJson(json["payment_method"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "user_id": userId,
-    "restaurant_id": restaurantId,
-    "wallet_id": walletId,
-    "order_id": orderId,
-    "amount": amount,
-    "payment_method_id": paymentMethodId,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
-    "payment_method": paymentMethod?.toJson(),
-  };
-}
-
-class PaymentMethod {
-  int? id;
-  String? name;
-  String? nameAr;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-
-  PaymentMethod({
-    this.id,
-    this.name,
-    this.nameAr,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  factory PaymentMethod.fromJson(Map<String, dynamic> json) => PaymentMethod(
-    id: json["id"],
-    name: json["name"],
-    nameAr: json["name_ar"],
-    status: json["status"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "name_ar": nameAr,
-    "status": status,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
-  };
-}
 
 class UserDriver {
   String? id;
@@ -408,37 +324,6 @@ class Pivot {
   };
 }
 
-class Restaurant {
-  int? id;
-  String? name;
-  String? arName;
-  String? logoUrl;
-  String? coverPhotoUrl;
-
-  Restaurant({
-    this.id,
-    this.name,
-    this.arName,
-    this.logoUrl,
-    this.coverPhotoUrl,
-  });
-
-  factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
-    id: json["id"],
-    name: json["name"],
-    arName: json["ar_name"],
-    logoUrl: json["logo_url"],
-    coverPhotoUrl: json["cover_photo_url"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "ar_name": arName,
-    "logo_url": logoUrl,
-    "cover_photo_url": coverPhotoUrl,
-  };
-}
 
 class Statuses {
   String? pending;
