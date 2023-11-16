@@ -17,7 +17,7 @@ class cm_StringConstantsVwHome {
   static String? strError = 'Error';
   static String? strRedCancelled = 'Red = Cancelled';
   static String? strBlueProcessing = 'Blue = Processing';
-  static String? strGreenPending = 'Green = Pending';
+  static String? strGreenPending = 'Green = Enroute';
   static String? strYoudont_haveanyorders = 'You don\'t have any orders';
   static String? strOrderNO = 'Order NO';
   static String? strResturent = 'Restaurant';
@@ -26,4 +26,7 @@ class cm_StringConstantsVwHome {
   static String? strAddress = 'Address';
   static String? strOrderAccepted = 'Accept';
   static String? strOrderRejected = 'Reject';
+  static String? strYellowWaiting = 'Yellow = waiting';
+  static String? strPurpleAccepted = 'Purple = accepted';
+
 }

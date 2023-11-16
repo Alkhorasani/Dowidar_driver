@@ -1,3 +1,4 @@
+import 'package:dowidardriver/Enum/EnumStatus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,8 +10,9 @@ class Vm_CommonLayout extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxDouble iconSize = 28.0.obs;
   RxList<Order>? RxListModUserAllOrders = <Order>[].obs;
+  RxList<Order>? RxListModUserProcessingEnrOrders = <Order>[].obs;
   RxList<Order>? RxListModOrderHistory = <Order>[].obs;
-  RxList<Order>? RxListModOrderHistoryPenidng = <Order>[].obs;
+  RxList<Order>? RxListModOrderPenidngNew = <Order>[].obs;
   RxBool isLoadingAllOrders = false.obs;
   RxBool isLoadingPendingOrders = false.obs;
   RxBool isLoadingOrderHistory = false.obs;
@@ -18,7 +20,6 @@ class Vm_CommonLayout extends GetxController {
   Future<bool> fnc_GetAllOrders() async {
     try {
       isLoadingAllOrders.value = true; // Show loading indicator
-
       ModGetAllOrders l_ModGetAllOrders = await Sl_GetAllOrders().fnc_GetAllorders_apiCall();
       List<Order> l_list_ModGetAllOrders = [];
       List<Order>? ordersList = [];
@@ -29,11 +30,20 @@ class Vm_CommonLayout extends GetxController {
         RxListModUserAllOrders?.value.clear();
         ordersList = l_ModGetAllOrders.data?.orders;
 
+
         l_list_ModGetAllOrders = ordersList!.map((orderJson) {
           return orderJson;
         }).toList();
 
+        RxListModUserAllOrders?.value.clear();
+
         RxListModUserAllOrders?.value = l_list_ModGetAllOrders ?? [];
+
+        RxListModUserProcessingEnrOrders?.clear();
+        RxListModUserProcessingEnrOrders?.value = RxListModUserAllOrders!.value
+            .where((order) => order.status == OrderStatus.PROCESSING || order.status == Status.OrderEnroute)
+            .toList();
+
         isLoadingAllOrders.value = false; // Hide loading indicator
 
         // print(l_list_ModGetAllOrders);
@@ -62,9 +72,7 @@ class Vm_CommonLayout extends GetxController {
 
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
-            .where((order) =>
-        order.status == OrderStatus.PROCESSING ||
-            order.status == OrderStatus.CANCELLED)
+            .where((order) => order.status == OrderStatus.PROCESSING || order.status == OrderStatus.CANCELLED)
             .toList();
 
         RxListModOrderHistory?.clear();
@@ -84,16 +92,16 @@ class Vm_CommonLayout extends GetxController {
     }
   }
 
-  bool fncPendingOrderFilter() {
+  bool fncNewOrdersWaitingFilter() {
     try {
       isLoadingPendingOrders.value = true;
 
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
-            .where((order) => order.status == OrderStatus.PENDING) // U.se the enum value for 'cancelled'
+            .where((order) => order.status == OrderStatus.PENDING && order.driverStatus == DriverStatus.WAITING )  // U.se the enum value for 'cancelled'
             .toList();
-        RxListModOrderHistoryPenidng?.clear();
-        RxListModOrderHistoryPenidng?.assignAll(filteredOrders);
+        RxListModOrderPenidngNew?.clear();
+        RxListModOrderPenidngNew?.assignAll(filteredOrders);
         isLoadingPendingOrders.value = false;
         return true; // Filtering and assignment succeeded
       } else {
@@ -108,6 +116,35 @@ class Vm_CommonLayout extends GetxController {
       return false; // Error occurred
     }
   }
+
+  bool fncNewOrdersAcceptedFilter() {
+    try {
+      isLoadingPendingOrders.value = true;
+
+      if (RxListModUserAllOrders != null) {
+        final filteredOrders = RxListModUserAllOrders!
+            .where((order) => order.status == OrderStatus.PENDING && order.driverStatus == DriverStatus.ACCEPTED )  // U.se the enum value for 'cancelled'
+            .toList();
+        RxListModOrderPenidngNew?.clear();
+        RxListModOrderPenidngNew?.assignAll(filteredOrders);
+        isLoadingPendingOrders.value = false;
+        return true; // Filtering and assignment succeeded
+      } else {
+        isLoadingPendingOrders.value = false;
+
+        return false; // RxListModUserAllOrders is null
+      }
+    } catch (error) {
+      isLoadingPendingOrders.value = false;
+
+      print("Error in filterOrderHistoryByStatus: $error");
+      return false; // Error occurred
+    }
+  }
+
+
+
+
 
   Future<bool> fnc_RefreshAllOrders() async {
     try {

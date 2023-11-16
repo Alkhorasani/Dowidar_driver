@@ -124,6 +124,17 @@ class OrderDetail {
       }
     }
   }
+
+
+  getTotalPayment(List<PaymentHistory>? paymentHistories){
+    if(paymentHistories != null && paymentHistories.isNotEmpty){
+      if(paymentHistories.length > 1){
+        return "${double.parse(paymentHistories.first.amount ?? '0.0') + double.parse(paymentHistories.last.amount ?? '0.0')}";
+      }else{
+        return paymentHistories.first.amount ?? '0';
+      }
+    }
+  }
 }
 
 

@@ -1,7 +1,7 @@
 import 'package:dowidardriver/ClassModules/cm_StringConstants/cm_StringConstantsVwCommomLayout.dart';
+import 'package:dowidardriver/MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 import '../../../ClassModules/AppImages/cmGlobal_AppImages.dart';
 import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwHome.dart';
+import '../../../CustomWidgets/ArabicTextField.dart';
 import '../../../Routing/AppRoutes.dart';
 import '../../Model/ModGetAllOrders/ModGetAllOrders.dart';
 import '../../ViewModel/Vm_CommonLayout/Vm_CommonLayout.dart';
@@ -24,7 +25,7 @@ class Vw_OrderHistory extends StatefulWidget {
 
 class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
   final Vm_CommonLayout l_Vm_CommonLayout = Get.find<Vm_CommonLayout>();
-
+  final  Vm_Home l_Vm_Home = Get.find<Vm_Home>();
   @override
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double G_height, G_width) {
@@ -57,6 +58,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   Padding(
                     padding: EdgeInsets.only(
                       top: G_height * 0.02,
@@ -65,11 +67,100 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+                          GestureDetector(
+                            onTap: () async {
+                              l_Vm_Home.isSelectedred.value = false;
+                              l_Vm_Home.isSelectedblue.value = true;
+                              l_Vm_Home.isSelectedfreen.value = false;
 
+                              Get.dialog(
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                barrierDismissible: false,
+                              );
+
+                              await l_Vm_Home.fncfilterProcessing();
+                              Get.back();
+
+
+                              l_Vm_CommonLayout.RxListModOrderHistory?.refresh();
+                              print('Container tapped');
+                            },
+                            child: Obx(() {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: l_Vm_Home.isSelectedblue.value == true
+                                      ? Colors.blue
+                                      : Colors.blue.withOpacity(0.3), // Set the background color to white
+
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Text(
+                                      "${'${cm_StringConstantsVwHome.strBlueProcessing}'.tr}",
+                                      style: GoogleFonts.ubuntu(
+                                        textStyle: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                          letterSpacing: 0.6,
+                                        ),
+                                      ),
+                                    )),
+                              );
+                            }),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              //await l_Vm_Home.fncTokenUpdate();
+                              l_Vm_Home.isSelectedred.value = true;
+                              l_Vm_Home.isSelectedfreen.value = false;
+                              l_Vm_Home.isSelectedblue.value = false;
+
+                              Get.dialog(
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                barrierDismissible: false,
+                              );
+
+                            await l_Vm_Home.fncfilterCancelled();
+                          Get.back();
+                              l_Vm_CommonLayout.RxListModOrderHistory?.refresh();
+                              print('Container tapped');
+                            },
+                            child: Obx(() {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: l_Vm_Home.isSelectedred.value == true
+                                      ? Colors.red
+                                      : Colors.red.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "${'${cm_StringConstantsVwHome.strRedCancelled}'.tr}",
+                                    style: GoogleFonts.ubuntu(
+                                      textStyle: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        letterSpacing: 0.6,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                          ),
                         ],
                       ),
                     ),
                   ),
+                  SizedBox(height: G_height * 0.01),
                   SizedBox(height: G_height * 0.01),
                   Expanded(
                     child: RefreshIndicator(
@@ -78,6 +169,13 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                         l_Vm_CommonLayout.RxListModOrderHistory?.refresh();
                       },
                       child: Obx(() {
+
+                        if( l_Vm_CommonLayout.isLoadingOrderHistory.isTrue){
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
                         return ListView.separated(
                           itemCount: l_Vm_CommonLayout.RxListModOrderHistory!.length,
                           shrinkWrap: true,
@@ -109,11 +207,6 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  SvgPicture.asset(
-                                    'assets/icons/salmon-nigiri.svg',
-                                    width: 65,
-                                    height: 65,
-                                  ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,14 +261,22 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                               fontSize: 16,
                                             ),
                                           ),
-                                          Text(
-                                            order.restaurant!.name.toString().split('.').last,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                            ),
-                                          )
+                                          Obx(() {
+                                            if (l_Vm_Home.isArabic.value == true) {
+                                              return CustomRestaurantNameText(
+                                                restaurantName:
+                                                order.restaurant!.arName.toString().split('.').last,
+                                              );
+                                            }
+                                            return Text(
+                                              order.restaurant!.name.toString().split('.').last,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                              ),
+                                            );
+                                          }),
                                         ],
                                       ),
                                       Row(
@@ -252,6 +353,9 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
 
     return GestureDetector(
       onTap: () {
+        l_Vm_Home.isSelectedred.value = false;
+        l_Vm_Home.isSelectedblue.value = false;
+        l_Vm_Home.isSelectedfreen.value = false;
         //when tap anywhere on screen keyboard dismiss
         FocusManager.instance.primaryFocus?.unfocus();
       },

@@ -174,7 +174,7 @@ class _Vw_LoginState extends State<Vw_Login> {
                                     "",
                                     backgroundColor: Colors.grey[50],
                                     icon: const Icon(Icons.check_circle, color: Colors.green),
-                                    duration: const Duration(seconds: 3),
+                                    duration: const Duration(seconds: 2),
                                     snackPosition: SnackPosition.BOTTOM,
                                     margin: const EdgeInsets.all(16),
                                     borderRadius: 10,

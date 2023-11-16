@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwHome.dart';
+import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwSettings.dart';
 import '../../../CustomWidgets/CustomDilaog.dart';
 import '../../../Routing/AppRoutes.dart';
 
@@ -25,8 +27,8 @@ class _Vw_SettingsState extends State<Vw_Settings> {
       return SafeArea(
         child: WillPopScope(
           onWillPop: () async {
-            // Navigate back to the second screen
 
+            // Navigate back to the second screen
             return false; // Prevent the app from being closed
           },
           child: Scaffold(
@@ -35,7 +37,7 @@ class _Vw_SettingsState extends State<Vw_Settings> {
                 automaticallyImplyLeading: false,
                 backgroundColor: Colors.white,
                 title: Text(
-                  "Settings",
+                    "${'${cm_StringConstantsVwSettings.strSettings}'.tr}",
                   style: GoogleFonts.ubuntu(
                       textStyle: const TextStyle(
                           fontSize: 22,
@@ -65,7 +67,7 @@ class _Vw_SettingsState extends State<Vw_Settings> {
                         ),
                       ),
                       child: Text(
-                        'Logout',
+                        "${'${cm_StringConstantsVwSettings.strLogout}'.tr}",
                         style: GoogleFonts.ubuntu(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.w600,
@@ -95,8 +97,7 @@ class _Vw_SettingsState extends State<Vw_Settings> {
                         ),
                       ),
                       child: Text(
-                        'Change Language',
-                        style: GoogleFonts.ubuntu(
+                        "${'${cm_StringConstantsVwSettings.strChangeLanguage}'.tr}"    ,                    style: GoogleFonts.ubuntu(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 25,

@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/root/internacionalization.dart';
 import '../cm_StringConstants/cm_StringConstantsVwCommomLayout.dart';
 import '../cm_StringConstants/cm_StringConstantsVwOrderDetails.dart';
 import '../cm_StringConstants/cm_StringConstantsVwProfile.dart';
+import '../cm_StringConstants/cm_StringConstantsVwSettings.dart';
 
 class cm_LanguageController extends Translations {
   @override
@@ -24,7 +25,7 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwHome.strError}": 'Error',
           "${cm_StringConstantsVwHome.strRedCancelled}": 'Red = Cancelled',
           "${cm_StringConstantsVwHome.strBlueProcessing}": 'Blue = Processing',
-          "${cm_StringConstantsVwHome.strGreenPending}": 'Green = Pending',
+          "${cm_StringConstantsVwHome.strGreenPending}": 'Green = Enroute',
           "${cm_StringConstantsVwHome.strYoudont_haveanyorders}":
               cm_StringConstantsVwHome.strYoudont_haveanyorders ?? 'You don\'t have any orders',
           "${cm_StringConstantsVwHome.strOrderNO}": 'Order NO',
@@ -33,6 +34,8 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwHome.strAddress}": 'Address',
           "${cm_StringConstantsVwHome.strOrderAccepted}": 'Accept',
           "${cm_StringConstantsVwHome.strOrderRejected}": 'Reject',
+          "${cm_StringConstantsVwHome.strYellowWaiting}": 'Yellow = waiting',
+          "${cm_StringConstantsVwHome.strPurpleAccepted}": 'Purple = accepted',
           "${cm_StringConstantsVwHome.strYoudont_haveNoneworders}":
               cm_StringConstantsVwHome.strYoudont_haveNoneworders ?? 'You don\'t have any new orders',
           // Vw Common layout
@@ -69,7 +72,15 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwOrderDetails.strResturent}": 'Restaurant:',
           "${cm_StringConstantsVwOrderDetails.strDelivered}": 'Delivered:',
           "${cm_StringConstantsVwOrderDetails.strYourOrderDeliverd}": 'Already Delivered',
+          "${cm_StringConstantsVwOrderDetails.strItemQty}": 'Item Qty:',
+          "${cm_StringConstantsVwOrderDetails.strItemPrice}": 'Item Name',
+          "${cm_StringConstantsVwOrderDetails.strTotal}": 'Total:',
 
+
+          //Vw Settings
+          "${cm_StringConstantsVwSettings.strSettings}": 'Settings',
+          "${cm_StringConstantsVwSettings.strLogout}": 'Logout',
+          "${cm_StringConstantsVwSettings.strChangeLanguage}": 'Change Language',
         },
         'ar_SA': {
           // Home Screen
@@ -95,7 +106,10 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwHome.strAddress}": 'عنوان',
           "${cm_StringConstantsVwHome.strOrderAccepted}": 'يقبل',
           "${cm_StringConstantsVwHome.strOrderRejected}": 'يرفض',
+          "${cm_StringConstantsVwHome.strYellowWaiting}": 'الأصفر = الانتظار',
+          "${cm_StringConstantsVwHome.strPurpleAccepted}": 'الأرجواني = مقبول',
           "${cm_StringConstantsVwHome.strYoudont_haveNoneworders}": 'ليس لديك أي طلبات جديدة',
+
           //VwCommonLayout
 
           "${cm_StringConstantsVwCommomLayout.strHome}": 'الصفحة الرئيسية',
@@ -132,6 +146,16 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwOrderDetails.strResturent}": 'المطعم:',
           "${cm_StringConstantsVwOrderDetails.strDelivered}": 'تم التوصيل:',
           "${cm_StringConstantsVwOrderDetails.strYourOrderDeliverd}": 'تم التوصيل:',
-        },
+          "${cm_StringConstantsVwOrderDetails.strItemQty}": 'البند الكمية:',
+          "${cm_StringConstantsVwOrderDetails.strItemPrice}": 'معدل البند:',
+          "${cm_StringConstantsVwOrderDetails.strTotal}": 'المجموع:',
+
+          //VwSettings
+
+          "${cm_StringConstantsVwSettings.strSettings}": 'الإعدادات',
+          "${cm_StringConstantsVwSettings.strLogout}": 'تسجيل الخروج',
+          "${cm_StringConstantsVwSettings.strChangeLanguage}": 'تغيير اللغة',
+
+  },
       };
 }

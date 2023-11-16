@@ -1,8 +1,11 @@
+import 'package:dowidardriver/MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../ClassModules/cm_StringConstants/cm_StringConstantsVwCommomLayout.dart';
 import '../Routing/AppRoutes.dart';
+
+final Vm_Home lVm_Home = Get.find<Vm_Home>();
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final RxInt selectedIndex = 0.obs;
@@ -55,8 +58,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
   }
 
   BottomNavigationBarItem _buildAnimatedItem(int index, IconData icon, String label) {
-    final isCurrentItem = selectedIndex.value == index;
-    final color = isCurrentItem ? Colors.deepOrangeAccent : Colors.grey;
+    bool isCurrentItem = selectedIndex.value == index;
+    var color = isCurrentItem ? Colors.deepOrangeAccent : Colors.grey;
+
+    // Check if the selected index is 3 (Settings) and apply the color change
+
+
+
 
     return BottomNavigationBarItem(
       icon: AnimatedContainer(

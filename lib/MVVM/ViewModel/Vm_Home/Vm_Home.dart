@@ -1,4 +1,5 @@
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
+import 'package:dowidardriver/Enum/EnumStatus.dart';
 import 'package:dowidardriver/MVVM/Model/ModNewOrder/ModNewOrders.dart';
 import 'package:dowidardriver/MVVM/Model/ModOrderDetails/ModOrderDetials.dart';
 import 'package:dowidardriver/MVVM/Model/ModOrderStatus/ModOrderStatus.dart';
@@ -26,12 +27,25 @@ class Vm_Home extends GetxController {
   RxBool isSelectedred = false.obs;
   RxBool isSelectedblue = false.obs;
   RxBool isSelectedfreen = false.obs;
+  RxBool isSelectedYellow = false.obs;
+  RxBool isSelectedPurple= false.obs;
+
+  RxBool isArabic = false.obs;
+
 
   RxList<Order>? RxListModUserOrderDetails = <Order>[].obs;
 
   final Vm_CommonLayout l_Vm_CommonLayout = Get.find<Vm_CommonLayout>();
 
   ModOrderDetails? orderDetails; // Declare the model outside the method
+
+   void fncresetColorSelections() {
+    isSelectedred.value = false;
+   isSelectedblue.value = false;
+    isSelectedfreen.value = false;
+    isSelectedPurple.value = false;
+    isSelectedYellow.value = false;
+  }
 
   Future<bool> fnc_OrderDetails() async {
     try {
@@ -126,8 +140,9 @@ class Vm_Home extends GetxController {
         final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
             .where((order) => order.status == OrderStatus.CANCELLED) // Use the enum value for 'cancelled'
             .toList();
+        l_Vm_CommonLayout.RxListModOrderHistory?.clear();
 
-        l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
+        l_Vm_CommonLayout.RxListModOrderHistory?.assignAll(filteredOrders);
         isLoadingOrderHistory.value = false;
 
         return true; // Filtering and assignment succeeded
@@ -142,7 +157,7 @@ class Vm_Home extends GetxController {
     }
   }
 
-  Future<bool> fncfilterPending() async {
+  Future<bool> fncfilterEnroute() async {
     try {
       await l_Vm_CommonLayout.fnc_GetAllOrders();
 
@@ -150,9 +165,9 @@ class Vm_Home extends GetxController {
 
       if (l_Vm_CommonLayout.RxListModUserAllOrders != null) {
         final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
-            .where((order) => order.status == OrderStatus.PENDING) // U.se the enum value for 'cancelled'
+            .where((order) => order.status == Status.OrderEnroute) // U.se the enum value for 'cancelled'
             .toList();
-        l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
+        l_Vm_CommonLayout.RxListModUserProcessingEnrOrders?.assignAll(filteredOrders);
         isLoadingPendingOrders.value = false;
         return true; // Filtering and assignment succeeded
       } else {
@@ -178,7 +193,10 @@ class Vm_Home extends GetxController {
         final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
             .where((order) => order.status == OrderStatus.PROCESSING) // U.se the enum value for 'cancelled'
             .toList();
-        l_Vm_CommonLayout.RxListModUserAllOrders?.assignAll(filteredOrders);
+
+        l_Vm_CommonLayout.RxListModOrderHistory?.clear();
+        l_Vm_CommonLayout.RxListModUserProcessingEnrOrders?.assignAll(filteredOrders);
+        l_Vm_CommonLayout.RxListModOrderHistory?.assignAll(filteredOrders);
         isLoadingPendingOrders.value = false;
         return true; // Filtering and assignment succeeded
       } else {
