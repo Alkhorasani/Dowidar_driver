@@ -36,6 +36,8 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwHome.strOrderRejected}": 'Reject',
           "${cm_StringConstantsVwHome.strYellowWaiting}": 'Yellow = waiting',
           "${cm_StringConstantsVwHome.strPurpleAccepted}": 'Purple = accepted',
+          "${cm_StringConstantsVwHome.strYoudont_haveOrderhistory}": 'You don\'t have orders history',
+
           "${cm_StringConstantsVwHome.strYoudont_haveNoneworders}":
               cm_StringConstantsVwHome.strYoudont_haveNoneworders ?? 'You don\'t have any new orders',
           // Vw Common layout
@@ -109,6 +111,7 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwHome.strYellowWaiting}": 'الأصفر = الانتظار',
           "${cm_StringConstantsVwHome.strPurpleAccepted}": 'الأرجواني = مقبول',
           "${cm_StringConstantsVwHome.strYoudont_haveNoneworders}": 'ليس لديك أي طلبات جديدة',
+          "${cm_StringConstantsVwHome.strYoudont_haveOrderhistory}": "ليس لديك تاريخ طلبات.",
 
           //VwCommonLayout
 

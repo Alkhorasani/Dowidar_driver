@@ -45,10 +45,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
 
                 style: GoogleFonts.ubuntu(
                     textStyle: const TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
-                        //fontWeight: FontWeight.w600,
-                        letterSpacing: .5)),
+                        fontSize: 22, color: Colors.black, fontWeight: FontWeight.w600, letterSpacing: .5)),
               ),
               centerTitle: true,
             ),
@@ -170,9 +167,15 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                       },
                       child: Obx(() {
 
-                        if( l_Vm_CommonLayout.isLoadingOrderHistory.isTrue){
+                        if( l_Vm_CommonLayout.RxListModOrderHistory!.isEmpty || l_Vm_CommonLayout.RxListModOrderHistory ==null ){
                           return Center(
-                            child: CircularProgressIndicator(),
+                            child: Text(
+                              "${'${cm_StringConstantsVwHome.strYoudont_haveOrderhistory}'.tr}",
+                              style: GoogleFonts.ubuntu(
+                                textStyle: const TextStyle(
+                                    fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
+                              ),
+                            ),
                           );
                         }
 

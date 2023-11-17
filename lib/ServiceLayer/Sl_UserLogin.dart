@@ -22,6 +22,7 @@ class Sl_UserLogin {
       final lResponse = await HttpCalls().Fnc_HttpWeb(dynamicUrl, lUtfContent);
 
       if (lResponse.statusCode == 200) {
+        print(lResponse.body);
         final Map<String, dynamic> jsonMap = jsonDecode(lResponse.body);
         return ModUserData.fromJson(jsonMap);
       } else {

@@ -35,7 +35,26 @@ class Vm_OrderDetails extends GetxController {
       time = DateFormat('hh:mm a').format(createdAt);
     }
 
-    Paymenttype = orderDetails.value?.data?.order?.paymentType(orderDetails.value?.data?.order?.paymentHistories);
+    String? paymentTypeString = orderDetails.value?.data?.order?.paymentType(orderDetails.value?.data?.order?.paymentHistories);
+    if (paymentTypeString != null) {
+      if (paymentTypeString.toLowerCase().contains("cash")) {
+        Paymenttype = "Cash";
+        isMethodCash.value == true;
+      } else if (paymentTypeString.toLowerCase().contains("wallet")) {
+        Paymenttype = "Wallet";
+        isMethodCash.value == false;
+
+      } else {
+        // Handle other cases if needed
+        Paymenttype = paymentTypeString;
+      }
+    }
+
+    // Paymenttype = orderDetails.value?.data?.order?.paymentType(orderDetails.value?.data?.order?.paymentHistories);
+    print( " Payment Type: $Paymenttype");
+    print( " Payment Type: $Paymenttype");
+    print( " Payment Type: $Paymenttype");
+
 
     if (Paymenttype != null) {
       isMethodCash.isTrue;

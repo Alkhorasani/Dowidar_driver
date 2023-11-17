@@ -1,6 +1,7 @@
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../ViewModel/Vm_Chat/Vm_Chat.dart';
 
@@ -29,7 +30,10 @@ class _ChatViewState extends State<ChatView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Chat'),
+          title: Text('Chat',                  style: GoogleFonts.ubuntu(
+              textStyle: const TextStyle(
+                  fontSize: 22, color: Colors.black, fontWeight: FontWeight.w600, letterSpacing: .5)),
+          ),
         ),
         body: Column(
           children: [

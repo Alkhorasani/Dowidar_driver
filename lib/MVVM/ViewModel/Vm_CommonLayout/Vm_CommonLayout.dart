@@ -30,7 +30,6 @@ class Vm_CommonLayout extends GetxController {
         RxListModUserAllOrders?.value.clear();
         ordersList = l_ModGetAllOrders.data?.orders;
 
-
         l_list_ModGetAllOrders = ordersList!.map((orderJson) {
           return orderJson;
         }).toList();
@@ -98,7 +97,9 @@ class Vm_CommonLayout extends GetxController {
 
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
-            .where((order) => order.status == OrderStatus.PENDING && order.driverStatus == DriverStatus.WAITING )  // U.se the enum value for 'cancelled'
+            .where((order) =>
+                order.status == OrderStatus.PENDING &&
+                order.driverStatus == DriverStatus.WAITING) // U.se the enum value for 'cancelled'
             .toList();
         RxListModOrderPenidngNew?.clear();
         RxListModOrderPenidngNew?.assignAll(filteredOrders);
@@ -123,7 +124,9 @@ class Vm_CommonLayout extends GetxController {
 
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
-            .where((order) => order.status == OrderStatus.PENDING && order.driverStatus == DriverStatus.ACCEPTED )  // U.se the enum value for 'cancelled'
+            .where((order) =>
+                order.status == OrderStatus.PENDING &&
+                order.driverStatus == DriverStatus.ACCEPTED) // U.se the enum value for 'cancelled'
             .toList();
         RxListModOrderPenidngNew?.clear();
         RxListModOrderPenidngNew?.assignAll(filteredOrders);
@@ -141,10 +144,6 @@ class Vm_CommonLayout extends GetxController {
       return false; // Error occurred
     }
   }
-
-
-
-
 
   Future<bool> fnc_RefreshAllOrders() async {
     try {

@@ -12,10 +12,10 @@ import '../MVVM/Model/ModUserLogin/ModUserLogin.dart';
 import '../MVVM/Model/ModUserLogin/PeraModel.dart';
 
 class Sl_OrderAccRej {
-  Future<ModNewOrders> fnc_OrderAccRej() async {
+  Future<bool> fnc_OrderAccRej() async {
     try {
       ParametrizedNewOrderModel lParametrizedNewOrderModel =
-          ParametrizedNewOrderModel(order_id: cmGlobalVariables.pBOrderId, is_accepted: cmGlobalVariables.pBisAccepted);
+      ParametrizedNewOrderModel(order_id: cmGlobalVariables.pBOrderId, is_accepted: cmGlobalVariables.pBisAccepted);
 
       String lJsonString = json.encode(lParametrizedNewOrderModel.toJson());
       List<int> lUtfContent = utf8.encode(lJsonString);
@@ -23,16 +23,16 @@ class Sl_OrderAccRej {
       final lResponse = await HttpCalls().Fnc_HttpWeb(dynamicUrl, lUtfContent);
 
       if (lResponse.statusCode == 200) {
-        final Map<String, dynamic> jsonMap = jsonDecode(lResponse.body);
-        return ModNewOrders.  fromJson(jsonMap);
+        // Successful response, return true
+        print ( lResponse.body);
+        return true;
       } else {
-        throw Exception("Failed to fetch data");
+        // Unsuccessful response, return false
+        return false;
       }
-    } catch (e) {
+    } catch (e, stack) {
       print(e.toString());
-      throw Exception("An error occurred");
+      throw Exception([e, stack]);
     }
   }
-
-// Your other methods can remain the same.
 }

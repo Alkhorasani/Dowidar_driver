@@ -88,7 +88,7 @@
       createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
       updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
       driverId: json["driver_id"],
-      driverStatus: driverStatusValues.map[json["driver_status"]]!,
+      driverStatus: driverStatusValues.map[json["driver_status"]],
       note: json["note"],
       restaurant: json["restaurant"] == null ? null : Restaurant.fromJson(json["restaurant"]),
       user: Map.from(json["user"]!).map((k, v) => MapEntry<String, String?>(k, v)),

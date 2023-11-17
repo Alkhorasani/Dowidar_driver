@@ -18,17 +18,13 @@ _handleOnTapNotification(RemoteMessage message) {
   String id = message.data['order_id'];
   (message.notification!.body!);
 
-  cm_HandleDeepLink().handleDeepLink(
-      context: _context,
-      deeplink: type,
-      payLoad: id);
+  cm_HandleDeepLink().handleDeepLink(context: _context, deeplink: type, payLoad: id);
 }
 
 class FirebaseService {
   static FirebaseMessaging? _firebaseMessaging;
 
-  static FirebaseMessaging get firebaseMessaging =>
-      FirebaseService._firebaseMessaging ?? FirebaseMessaging.instance;
+  static FirebaseMessaging get firebaseMessaging => FirebaseService._firebaseMessaging ?? FirebaseMessaging.instance;
 
   static Future<void> initializeFirebase() async {
     await Firebase.initializeApp(
@@ -73,9 +69,7 @@ class FirebaseService {
   }
 
   static NotificationDetails platformChannelSpecifics = const NotificationDetails(
-
     android: AndroidNotificationDetails(
-
       "New Order",
       "New Order",
       priority: Priority.high,
@@ -92,7 +86,6 @@ class FirebaseService {
         payload: jsonEncode(message.data));
   }
 
-
   // for receiving message when app is in background or foreground
   static Future<void> onMessage() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
@@ -102,17 +95,17 @@ class FirebaseService {
       }
     });
   }
-
 }
 
-class FCMProvider  {
+class FCMProvider {
   static void setContext(BuildContext context) => _context = context;
 
   static Future<void> handleOnTapNotification(NotificationResponse? response) async {
     if (_context == null || response!.payload == null) return;
     Map<String, dynamic> payload = jsonDecode(response.payload!);
     NotificationPayload payloadData = NotificationPayload.fromJson(payload);
-      cm_HandleDeepLink() .handleDeepLink(context: _context, deeplink: payloadData.type ?? '', payLoad: payloadData.orderId);
+    cm_HandleDeepLink()
+        .handleDeepLink(context: _context, deeplink: payloadData.type ?? '', payLoad: payloadData.orderId);
   }
 
   static Future<void> onMessage() async {
@@ -169,16 +162,16 @@ class BannerNotificationPayload {
   String toRawJson() => json.encode(toJson());
 
   factory BannerNotificationPayload.fromJson(Map<String, dynamic> json) => BannerNotificationPayload(
-    id: (json["id"] is String) ? int.parse(json['id']) : json['id'],
-    type: json["type"],
-    data: json['data'] != null ? DiscountData.fromJson(json['data'] as Map<String, dynamic>) : null,
-  );
+        id: (json["id"] is String) ? int.parse(json['id']) : json['id'],
+        type: json["type"],
+        data: json['data'] != null ? DiscountData.fromJson(json['data'] as Map<String, dynamic>) : null,
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "type": type,
-    'data': data?.toJson(),
-  };
+        "id": id,
+        "type": type,
+        'data': data?.toJson(),
+      };
 }
 
 class DiscountData {
@@ -208,7 +201,6 @@ class DiscountData {
     };
     return data;
   }
-
 }
 
 NotificationPayload notificationPayloadFromJson(String str) => NotificationPayload.fromJson(json.decode(str));
@@ -225,12 +217,12 @@ class NotificationPayload {
   });
 
   factory NotificationPayload.fromJson(Map<String, dynamic> json) => NotificationPayload(
-    type: json["type"],
-    orderId: json["order_id"],
-  );
+        type: json["type"],
+        orderId: json["order_id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "type": type,
-    "order_id": orderId,
-  };
+        "type": type,
+        "order_id": orderId,
+      };
 }

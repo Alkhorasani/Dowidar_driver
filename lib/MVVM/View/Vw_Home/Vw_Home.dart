@@ -229,7 +229,6 @@ class _Vw_HomeState extends State<Vw_Home> {
                                           );
                                         }),
                                       ),
-
                                       GestureDetector(
                                         onTap: () {
                                           l_Vm_Home.isSelectedred.value = false;
@@ -264,7 +263,6 @@ class _Vw_HomeState extends State<Vw_Home> {
                                           );
                                         }),
                                       ),
-
                                     ],
                                   ),
                                 ),
@@ -394,7 +392,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                 );
                                                               }
                                                               return Text(
-                                                                order.restaurant!.name.toString().split('.').last,
+                                                                order.restaurant!.arName.toString()?? "",
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black,
@@ -415,12 +413,13 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              order.addressId!.toString().split('.').last,
+                                                              order.restaurantId.toString()!,
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black,
                                                                 fontSize: 16,
                                                               ),
+
                                                             )
                                                           ],
                                                         ),
@@ -639,7 +638,6 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                   children: [
-
                                                     Column(
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -688,7 +686,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.strResturent}:'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -698,8 +696,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                             Obx(() {
                                                               if (l_Vm_Home.isArabic.value == true) {
                                                                 return CustomRestaurantNameText(
-                                                                  restaurantName:
-                                                                      order.restaurant!.arName.toString().split('.').last,
+                                                                  restaurantName: order.restaurant!.arName
+                                                                      .toString()
+                                                                      .split('.')
+                                                                      .last,
                                                                 );
                                                               }
                                                               return Text(
@@ -943,9 +943,8 @@ class _Vw_HomeState extends State<Vw_Home> {
 
     return GestureDetector(
       onTap: () {
-        l_Vm_Home.isSelectedred.value = false;
-        l_Vm_Home.isSelectedblue.value = false;
-        l_Vm_Home.isSelectedfreen.value = false;
+        l_Vm_Home.fncresetColorSelections();
+
         //when tap anywhere on screen keyboard dismiss
         FocusManager.instance.primaryFocus?.unfocus();
       },

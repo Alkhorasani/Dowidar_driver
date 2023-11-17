@@ -23,6 +23,7 @@ class cm_StringConstantsVwHome {
   static String? strResturent = 'Restaurant';
   static String? CreatedAt = 'Created At';
   static String? strYoudont_haveNoneworders = 'You don\'t have any new orders';
+  static String? strYoudont_haveOrderhistory = 'You don\'t have orders history';
   static String? strAddress = 'Address';
   static String? strOrderAccepted = 'Accept';
   static String? strOrderRejected = 'Reject';

@@ -40,10 +40,7 @@ class _Vw_SettingsState extends State<Vw_Settings> {
                     "${'${cm_StringConstantsVwSettings.strSettings}'.tr}",
                   style: GoogleFonts.ubuntu(
                       textStyle: const TextStyle(
-                          fontSize: 22,
-                          color: Colors.black,
-                          //fontWeight: FontWeight.w600,
-                          letterSpacing: .5)),
+                          fontSize: 22, color: Colors.black, fontWeight: FontWeight.w600, letterSpacing: .5)),
                 ),
                 centerTitle: true,
               ),

@@ -47,9 +47,6 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
         child: Scaffold(
           bottomNavigationBar: Obx(() {
             if (l_VmOrderDetails.orderDetails.value?.data?.order?.status! == Status.OrderDeliverd) {
-
-              print(l_VmOrderDetails.orderDetails.value?.data?.order?.status!);
-              print(l_VmOrderDetails.orderDetails.value?.data?.order?.status!);
               print(l_VmOrderDetails.orderDetails.value?.data?.order?.status!);
               return Padding(
                 padding: EdgeInsets.only(left: G_width * 0.23),
@@ -179,7 +176,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                     // Add data from orderDetails here
 
                                     Text(
-                                        "${'${cm_StringConstantsVwOrderDetails.strRestaurantInfo}'.tr}: ${l_VmOrderDetails.orderDetails.value?.data?.order?.restaurant?.name.toString()}"),
+                                        "${'${cm_StringConstantsVwOrderDetails.strRestaurantName}'.tr}: ${l_VmOrderDetails.orderDetails.value?.data?.order?.restaurant?.arName.toString()}"),
                                     SizedBox(height: G_height * 0.01),
 
                                     Row(
@@ -420,7 +417,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                 style: GoogleFonts.ubuntu(
                                     textStyle: const TextStyle(
                                         fontSize: 22,
-                                        color: Colors.black38,
+                                        color: Colors.black,
                                         fontWeight: FontWeight.w600,
                                         letterSpacing: .5)),
                               ),
@@ -486,6 +483,9 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                           children: [
                                             Obx(() {
                                               if (lVm_Home.isArabic.value == true) {
+                                                print("  item name in arabic ${item.arName.toString()}");
+                                                print("  item name in engdlih ${item.name.toString()}");
+
                                                 return CustomRestaurantNameText(restaurantName: item.arName.toString());
                                               } else {
                                                 return buildRow("", item.name.toString());
@@ -494,7 +494,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                             buildRow("${'${cm_StringConstantsVwOrderDetails.strItemQty}:'.tr}",
                                                 item.pivot!.quantity.toString()),
                                             Obx(() {
-                                              if (l_VmOrderDetails.isMethodCash.isFalse)
+                                              if (l_VmOrderDetails.isMethodCash.value == false)
                                                 return buildRow(
                                                     "${'${cm_StringConstantsVwOrderDetails.strItemPrice}:'.tr}",
                                                     item.price.toString());
@@ -503,7 +503,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                               }
                                             }),
                                             Obx(() {
-                                              if (l_VmOrderDetails.isMethodCash.isFalse)
+                                              if (l_VmOrderDetails.isMethodCash.value == false)
                                                 return buildRow("${'${cm_StringConstantsVwOrderDetails.strTotal}:'.tr}",
                                                     l_VmOrderDetails.TotalCash.toString());
                                               else {

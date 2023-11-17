@@ -35,10 +35,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                 "${'${cm_StringConstantsVwProfile.strMyPrsofile}'.tr}",
                 style: GoogleFonts.ubuntu(
                     textStyle: const TextStyle(
-                        fontSize: 22,
-                        color: Colors.black,
-                        //fontWeight: FontWeight.w600,
-                        letterSpacing: .5)),
+                        fontSize: 22, color: Colors.black, fontWeight: FontWeight.w600, letterSpacing: .5)),
               ),
               centerTitle: true,
             ),

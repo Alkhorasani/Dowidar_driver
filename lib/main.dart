@@ -57,19 +57,19 @@ Future<void> onBackgroundMsg(RemoteMessage msg) async {
   await Firebase.initializeApp(
       options: Platform.isAndroid
           ? const FirebaseOptions(
-              apiKey: "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc",
-              projectId: "dowidar-7e981",
-              storageBucket: "dowidar-7e981.appspot.com",
-              messagingSenderId: "583156775225",
-              appId: "1:583156775225:android:8d6464b077e996aef790e8",
-            )
+        apiKey: "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc",
+        projectId: "dowidar-7e981",
+        storageBucket: "dowidar-7e981.appspot.com",
+        messagingSenderId: "583156775225",
+        appId: "1:583156775225:android:8d6464b077e996aef790e8",
+      )
           : const FirebaseOptions(
-              apiKey: "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc",
-              projectId: "dowidar-7e981",
-              storageBucket: "dowidar-7e981.appspot.com",
-              messagingSenderId: "583156775225",
-              appId: "1:583156775225:android:8d6464b077e996aef790e8",
-            ));
+        apiKey: "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc",
+        projectId: "dowidar-7e981",
+        storageBucket: "dowidar-7e981.appspot.com",
+        messagingSenderId: "583156775225",
+        appId: "1:583156775225:android:8d6464b077e996aef790e8",
+      ));
 
   print("Handling a background message: ${msg.messageId}");
   FirebaseService.localNotification(msg);
@@ -94,7 +94,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await FirebaseService.initializeFirebase();
   _initializeNotifications();
-   FirebaseMessaging.onBackgroundMessage(onBackgroundMsg);
+  FirebaseMessaging.onBackgroundMessage(onBackgroundMsg);
 
   cmAppStartup().fncGetDeviceInfo();
 
@@ -115,7 +115,7 @@ Future<void> main() async {
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   final AndroidFlutterLocalNotificationsPlugin? androidPlugin =
-      flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+  flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
 
   if (androidPlugin != null) {
     androidPlugin.requestNotificationsPermission();

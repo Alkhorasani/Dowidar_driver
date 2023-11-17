@@ -63,28 +63,46 @@ class Vm_Home extends GetxController {
     }
   }
 
+  // Future<bool> fnc_OrderAccRej() async {
+  //   try {
+  //     isLoadingAccOrRej.value = true; // Show loading indicator
+  //
+  //     ModNewOrders l_ModNewOrders = await Sl_OrderAccRej().fnc_OrderAccRej();
+  //
+  //     if (l_ModNewOrders != null) {
+  //       isLoadingAccOrRej.value = false; // Hide loading indicator
+  //
+  //       // print(l_list_ModGetAllOrders);
+  //
+  //       print("Called");
+  //       isLoadingAccOrRej.value = false; // Hide loading indicator
+  //
+  //       return true;
+  //     } else {
+  //       print("failed");
+  //       isLoadingAccOrRej.value = false;
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     print("Error in fnc_GetAllOrders: $e");
+  //     return false; // You can handle the error as needed
+  //   }
+  // }
+
   Future<bool> fnc_OrderAccRej() async {
     try {
       isLoadingAccOrRej.value = true; // Show loading indicator
 
-      ModNewOrders l_ModNewOrders = await Sl_OrderAccRej().fnc_OrderAccRej();
+      // Call the asynchronous function to perform the order acceptance/rejection
+      bool success = await Sl_OrderAccRej().fnc_OrderAccRej();
 
-      if (l_ModNewOrders != null) {
-        isLoadingAccOrRej.value = false; // Hide loading indicator
+      // Hide loading indicator
+      isLoadingAccOrRej.value = false;
 
-        // print(l_list_ModGetAllOrders);
-
-        print("Called");
-        isLoadingAccOrRej.value = false; // Hide loading indicator
-
-        return true;
-      } else {
-        print("failed");
-        isLoadingAccOrRej.value = false;
-        return false;
-      }
+      return success;
     } catch (e) {
-      print("Error in fnc_GetAllOrders: $e");
+      print("Error in fnc_OrderAccRej: $e");
+      isLoadingAccOrRej.value = false;
       return false; // You can handle the error as needed
     }
   }
