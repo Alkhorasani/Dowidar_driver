@@ -125,6 +125,9 @@ class _Vw_HomeState extends State<Vw_Home> {
                                 Workmanager().registerOneOffTask(
                                   "get_user_location_task",
                                   "get_user_location", // Name of the task
+                                  inputData: <String, dynamic>{
+                                    "message": "Your location is live, congratulations!",
+                                  },
                                 );
 
                                 Get.dialog(
@@ -307,8 +310,8 @@ class _Vw_HomeState extends State<Vw_Home> {
 
                                             // Define the color based on the order status
                                             Color tileColor;
-                                            if (order.status == OrderStatus.CANCELLED) {
-                                              tileColor = Colors.red.withOpacity(0.3);
+                                            if (order.status == OrderStatus.Enroute) {
+                                              tileColor = Colors.green.withOpacity(0.3);
                                             } else if (order.status == OrderStatus.PROCESSING) {
                                               tileColor = Colors.lightBlue.withOpacity(0.3);
                                             } else if (order.status == OrderStatus.PENDING) {
@@ -319,26 +322,37 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             }
 
                                             return GestureDetector(
-                                              onTap: () async {
-                                                cmGlobalVariables.pBOntapOrderId = order.id;
+                                                onTap: () async {
+                                                  cmGlobalVariables.pBOntapOrderId = order.id;
 
-                                                Get.toNamed(AppRoutes.vwOrderDetails);
+                                                  Get.toNamed(AppRoutes.vwOrderDetails);
 
-                                                print(cmGlobalVariables.pBOntapOrderId);
-                                              },
-                                              child: Container(
-                                                height: G_height * 0.17,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                  print(cmGlobalVariables.pBOntapOrderId);
+                                                },
+                                                child: Container(
+                                                  height: G_height * 0.18,
+                                                  decoration: BoxDecoration(
+                                                    color: tileColor, // Set the determined color
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: const Color(0xff1D1617).withOpacity(0.07),
+                                                        offset: const Offset(0, 10),
+                                                        blurRadius: 40,
+                                                        spreadRadius: 0,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                                                    child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.strOrderNO}:'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -358,7 +372,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.strStatus}:'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -376,57 +390,40 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                           ],
                                                         ),
                                                         Row(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strResturent}'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.strResturent}:'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
                                                                 fontSize: 16,
                                                               ),
                                                             ),
-                                                            Obx(() {
-                                                              if (l_Vm_Home.isArabic.value == true) {
-                                                                return CustomRestaurantNameText(
-                                                                  restaurantName: order.restaurant!.arName.toString(),
+                                                            Expanded(
+                                                              child: Obx(() {
+                                                                if (l_Vm_Home.isArabic.value == true) {
+                                                                  return CustomRestaurantNameText(
+                                                                    restaurantName: order.restaurant!.arName.toString(),
+                                                                  );
+                                                                }
+                                                                return Text(
+                                                                  order.restaurant!.name.toString().split('.').last,
+                                                                  maxLines: 2,
+                                                                  style: const TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: Colors.black,
+                                                                    fontSize: 16,
+                                                                  ),
                                                                 );
-                                                              }
-                                                              return Text(
-                                                                order.restaurant!.arName.toString()?? "",
-                                                                style: const TextStyle(
-                                                                  fontWeight: FontWeight.w500,
-                                                                  color: Colors.black,
-                                                                  fontSize: 16,
-                                                                ),
-                                                              );
-                                                            }),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              "${'${cm_StringConstantsVwHome.strAddress}'.tr}",
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black45,
-                                                                fontSize: 16,
-                                                              ),
+                                                              }),
                                                             ),
-                                                            Text(
-                                                              order.restaurantId.toString()!,
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black,
-                                                                fontSize: 16,
-                                                              ),
-
-                                                            )
                                                           ],
                                                         ),
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.CreatedAt}:'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -443,27 +440,37 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                             )
                                                           ],
                                                         ),
-
-                                                        // Display items' names
-                                                        // Display items' names
+                                                        Expanded(
+                                                          child: Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Text(
+                                                                "${'${cm_StringConstantsVwHome.strAddress}:'.tr}",
+                                                                style: const TextStyle(
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: Colors.black45,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Text(
+                                                                  order.restaurant!.address.toString(),
+                                                                  maxLines: 4,
+                                                                  // softWrap: true,
+                                                                  style: const TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: Colors.black,
+                                                                    fontSize: 16,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
-                                                  ],
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: tileColor, // Set the determined color
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: const Color(0xff1D1617).withOpacity(0.07),
-                                                      offset: const Offset(0, 10),
-                                                      blurRadius: 40,
-                                                      spreadRadius: 0,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
+                                                  ),
+                                                ));
                                           },
                                         );
                                       }
@@ -634,277 +641,276 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                 // Add any additional actions you want to perform when tapping on the item.
                                               },
                                               child: Container(
-                                                height: G_height * 0.24,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black45,
-                                                                fontSize: 16,
-                                                              ),
+                                                height: G_height * 0.29,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(20),
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black45,
+                                                              fontSize: 16,
                                                             ),
-                                                            Text(
-                                                              order.orderNo.toString(),
+                                                          ),
+                                                          Text(
+                                                            order.orderNo.toString(),
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black45,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "${status != null ? status.toString().split('.').last : ''}",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "${'${cm_StringConstantsVwHome.strResturent}:'.tr}",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black45,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          Obx(() {
+                                                            if (l_Vm_Home.isArabic.value == true) {
+                                                              return CustomRestaurantNameText(
+                                                                restaurantName:
+                                                                    order.restaurant!.arName.toString().split('.').last,
+                                                              );
+                                                            }
+                                                            return Text(
+                                                              order.restaurant!.name.toString().split('.').last,
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black,
                                                                 fontSize: 16,
                                                               ),
+                                                            );
+                                                          }),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black45,
+                                                              fontSize: 16,
                                                             ),
-                                                          ],
-                                                        ),
-                                                        Row(
+                                                          ),
+                                                          Text(
+                                                            "${DateFormat('hh:mm a').format(order.createdAt!)}:${DateFormat('dd/MM').format(order.createdAt!)}",
+                                                            style: const TextStyle(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black,
+                                                              fontSize: 16,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Expanded(
+                                                        child: Row(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.strAddress}:'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
                                                                 fontSize: 16,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              "${status != null ? status.toString().split('.').last : ''}",
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black,
-                                                                fontSize: 16,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              "${'${cm_StringConstantsVwHome.strResturent}:'.tr}",
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black45,
-                                                                fontSize: 16,
-                                                              ),
-                                                            ),
-                                                            Obx(() {
-                                                              if (l_Vm_Home.isArabic.value == true) {
-                                                                return CustomRestaurantNameText(
-                                                                  restaurantName: order.restaurant!.arName
-                                                                      .toString()
-                                                                      .split('.')
-                                                                      .last,
-                                                                );
-                                                              }
-                                                              return Text(
-                                                                order.restaurant!.name.toString().split('.').last,
+                                                            Expanded(
+                                                              child: Text(
+                                                                order.restaurant!.address.toString(),
+                                                                maxLines: 2,
+                                                                // softWrap: true,
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black,
                                                                   fontSize: 16,
                                                                 ),
-                                                              );
-                                                            }),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              "${'${cm_StringConstantsVwHome.strAddress}'.tr}",
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black45,
-                                                                fontSize: 16,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              order.addressId!.toString().split('.').last,
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black,
-                                                                fontSize: 16,
-                                                              ),
-                                                            )
                                                           ],
                                                         ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black45,
-                                                                fontSize: 16,
+                                                      ),
+                                                      Obx(() {
+                                                        if (l_Vm_Home.isSelectedPurple.isTrue) {
+                                                          return Center(
+                                                            child: Padding(
+                                                              padding: EdgeInsets.only(top: G_height * 0.01),
+                                                              child: Text(
+                                                                "Please wait for the restaurant to accept.",
+                                                                style: GoogleFonts.ubuntu(
+                                                                  textStyle: const TextStyle(
+                                                                    fontSize: 16,
+                                                                    color: Colors.black38,
+                                                                    fontWeight: FontWeight.w800,
+                                                                  ),
+                                                                ),
+                                                                textAlign: TextAlign.center, // Center-align the text
                                                               ),
                                                             ),
-                                                            Text(
-                                                              "${DateFormat('hh:mm a').format(order.createdAt!)}:${DateFormat('dd/MM').format(order.createdAt!)}",
-                                                              style: const TextStyle(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black,
-                                                                fontSize: 16,
+                                                          );
+                                                        } else {
+                                                          return Row(
+                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                            children: [
+                                                              ElevatedButton(
+                                                                onPressed: () async {
+                                                                  cmGlobalVariables.pBisAccepted = true;
+
+                                                                  print("Button pressed at index: $index");
+                                                                  cmGlobalVariables.pBOrderId = order.id;
+                                                                  cmGlobalVariables.pBOrderStatusId =
+                                                                      cmGlobalVariables.pBOrderId = order.id;
+                                                                  cmGlobalVariables.pBOrderStatus =
+                                                                      Status.Orderconfirmed;
+                                                                  print(cmGlobalVariables.pBOrderId);
+
+                                                                  Get.dialog(
+                                                                    const Center(
+                                                                      child:
+                                                                          CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                                                    ),
+                                                                    barrierDismissible: false,
+                                                                  );
+
+                                                                  bool isCall = await l_Vm_Home.fnc_OrderAccRej();
+                                                                  //await l_Vm_Home.fnc_UpdateOrderStatus();
+                                                                  await l_Vm_CommonLayout.fnc_GetAllOrders();
+                                                                  await l_Vm_CommonLayout.fncNewOrdersWaitingFilter();
+                                                                  l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
+                                                                  l_Vm_CommonLayout.RxListModOrderPenidngNew?.refresh();
+
+                                                                  l_Vm_CommonLayout.isLoadingPendingOrders.refresh();
+                                                                  Get.back(); // Close the loading indicator dialog
+
+                                                                  if (isCall) {
+                                                                    print("Api called");
+                                                                  } else {}
+                                                                },
+                                                                style: ElevatedButton.styleFrom(
+                                                                  minimumSize: Size(70, 38),
+                                                                  elevation: 4,
+                                                                  // Set the width and height as needed
+                                                                  foregroundColor: Colors.black,
+                                                                  backgroundColor: Colors.green.shade200,
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.circular(10.0),
+                                                                  ),
+                                                                ),
+                                                                child: Text(
+                                                                  "${'${cm_StringConstantsVwHome.strOrderAccepted}'.tr}",
+                                                                  style: GoogleFonts.ubuntu(
+                                                                    textStyle: const TextStyle(
+                                                                      fontWeight: FontWeight.w800,
+                                                                      fontSize: 15,
+                                                                      color: Colors.white,
+                                                                      letterSpacing: 0.5, // Removed the period before 5
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            )
-                                                          ],
-                                                        ),
+                                                              VerticalDivider(
+                                                                indent: 10,
+                                                                endIndent: 10,
+                                                                color: Colors.black54,
+                                                                thickness: 0.1,
+                                                              ),
+                                                              ElevatedButton(
+                                                                onPressed: () async {
+                                                                  cmGlobalVariables.pBisAccepted = false;
 
-                                                        Obx(() {
-                                                          if (l_Vm_Home.isSelectedPurple.isTrue) {
-                                                            return Text(
-                                                              "Please wait for the restaurant to accept.",
-                                                              style: GoogleFonts.ubuntu(
-                                                                textStyle: const TextStyle(
-                                                                  fontSize: 15,
-                                                                  color: Colors.black,
-                                                                  fontWeight: FontWeight.w600,
+                                                                  print("Button pressed at index: $index");
+                                                                  cmGlobalVariables.pBOrderId = order.id;
+                                                                  cmGlobalVariables.pBOrderStatusId =
+                                                                      cmGlobalVariables.pBOrderId = order.id;
+                                                                  cmGlobalVariables.pBOrderStatus =
+                                                                      Status.Ordercancelled;
+                                                                  print(cmGlobalVariables.pBOrderId);
+
+                                                                  Get.dialog(
+                                                                    const Center(
+                                                                      child:
+                                                                          CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                                                    ),
+                                                                    barrierDismissible: false,
+                                                                  );
+
+                                                                  bool isCall = await l_Vm_Home.fnc_OrderAccRej();
+                                                                  //await l_Vm_Home.fnc_UpdateOrderStatus();
+                                                                  await l_Vm_CommonLayout.fnc_GetAllOrders();
+                                                                  await l_Vm_CommonLayout.fncNewOrdersWaitingFilter();
+                                                                  //await l_Vm_CommonLayout.fncNewOrdersAcceptedFilter();
+
+                                                                  l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
+                                                                  l_Vm_CommonLayout.RxListModOrderPenidngNew?.refresh();
+
+                                                                  l_Vm_CommonLayout.isLoadingPendingOrders.refresh();
+
+                                                                  Get.back(); // Close the loading indicator dialog
+
+                                                                  if (isCall) {
+                                                                    print("Api called");
+                                                                  } else {}
+                                                                },
+                                                                style: ElevatedButton.styleFrom(
+                                                                  minimumSize: Size(70, 38),
+                                                                  elevation: 4,
+                                                                  // Set the width and height as needed
+                                                                  foregroundColor: Colors.black,
+                                                                  backgroundColor: Colors.redAccent.shade100,
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.circular(10.0),
+                                                                  ),
+                                                                ),
+                                                                child: Text(
+                                                                  "${'${cm_StringConstantsVwHome.strOrderRejected}'.tr}",
+                                                                  style: GoogleFonts.ubuntu(
+                                                                    textStyle: const TextStyle(
+                                                                      fontWeight: FontWeight.w800,
+                                                                      fontSize: 15,
+                                                                      color: Colors.white,
+                                                                      letterSpacing: 0.5, // Removed the period before 5
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                              textAlign: TextAlign.center, // Center-align the text
-                                                            );
-                                                          } else {
-                                                            return Row(
-                                                              children: [
-                                                                ElevatedButton(
-                                                                  onPressed: () async {
-                                                                    cmGlobalVariables.pBisAccepted = true;
-
-                                                                    print("Button pressed at index: $index");
-                                                                    cmGlobalVariables.pBOrderId = order.id;
-                                                                    cmGlobalVariables.pBOrderStatusId =
-                                                                        cmGlobalVariables.pBOrderId = order.id;
-                                                                    cmGlobalVariables.pBOrderStatus =
-                                                                        Status.Orderconfirmed;
-                                                                    print(cmGlobalVariables.pBOrderId);
-
-                                                                    Get.dialog(
-                                                                      const Center(
-                                                                        child:
-                                                                            CircularProgressIndicator(), // Replace with your desired loading indicator widget
-                                                                      ),
-                                                                      barrierDismissible: false,
-                                                                    );
-
-                                                                    bool isCall = await l_Vm_Home.fnc_OrderAccRej();
-                                                                    //await l_Vm_Home.fnc_UpdateOrderStatus();
-                                                                    await l_Vm_CommonLayout.fnc_GetAllOrders();
-                                                                    await l_Vm_CommonLayout.fncNewOrdersWaitingFilter();
-                                                                    l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
-                                                                    l_Vm_CommonLayout.RxListModOrderPenidngNew
-                                                                        ?.refresh();
-
-                                                                    l_Vm_CommonLayout.isLoadingPendingOrders.refresh();
-                                                                    Get.back(); // Close the loading indicator dialog
-
-                                                                    if (isCall) {
-                                                                      print("Api called");
-                                                                    } else {}
-                                                                  },
-                                                                  style: ElevatedButton.styleFrom(
-                                                                    minimumSize: Size(70, 38),
-                                                                    elevation: 4,
-                                                                    // Set the width and height as needed
-                                                                    foregroundColor: Colors.black,
-                                                                    backgroundColor: Colors.green.shade200,
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.circular(10.0),
-                                                                    ),
-                                                                  ),
-                                                                  child: Text(
-                                                                    "${'${cm_StringConstantsVwHome.strOrderAccepted}'.tr}",
-                                                                    style: GoogleFonts.ubuntu(
-                                                                      textStyle: const TextStyle(
-                                                                        fontWeight: FontWeight.w800,
-                                                                        fontSize: 15,
-                                                                        color: Colors.white,
-                                                                        letterSpacing:
-                                                                            0.5, // Removed the period before 5
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                VerticalDivider(
-                                                                  indent: 10,
-                                                                  endIndent: 10,
-                                                                  color: Colors.black54,
-                                                                  thickness: 0.1,
-                                                                ),
-                                                                ElevatedButton(
-                                                                  onPressed: () async {
-                                                                    cmGlobalVariables.pBisAccepted = false;
-
-                                                                    print("Button pressed at index: $index");
-                                                                    cmGlobalVariables.pBOrderId = order.id;
-                                                                    cmGlobalVariables.pBOrderStatusId =
-                                                                        cmGlobalVariables.pBOrderId = order.id;
-                                                                    cmGlobalVariables.pBOrderStatus =
-                                                                        Status.Ordercancelled;
-                                                                    print(cmGlobalVariables.pBOrderId);
-
-                                                                    Get.dialog(
-                                                                      const Center(
-                                                                        child:
-                                                                            CircularProgressIndicator(), // Replace with your desired loading indicator widget
-                                                                      ),
-                                                                      barrierDismissible: false,
-                                                                    );
-
-                                                                    bool isCall = await l_Vm_Home.fnc_OrderAccRej();
-                                                                    //await l_Vm_Home.fnc_UpdateOrderStatus();
-                                                                    await l_Vm_CommonLayout.fnc_GetAllOrders();
-                                                                    await l_Vm_CommonLayout.fncNewOrdersWaitingFilter();
-                                                                    //await l_Vm_CommonLayout.fncNewOrdersAcceptedFilter();
-
-                                                                    l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
-                                                                    l_Vm_CommonLayout.RxListModOrderPenidngNew
-                                                                        ?.refresh();
-
-                                                                    l_Vm_CommonLayout.isLoadingPendingOrders.refresh();
-
-                                                                    Get.back(); // Close the loading indicator dialog
-
-                                                                    if (isCall) {
-                                                                      print("Api called");
-                                                                    } else {}
-                                                                  },
-                                                                  style: ElevatedButton.styleFrom(
-                                                                    minimumSize: Size(70, 38),
-                                                                    elevation: 4,
-                                                                    // Set the width and height as needed
-                                                                    foregroundColor: Colors.black,
-                                                                    backgroundColor: Colors.redAccent.shade100,
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.circular(10.0),
-                                                                    ),
-                                                                  ),
-                                                                  child: Text(
-                                                                    "${'${cm_StringConstantsVwHome.strOrderRejected}'.tr}",
-                                                                    style: GoogleFonts.ubuntu(
-                                                                      textStyle: const TextStyle(
-                                                                        fontWeight: FontWeight.w800,
-                                                                        fontSize: 15,
-                                                                        color: Colors.white,
-                                                                        letterSpacing:
-                                                                            0.5, // Removed the period before 5
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          }
-                                                        }),
-
-                                                        // Display items' names
-                                                        // Display items' names
-                                                      ],
-                                                    ),
-                                                  ],
+                                                            ],
+                                                          );
+                                                        }
+                                                      }),
+                                                    ],
+                                                  ),
                                                 ),
                                                 decoration: BoxDecoration(
                                                   color: tileColor, // Set the determined color

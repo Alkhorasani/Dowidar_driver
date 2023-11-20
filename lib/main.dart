@@ -22,35 +22,34 @@ import 'ChatModule/provider/chat_provider.dart';
 import 'MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'Routing/AppRoutes.dart';
 import 'Routing/GetRoutes.dart';
+  @pragma('vm:entry-point')
+  void callbackDispatcher() {
 
-import 'package:permission_handler/permission_handler.dart';
+    print("here i am");
+    Workmanager().executeTask((task, inputData) async {
+      if (task == "get_user_location") {
+        try {
+          Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
-@pragma('vm:entry-point')
-void callbackDispatcher() {
-  print("here i am");
-  Workmanager().executeTask((task, inputData) async {
-    if (task == "get_user_location") {
-      try {
-        Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+          cmGlobalVariables.pBUserLatitude = position.latitude;
+          cmGlobalVariables.pBUserLongitude = position.longitude;
 
-        cmGlobalVariables.pBUserLatitude = position.latitude;
-        cmGlobalVariables.pBUserLongitude = position.longitude;
+          print("Latitude: ${cmGlobalVariables.pBUserLatitude}");
+          print("Longitude: ${cmGlobalVariables.pBUserLongitude}");
 
-        print("Latitude: ${cmGlobalVariables.pBUserLatitude}");
-        print("Longitude: ${cmGlobalVariables.pBUserLongitude}");
+          await Future.delayed(Duration(seconds: 2000));
 
-        await Future.delayed(Duration(seconds: 2000));
+          await cmAppStartup().fnc_UpdateDriverLocation();
 
-        await cmAppStartup().fnc_UpdateDriverLocation();
-        print("service called");
-      } catch (e, stack) {
-        throw Exception([e, stack]);
-        // You can add additional error handling here if needed.
+          print("service called");
+        } catch (e, stack) {
+          throw Exception([e, stack]);
+          // You can add additional error handling here if needed.
+        }
       }
-    }
-    return Future.value(true);
-  });
-}
+      return Future.value(true);
+    });
+  }
 
 Future<void> onBackgroundMsg(RemoteMessage msg) async {
   print("sas");
@@ -99,12 +98,17 @@ Future<void> main() async {
   cmAppStartup().fncGetDeviceInfo();
 
   Workmanager().initialize(
+
     callbackDispatcher, // The top level function, aka callbackDispatcher
     isInDebugMode: true,
+
   );
   Workmanager().registerPeriodicTask(
     "get_user_location_periodic_task",
     "get_user_location", // Specify the name of the task
+    inputData: <String, dynamic>{
+      "message": "Your location is live, congratulations!",
+    },
     frequency: Duration(minutes: 10), // Set the frequency of the task
   );
 
@@ -148,8 +152,8 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
           return GetMaterialApp(
             translations: cm_LanguageController(),
-            locale: Locale('en', 'US'),
-            fallbackLocale: Locale('en', 'US'),
+            locale: Locale('ar', 'SA'),
+            fallbackLocale: Locale('ar', 'SA'),
             debugShowCheckedModeBanner: false,
             getPages: GetAppRoutes.Fnc_GetPages(),
             initialRoute: initialRoute,

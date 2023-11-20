@@ -183,7 +183,7 @@ class Vm_Home extends GetxController {
 
       if (l_Vm_CommonLayout.RxListModUserAllOrders != null) {
         final filteredOrders = l_Vm_CommonLayout.RxListModUserAllOrders!
-            .where((order) => order.status == Status.OrderEnroute) // U.se the enum value for 'cancelled'
+            .where((order) => order.status == OrderStatus.Enroute) // U.se the enum value for 'cancelled'
             .toList();
         l_Vm_CommonLayout.RxListModUserProcessingEnrOrders?.assignAll(filteredOrders);
         isLoadingPendingOrders.value = false;

@@ -6,6 +6,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../ClassModules/AppImages/cmGlobal_AppImages.dart';
+import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwLogin.dart';
 import '../../../Routing/AppRoutes.dart';
 import '../../ViewModel/Vm_Login/Vm_Login.dart';
 
@@ -81,8 +82,7 @@ class _Vw_LoginState extends State<Vw_Login> {
                         child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Text(
-                              'Enter credentials for login',
-                              style: GoogleFonts.ubuntu(
+                              "${'${cm_StringConstantsVwLogin.strEnterCred}'.tr}",                              style: GoogleFonts.ubuntu(
                                 textStyle: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 12,
@@ -96,11 +96,12 @@ class _Vw_LoginState extends State<Vw_Login> {
                     Padding(
                         padding: EdgeInsets.only(top: G_height * 0.01, left: G_width * 0.04, right: G_width * 0.04),
                         child: TextFormField(
+                          keyboardType: TextInputType.phone,
                           controller: l_Vmlogin.phoneController,
                           style: TextStyle(color: Colors.black),
                           // Text color for user input
                           decoration: InputDecoration(
-                            hintText: "Phone number",
+                            hintText: "${'${cm_StringConstantsVwLogin.strPhoneNumber}'.tr}",
                             hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                             filled: true,
                             fillColor: Colors.white,
@@ -132,7 +133,7 @@ class _Vw_LoginState extends State<Vw_Login> {
                           controller: l_Vmlogin.passswordController,
                           obscureText: !l_Vmlogin.boolSecurePassword_wid.value,
                           decoration: InputDecoration(
-                            hintText: "Password",
+                            hintText: "${'${cm_StringConstantsVwLogin.strPassword}'.tr}",
                             hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                             filled: true,
                             fillColor: Colors.white,
@@ -219,7 +220,7 @@ class _Vw_LoginState extends State<Vw_Login> {
                               ),
                             ),
                             child: Text(
-                              'Login',
+                              "${'${cm_StringConstantsVwLogin.strLogin}'.tr}",
                               style: GoogleFonts.ubuntu(
                                 textStyle: const TextStyle(
                                   fontWeight: FontWeight.w800,

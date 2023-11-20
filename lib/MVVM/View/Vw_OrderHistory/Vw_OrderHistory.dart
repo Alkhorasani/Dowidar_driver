@@ -206,128 +206,8 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                             }
 
                             return Container(
-                              height: G_height*0.18,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black45,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          Text(
-                                            order.orderNo.toString(),
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black45,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          Text(
-                                            "${status != null ? status.toString().split('.').last : ''}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "${'${cm_StringConstantsVwHome.strResturent}'.tr}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black45,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          Obx(() {
-                                            if (l_Vm_Home.isArabic.value == true) {
-                                              return CustomRestaurantNameText(
-                                                restaurantName:
-                                                order.restaurant!.arName.toString().split('.').last,
-                                              );
-                                            }
-                                            return Text(
-                                              order.restaurant!.name.toString().split('.').last,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                              ),
-                                            );
-                                          }),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "${'${cm_StringConstantsVwHome.strAddress}'.tr}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black45,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          Text(
-                                            order.addressId!.toString().split('.').last,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black45,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          Text(
-                                            "${DateFormat('hh:mm a').format(order.createdAt!)}:${DateFormat('dd/MM').format(order.createdAt!)}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      // Display items' names
-                                      // Display items' names
-                                    ],
-                                  ),
-                                ],
-                              ),
+                              height: G_height * 0.20,
+
                               decoration: BoxDecoration(
                                 color: tileColor, // Set the determined color
                                 borderRadius: BorderRadius.circular(10),
@@ -340,6 +220,138 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                   ),
                                 ],
                               ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${'${cm_StringConstantsVwHome.strOrderNO}:'.tr}",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black45,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
+                                          order.orderNo.toString(),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${'${cm_StringConstantsVwHome.strStatus}:'.tr}",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black45,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${status != null ? status.toString().split('.').last : ''}",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${'${cm_StringConstantsVwHome.strResturent}:'.tr}",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black45,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Obx(() {
+                                            if (l_Vm_Home.isArabic.value == true) {
+                                              return CustomRestaurantNameText(
+                                                restaurantName: order.restaurant!.arName.toString(),
+                                              );
+                                            }
+                                            return Container(
+                                              child: Text(
+                                                order.restaurant!.name.toString(),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black45,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${DateFormat('hh:mm a').format(order.createdAt!)}:${DateFormat('dd/MM').format(order.createdAt!)}",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Expanded(
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "${'${cm_StringConstantsVwHome.strAddress}:'.tr}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black45,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              order.restaurant!.address.toString(),
+                                              maxLines: 4,
+                                              // softWrap: true,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
+                                                fontSize: 16,
+
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+
+
+
+                                  ],),
+                              ),
+
                             );
                           },
                         );

@@ -2,6 +2,7 @@ import 'package:dowidardriver/ClassModules/cm_StringConstants/cm_StringConstants
 import 'package:get/get_navigation/src/root/internacionalization.dart';
 
 import '../cm_StringConstants/cm_StringConstantsVwCommomLayout.dart';
+import '../cm_StringConstants/cm_StringConstantsVwLogin.dart';
 import '../cm_StringConstants/cm_StringConstantsVwOrderDetails.dart';
 import '../cm_StringConstants/cm_StringConstantsVwProfile.dart';
 import '../cm_StringConstants/cm_StringConstantsVwSettings.dart';
@@ -83,6 +84,15 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwSettings.strSettings}": 'Settings',
           "${cm_StringConstantsVwSettings.strLogout}": 'Logout',
           "${cm_StringConstantsVwSettings.strChangeLanguage}": 'Change Language',
+          //VwLogin
+          "${cm_StringConstantsVwLogin.strEnterCred}": 'Enter credentials for login',
+          "${cm_StringConstantsVwLogin.strLogin}": 'Login',
+          "${cm_StringConstantsVwLogin.strPassword}": 'Password',
+          "${cm_StringConstantsVwLogin.strPhoneNumber}": 'PhoneNumber',
+
+
+
+
         },
         'ar_SA': {
           // Home Screen
@@ -159,6 +169,13 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwSettings.strLogout}": 'تسجيل الخروج',
           "${cm_StringConstantsVwSettings.strChangeLanguage}": 'تغيير اللغة',
 
-  },
+          //VwLogin
+          "${cm_StringConstantsVwLogin.strEnterCred}": 'أدخل بيانات الاعتماد لتسجيل الدخول',
+          "${cm_StringConstantsVwLogin.strLogin}": 'تسجيل الدخول',
+          "${cm_StringConstantsVwLogin.strPassword}": 'كلمة المرور',
+          "${cm_StringConstantsVwLogin.strPhoneNumber}": 'رقم الهاتف',
+
+
+        },
       };
 }

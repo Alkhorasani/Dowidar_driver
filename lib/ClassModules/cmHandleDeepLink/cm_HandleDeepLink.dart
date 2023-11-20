@@ -9,7 +9,7 @@ import '../../Routing/AppRoutes.dart';
 class cm_HandleDeepLink {
 
 
-  handleDeepLink({BuildContext? context, required String deeplink, dynamic payLoad}) {
+  handleDeepLink({required String deeplink, dynamic payLoad}) {
 
     final Vm_CommonLayout l_Vm_CommonLayout = Get.put(Vm_CommonLayout());
     switch (deeplink){

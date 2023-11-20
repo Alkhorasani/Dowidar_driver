@@ -25,9 +25,15 @@ class Vm_OrderDetails extends GetxController {
   String? rawCreatedAt;
   String? TotalCash;
   String? Paymenttype;
+  String? Resturentname;
 
   void fnc_processOrderDetails() {
     rawCreatedAt = orderDetails.value?.data?.order?.createdAt;
+    String? restaurantName = orderDetails.value?.data?.order?.restaurant?.name.toString();
+    int? lastDotIndex = restaurantName?.lastIndexOf('.');
+
+    // Extract the substring after the last dot
+    String? Resturentname = lastDotIndex != -1 ? restaurantName?.substring(lastDotIndex! + 1) : restaurantName;
 
     if (rawCreatedAt != null) {
       DateTime createdAt = DateTime.parse(rawCreatedAt!);
@@ -35,26 +41,41 @@ class Vm_OrderDetails extends GetxController {
       time = DateFormat('hh:mm a').format(createdAt);
     }
 
-    String? paymentTypeString = orderDetails.value?.data?.order?.paymentType(orderDetails.value?.data?.order?.paymentHistories);
-    if (paymentTypeString != null) {
-      if (paymentTypeString.toLowerCase().contains("cash")) {
-        Paymenttype = "Cash";
-        isMethodCash.value == true;
-      } else if (paymentTypeString.toLowerCase().contains("wallet")) {
-        Paymenttype = "Wallet";
-        isMethodCash.value == false;
+    try {
+      PaymentMethodName? paymentMethodName =
+          orderDetails.value?.data?.order?.paymentType(orderDetails.value?.data?.order?.paymentHistories);
 
-      } else {
-        // Handle other cases if needed
-        Paymenttype = paymentTypeString;
+      if (paymentMethodName != null) {
+        String paymentTypeString = paymentMethodName.name.toLowerCase();
+
+        if (paymentTypeString.contains("cash")) {
+          Paymenttype = "Cash";
+          isMethodCash.value = false;
+        } else if (paymentTypeString.contains("wallet")) {
+          Paymenttype = "Wallet";
+          isMethodCash.value = true;
+
+
+        }
+
+        else if( paymentTypeString.contains("wallet cash") ){
+          Paymenttype = paymentTypeString;
+
+
+        }
+        else {
+          // Handle other cases if needed
+          Paymenttype = paymentTypeString;
+        }
       }
+    } catch (e , Stack) {
+      // Handle the exception here
+      print([Stack]);
+      // You might want to set a default value for Paymenttype or take other appropriate actions.
     }
 
     // Paymenttype = orderDetails.value?.data?.order?.paymentType(orderDetails.value?.data?.order?.paymentHistories);
-    print( " Payment Type: $Paymenttype");
-    print( " Payment Type: $Paymenttype");
-    print( " Payment Type: $Paymenttype");
-
+    print(" Payment Type: $Paymenttype");
 
     if (Paymenttype != null) {
       isMethodCash.isTrue;

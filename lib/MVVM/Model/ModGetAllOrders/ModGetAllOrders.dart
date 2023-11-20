@@ -165,12 +165,12 @@
 
     factory Item.fromJson(Map<String, dynamic> json) => Item(
       id: json["id"],
-      restaurantId: json["restaurant_id"],
-      categoryId: json["category_id"],
-      subCategoryId: json["sub_category_id"],
+      restaurantId: json["restaurant_id"]  == null ? null : json["restaurant_id"],
+      categoryId:  json["category_id"]   == null ? null : json["category_id"],
+      subCategoryId:   json["sub_category_id"] == null ? null : json["sub_category_id"],
       name: json["name"],
       image: json["image"],
-      arName: itemArNameValues.map[json["ar_name"]]!,
+      arName: itemArNameValues.map[json["ar_name"]],
       description: json["description"],
       arDescription: json["ar_description"],
       price: json["price"]?.toDouble(),
@@ -670,8 +670,8 @@
     });
 
     factory Day.fromJson(Map<String, dynamic> json) => Day(
-      from: fromValues.map[json["from"]]!,
-      to: toValues.map[json["to"]]!,
+      from: fromValues.map[json["from"]],
+      to: toValues.map[json["to"]],
     );
 
     Map<String, dynamic> toJson() => {
@@ -716,14 +716,16 @@
     CANCELLED,
     PENDING,
     PROCESSING,
-    Delivered
+    Delivered,
+    Enroute
   }
 
   final orderStatusValues = EnumValues({
     "cancelled": OrderStatus.CANCELLED,
     "pending": OrderStatus.PENDING,
     "processing": OrderStatus.PROCESSING,
-    "delivered": OrderStatus.Delivered
+    "delivered": OrderStatus.Delivered,
+    "enroute": OrderStatus.Enroute,
   });
 
   class EnumValues<T> {

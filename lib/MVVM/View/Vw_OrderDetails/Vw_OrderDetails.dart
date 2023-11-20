@@ -176,7 +176,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                     // Add data from orderDetails here
 
                                     Text(
-                                        "${'${cm_StringConstantsVwOrderDetails.strRestaurantName}'.tr}: ${l_VmOrderDetails.orderDetails.value?.data?.order?.restaurant?.arName.toString()}"),
+                                        "${'${cm_StringConstantsVwOrderDetails.strRestaurantName}'.tr}: ${l_VmOrderDetails.orderDetails.value?.data?.order?.restaurant?.name.toString()}"),
                                     SizedBox(height: G_height * 0.01),
 
                                     Row(
@@ -292,7 +292,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             IconButton(
                                               onPressed: () {
@@ -323,6 +323,8 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                           width: G_width * 0.03,
                                         ),
                                         Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+
                                           children: [
                                             IconButton(
                                               onPressed: () {
@@ -333,7 +335,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                                 }
                                                 // Handle button press for the map icon
                                               },
-                                              icon: Icon(Icons.phone, size: 32, color: Colors.deepOrange),
+                                              icon: Icon(Icons.phone, size: 35, color: Colors.deepOrange),
                                             ),
                                             Text(
                                               "${'${cm_StringConstantsVwOrderDetails.strPhone}'.tr}",

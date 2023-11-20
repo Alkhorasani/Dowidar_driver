@@ -11,14 +11,13 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../MVVM/ViewModel/Vm_CommonLayout/Vm_CommonLayout.dart';
 
-BuildContext? _context;
 
 _handleOnTapNotification(RemoteMessage message) {
   String type = message.data['type'];
   String id = message.data['order_id'];
   (message.notification!.body!);
 
-  cm_HandleDeepLink().handleDeepLink(context: _context, deeplink: type, payLoad: id);
+  cm_HandleDeepLink().handleDeepLink( deeplink: type, payLoad: id);
 }
 
 class FirebaseService {
@@ -54,11 +53,21 @@ class FirebaseService {
 
   static Future<void> initializeLocalNotifications() async {
     const InitializationSettings initSettings = InitializationSettings(
-        android: AndroidInitializationSettings("@mipmap/ic_launcher"), iOS: DarwinInitializationSettings());
+      android: AndroidInitializationSettings("@mipmap/ic_launcher"),
+      iOS: DarwinInitializationSettings(),
+    );
 
-    /// on did receive notification response = for when app is opened via notification while in foreground on android
-    await FirebaseService._localNotificationsPlugin
-        .initialize(initSettings, onDidReceiveNotificationResponse: FCMProvider.handleOnTapNotification);
+
+    print("Before initialize");
+
+    await FirebaseService._localNotificationsPlugin.initialize(
+      initSettings,
+
+      onDidReceiveNotificationResponse: FCMProvider.handleOnTapNotification,
+      onDidReceiveBackgroundNotificationResponse: FCMProvider.handleOnTapNotification,
+    );
+    print("Before initialize");
+
 
     /// need this for ios foregournd notification
     await FirebaseService.firebaseMessaging.setForegroundNotificationPresentationOptions(
@@ -79,6 +88,9 @@ class FirebaseService {
 
   static localNotification(RemoteMessage message) async {
     final Vm_CommonLayout l_Vm_CommonLayout = Get.put(Vm_CommonLayout());
+    print("New Notofication Arrived");
+    print("New Notofication Arrived");
+
 
     l_Vm_CommonLayout.fnc_GetAllOrders();
     await FirebaseService._localNotificationsPlugin.show(message.hashCode, message.notification!.title,
@@ -98,14 +110,16 @@ class FirebaseService {
 }
 
 class FCMProvider {
-  static void setContext(BuildContext context) => _context = context;
 
   static Future<void> handleOnTapNotification(NotificationResponse? response) async {
-    if (_context == null || response!.payload == null) return;
+    print("On Tap");
+    print("On Tap");
+    print("On Tap");
+    if ( response!.payload == null) return;
     Map<String, dynamic> payload = jsonDecode(response.payload!);
     NotificationPayload payloadData = NotificationPayload.fromJson(payload);
     cm_HandleDeepLink()
-        .handleDeepLink(context: _context, deeplink: payloadData.type ?? '', payLoad: payloadData.orderId);
+        .handleDeepLink(deeplink: payloadData.type ?? '', payLoad: payloadData.orderId);
   }
 
   static Future<void> onMessage() async {
@@ -118,8 +132,7 @@ class FCMProvider {
     });
   }
 
-  Future<void> setupInteractedMessage(context) async {
-    _context = context;
+  Future<void> setupInteractedMessage() async {
     // Get any messages which caused the application to open from
     // a terminated state.
     RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();

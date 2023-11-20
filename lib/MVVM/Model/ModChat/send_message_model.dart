@@ -14,9 +14,9 @@ class SendMessageRequest {
   });
 
   Map<String, String> toJson() => {
-        "order_id": orderId,
-        "sender_id": senderId,
-        "receiver_id": List<String>.from(receiverId.map((x) => x)).toString(),
-        "message": message,
-      };
+    "order_id": orderId,
+    "sender_id": senderId,
+    "receiver_id": List<String>.from(receiverId.map((x) => x)).toString(),
+    "message": message,
+  };
 }
