@@ -59,9 +59,22 @@ class _ChatScreenState extends State<ChatScreen> {
 
   setReceiverId() {
     setState(() {
-      receiverId = [cmGlobalVariables.pbUserID!];
-      senderId = cmGlobalVariables.pbDriberID!;
-      orderId = cmGlobalVariables.pBOntapOrderId!.toString();
+
+      if(cmGlobalVariables.pBChatOrderId == null){
+
+        receiverId = [cmGlobalVariables.pbUserID!];
+        senderId = cmGlobalVariables.pbDriberID!;
+        orderId = cmGlobalVariables.pBOntapOrderId!.toString();
+      }
+      else{
+
+        receiverId = [cmGlobalVariables.pBChatReciverId!];
+        senderId = cmGlobalVariables.pbDriberID!;
+        orderId = cmGlobalVariables.pBChatOrderId.toString();
+
+
+      }
+
     });
   }
 

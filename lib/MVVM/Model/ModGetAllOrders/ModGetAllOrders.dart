@@ -456,7 +456,10 @@
       coverPhoto: coverPhotoValues.map[json["cover_photo"]],
       description: json["description"],
       arDescription: json["ar_description"],
-      openingHours: json["opening_hours"] == null ? null : OpeningHours.fromJson(json["opening_hours"]),
+      openingHours: (json["opening_hours"] == null || json["opening_hours"] is List<dynamic>) ? OpeningHours.fromJson(openingHoursJson) : OpeningHours.fromJson(json["opening_hours"]),
+
+
+      //openingHours: json["opening_hours"] == null ? null : OpeningHours.fromJson(json["opening_hours"]),
       deliveryRange: json["delivery_range"],
       minimumOrderValue: json["minimum_order_value"],
       maximumOrderValue: json["maximum_order_value"],
@@ -514,7 +517,20 @@
       "cover_photo_url": coverPhotoUrl,
       "assigned_manager": assignedManager,
     };
+
+
   }
+
+  const openingHoursJson = {
+    "monday": {"from": "10:00", "to": "22:00"},
+    "tuesday": {"from": "10:00", "to": "22:00"},
+    "wednesday": {"from": "10:00", "to": "22:00"},
+    "thursday": {"from": "10:00", "to": "22:00"},
+    "friday": {"from": "10:00", "to": "22:00"},
+    "saturday": {"from": "10:00", "to": "22:00"},
+    "sunday": {"from": "10:00", "to": "22:00"}
+  };
+
 
   enum RestaurantArName {
     AR_NAME,

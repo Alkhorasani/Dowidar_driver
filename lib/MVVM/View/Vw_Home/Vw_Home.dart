@@ -349,10 +349,9 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Row(
-                                                          mainAxisAlignment: MainAxisAlignment.start,
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strOrderNO}:'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -372,7 +371,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strStatus}:'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -386,11 +385,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                 color: Colors.black,
                                                                 fontSize: 16,
                                                               ),
-                                                            )
+                                                            ),
                                                           ],
                                                         ),
                                                         Row(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Text(
                                                               "${'${cm_StringConstantsVwHome.strResturent}:'.tr}",
@@ -400,30 +398,28 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                 fontSize: 16,
                                                               ),
                                                             ),
-                                                            Expanded(
-                                                              child: Obx(() {
-                                                                if (l_Vm_Home.isArabic.value == true) {
-                                                                  return CustomRestaurantNameText(
-                                                                    restaurantName: order.restaurant!.arName.toString(),
-                                                                  );
-                                                                }
-                                                                return Text(
-                                                                  order.restaurant!.name.toString().split('.').last,
-                                                                  maxLines: 2,
-                                                                  style: const TextStyle(
-                                                                    fontWeight: FontWeight.w500,
-                                                                    color: Colors.black,
-                                                                    fontSize: 16,
-                                                                  ),
+                                                            Obx(() {
+                                                              if (l_Vm_Home.isArabic.value == true) {
+                                                                return CustomRestaurantNameText(
+                                                                  restaurantName:
+                                                                  order.restaurant!.arName.toString().split('.').last,
                                                                 );
-                                                              }),
-                                                            ),
+                                                              }
+                                                              return Text(
+                                                                order.restaurant!.name.toString().split('.').last,
+                                                                style: const TextStyle(
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: Colors.black,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              );
+                                                            }),
                                                           ],
                                                         ),
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.CreatedAt}:'.tr}",
+                                                              "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -455,7 +451,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               Expanded(
                                                                 child: Text(
                                                                   order.restaurant!.address.toString(),
-                                                                  maxLines: 4,
+                                                                  maxLines: 2,
                                                                   // softWrap: true,
                                                                   style: const TextStyle(
                                                                     fontWeight: FontWeight.w500,

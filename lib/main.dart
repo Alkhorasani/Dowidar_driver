@@ -82,7 +82,7 @@ Future<void> _initializeNotifications() async {
   var initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
   );
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,onDidReceiveNotificationResponse: FCMProvider.handleOnTapNotification);
 }
 
 
@@ -90,9 +90,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   cmAppStartup().FncPermissions();
 
-  await Firebase.initializeApp();
   await FirebaseService.initializeFirebase();
-  _initializeNotifications();
+  // _initializeNotifications();
   FirebaseMessaging.onBackgroundMessage(onBackgroundMsg);
 
   cmAppStartup().fncGetDeviceInfo();
@@ -152,8 +151,8 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
           return GetMaterialApp(
             translations: cm_LanguageController(),
-            locale: Locale('ar', 'SA'),
-            fallbackLocale: Locale('ar', 'SA'),
+            locale: Locale('en', 'US'),
+            fallbackLocale: Locale('en', 'US'),
             debugShowCheckedModeBanner: false,
             getPages: GetAppRoutes.Fnc_GetPages(),
             initialRoute: initialRoute,

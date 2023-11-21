@@ -25,6 +25,10 @@ class cmGlobalVariables {
   static String? pbUserID;
   static String? pBFirebaseNotificationToken;
 
+  static int? pBChatOrderId;
+  static String? pBChatReciverId;
+
+
 
 // static List<Datum> ? pB_list_ModGetAllOrders;
 
