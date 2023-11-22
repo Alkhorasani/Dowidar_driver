@@ -26,7 +26,8 @@ class cm_StringConstantsVwOrderDetails {
   static String? strItemName = 'Item Name';
   static String? strResturent = 'Restaurant:';
   static String? strDelivered = 'Deliverd:';
-  static String? strYourOrderDeliverd = 'Already Delivered';
+  static String? strYourOrderDeliverd = 'Order Delivered';
+  static String? strOrderEnroute= 'Waiting for enroute';
   static String? strItemQty = 'Item Qty:';
   static String? strItemPrice = 'Item Price:';
   static String? strTotal = 'Total:';

@@ -40,4 +40,29 @@ class Vm_Settings extends GetxController {
     cmGlobalVariables.pbUserID = null;
     cmGlobalVariables.pBFirebaseNotificationToken = null;
   }
+
+  // Future logout() async {
+  //   String accessToken = await SharedPreferencesHelper.instance
+  //       .getString(SharedPreferencesHelper.instance.accessToken);
+  //   isLogging = true;
+  //   var response;
+  //   try {
+  //     response = await apiRepository.logout(accessToken);
+  //     print(response);
+  //     await sharedPreferenceHelper.setString(sharedPreferenceHelper.accessToken,
+  //         userModel.data?.accessToken ?? '');
+  //     await sharedPreferenceHelper.setString(
+  //         sharedPreferenceHelper.userData, userModelToJson(userModel));
+  //     isLogging = false;
+  //     notifyListeners();
+  //     return response;
+  //   } catch (e, stack) {
+  //     isLogging = false;
+  //     notifyListeners();
+  //     print('Error: $e, $stack');
+  //     return response;
+  //   }
+  // }
+
+
 }

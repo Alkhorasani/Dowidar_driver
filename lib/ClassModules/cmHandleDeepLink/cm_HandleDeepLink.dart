@@ -15,7 +15,7 @@ class cm_HandleDeepLink {
       case 'order':
         l_Vm_CommonLayout.fnc_GetAllOrders();
 
-        Get.offAllNamed(AppRoutes.vwHome);
+        Get.toNamed(AppRoutes.vwHome);
         break;
       case 'message':
         final l_SharedPreferences = await SharedPreferences.getInstance();
@@ -24,7 +24,7 @@ class cm_HandleDeepLink {
         cmGlobalVariables.pBChatOrderId = int.parse(payLoad);
         cmGlobalVariables.pBChatReciverId = payLoadrecid.toString();
         print(cmGlobalVariables.pBChatOrderId);
-        Get.offAllNamed(AppRoutes.vwChat);
+        Get.toNamed(AppRoutes.vwChat);
 
       default:
         throw ErrorDescription('$deeplink type of notification is not handled yet.');

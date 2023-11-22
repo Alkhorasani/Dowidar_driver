@@ -74,10 +74,11 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwOrderDetails.strItemName}": 'Item Name',
           "${cm_StringConstantsVwOrderDetails.strResturent}": 'Restaurant:',
           "${cm_StringConstantsVwOrderDetails.strDelivered}": 'Delivered:',
-          "${cm_StringConstantsVwOrderDetails.strYourOrderDeliverd}": 'Already Delivered',
+          "${cm_StringConstantsVwOrderDetails.strYourOrderDeliverd}": 'Order Delivered',
           "${cm_StringConstantsVwOrderDetails.strItemQty}": 'Item Qty:',
           "${cm_StringConstantsVwOrderDetails.strItemPrice}": 'Item Name',
           "${cm_StringConstantsVwOrderDetails.strTotal}": 'Total:',
+          "${cm_StringConstantsVwOrderDetails.strOrderEnroute}": 'Waiting for enroute',
 
 
           //Vw Settings
@@ -162,6 +163,8 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwOrderDetails.strItemQty}": 'البند الكمية:',
           "${cm_StringConstantsVwOrderDetails.strItemPrice}": 'معدل البند:',
           "${cm_StringConstantsVwOrderDetails.strTotal}": 'المجموع:',
+          "${cm_StringConstantsVwOrderDetails.strOrderEnroute}": "في انتظار التوجيه",
+
 
           //VwSettings
 

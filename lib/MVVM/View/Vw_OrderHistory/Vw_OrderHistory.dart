@@ -25,7 +25,8 @@ class Vw_OrderHistory extends StatefulWidget {
 
 class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
   final Vm_CommonLayout l_Vm_CommonLayout = Get.find<Vm_CommonLayout>();
-  final  Vm_Home l_Vm_Home = Get.find<Vm_Home>();
+  final Vm_Home l_Vm_Home = Get.find<Vm_Home>();
+
   @override
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double G_height, G_width) {
@@ -42,7 +43,6 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
               backgroundColor: Colors.white,
               title: Text(
                 "${'${cm_StringConstantsVwCommomLayout.strOrdersHistory}'.tr}",
-
                 style: GoogleFonts.ubuntu(
                     textStyle: const TextStyle(
                         fontSize: 22, color: Colors.black, fontWeight: FontWeight.w600, letterSpacing: .5)),
@@ -55,7 +55,6 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Padding(
                     padding: EdgeInsets.only(
                       top: G_height * 0.02,
@@ -79,7 +78,6 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
 
                               await l_Vm_Home.fncfilterProcessing();
                               Get.back();
-
 
                               l_Vm_CommonLayout.RxListModOrderHistory?.refresh();
                               print('Container tapped');
@@ -123,17 +121,16 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                 barrierDismissible: false,
                               );
 
-                            await l_Vm_Home.fncfilterCancelled();
-                          Get.back();
+                              await l_Vm_Home.fncfilterCancelled();
+                              Get.back();
                               l_Vm_CommonLayout.RxListModOrderHistory?.refresh();
                               print('Container tapped');
                             },
                             child: Obx(() {
                               return Container(
                                 decoration: BoxDecoration(
-                                  color: l_Vm_Home.isSelectedred.value == true
-                                      ? Colors.red
-                                      : Colors.red.withOpacity(0.3),
+                                  color:
+                                      l_Vm_Home.isSelectedred.value == true ? Colors.red : Colors.red.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Padding(
@@ -164,16 +161,18 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                       onRefresh: () async {
                         await l_Vm_CommonLayout.filterOrderHistoryByStatus();
                         l_Vm_CommonLayout.RxListModOrderHistory?.refresh();
+                        l_Vm_Home.isSelectedblue.value = false;
+                        l_Vm_Home.isSelectedred.value = false;
                       },
                       child: Obx(() {
-
-                        if( l_Vm_CommonLayout.RxListModOrderHistory!.isEmpty || l_Vm_CommonLayout.RxListModOrderHistory ==null ){
+                        if (l_Vm_CommonLayout.RxListModOrderHistory!.isEmpty ||
+                            l_Vm_CommonLayout.RxListModOrderHistory == null) {
                           return Center(
                             child: Text(
                               "${'${cm_StringConstantsVwHome.strYoudont_haveOrderhistory}'.tr}",
                               style: GoogleFonts.ubuntu(
-                                textStyle: const TextStyle(
-                                    fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
+                                textStyle:
+                                    const TextStyle(fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
                               ),
                             ),
                           );
@@ -199,15 +198,14 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                               tileColor = Colors.red.withOpacity(0.3);
                             } else if (order.status == OrderStatus.PROCESSING) {
                               tileColor = Colors.lightBlue.withOpacity(0.3);
-                            // } else if (order.status == DatumStatus.PENDING) {
-                            //   tileColor = Colors.green.withOpacity(0.3);
+                              // } else if (order.status == DatumStatus.PENDING) {
+                              //   tileColor = Colors.green.withOpacity(0.3);
                             } else {
                               tileColor = Colors.white; // Default color for other statuses
                             }
 
                             return Container(
                               height: G_height * 0.20,
-
                               decoration: BoxDecoration(
                                 color: tileColor, // Set the determined color
                                 borderRadius: BorderRadius.circular(10),
@@ -338,20 +336,15 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.black,
                                                 fontSize: 16,
-
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-
-
-
-
-                                  ],),
+                                  ],
+                                ),
                               ),
-
                             );
                           },
                         );

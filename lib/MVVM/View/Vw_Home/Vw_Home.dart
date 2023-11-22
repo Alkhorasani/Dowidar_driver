@@ -239,6 +239,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                           l_Vm_Home.isSelectedfreen.value = true;
 
                                           l_Vm_Home.fncfilterEnroute();
+                                          // l_Vm_CommonLayout.fnc_GetAllOrders();
                                           l_Vm_CommonLayout.RxListModUserProcessingEnrOrders?.refresh();
                                           print('Container tapped');
                                         },
@@ -274,7 +275,15 @@ class _Vw_HomeState extends State<Vw_Home> {
                               Expanded(
                                 child: RefreshIndicator(
                                   onRefresh: () async {
-                                    await l_Vm_CommonLayout.fnc_RefreshAllOrders();
+                                    await l_Vm_CommonLayout.fnc_GetAllOrders();
+
+                                    if (l_Vm_Home.isSelectedfreen.value == true &&
+                                        l_Vm_Home.isSelectedblue.value == false) {
+                                      l_Vm_Home.fncfilterEnroute();
+                                    } else {
+                                      await l_Vm_CommonLayout.fnc_GetAllOrders();
+                                    }
+
                                     l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
                                   },
                                   child: Obx(() {
@@ -401,8 +410,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                             Obx(() {
                                                               if (l_Vm_Home.isArabic.value == true) {
                                                                 return CustomRestaurantNameText(
-                                                                  restaurantName:
-                                                                  order.restaurant!.arName.toString().split('.').last,
+                                                                  restaurantName: order.restaurant!.arName
+                                                                      .toString()
+                                                                      .split('.')
+                                                                      .last,
                                                                 );
                                                               }
                                                               return Text(
@@ -578,7 +589,14 @@ class _Vw_HomeState extends State<Vw_Home> {
                               Expanded(
                                 child: RefreshIndicator(
                                   onRefresh: () async {
-                                    await l_Vm_CommonLayout.fncNewOrdersWaitingFilter();
+                                    await l_Vm_CommonLayout.fnc_GetAllOrders();
+                                    if (l_Vm_Home.isSelectedPurple.value == true &&
+                                        l_Vm_Home.isSelectedYellow.value == false) {
+                                      await l_Vm_CommonLayout.fncNewOrdersAcceptedFilter();
+                                    } else {
+                                      await l_Vm_CommonLayout.fncNewOrdersWaitingFilter();
+                                    }
+
                                     l_Vm_CommonLayout.RxListModOrderPenidngNew?.refresh();
                                   },
                                   child: Obx(() {
