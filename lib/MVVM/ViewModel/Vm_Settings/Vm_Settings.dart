@@ -42,10 +42,13 @@ class Vm_Settings extends GetxController {
   }
 
   // Future logout() async {
-  //   String accessToken = await SharedPreferencesHelper.instance
-  //       .getString(SharedPreferencesHelper.instance.accessToken);
+  //
+  //   final l_SharedPreferences = await SharedPreferences.getInstance();
+  //   final accessToken = l_SharedPreferences.getString('l_token') ?? '';
+  //
   //   isLogging = true;
   //   var response;
+  //   notifyListeners();
   //   try {
   //     response = await apiRepository.logout(accessToken);
   //     print(response);

@@ -272,40 +272,201 @@ class Address {
 }
 
 class Item {
+  int? id;
+  int? restaurantId;
+  dynamic categoryId;
+  int? subCategoryId;
   String? name;
+  String? image;
   String? arName;
-  double? price;
-  int? discount;
+  String? description;
+  String? arDescription;
+  String? price;
+  String? discount;
+  bool? isAvailable;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  List<VariationGroup>? variationGroups;
   String? imageUrl;
   Pivot? pivot;
 
   Item({
+    this.id,
+    this.restaurantId,
+    this.categoryId,
+    this.subCategoryId,
     this.name,
+    this.image,
     this.arName,
+    this.description,
+    this.arDescription,
     this.price,
     this.discount,
+    this.isAvailable,
+    this.createdAt,
+    this.updatedAt,
+    this.variationGroups,
     this.imageUrl,
     this.pivot,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
+    id: json["id"],
+    restaurantId: json["restaurant_id"],
+    categoryId: json["category_id"],
+    subCategoryId: json["sub_category_id"],
     name: json["name"],
+    image: json["image"],
     arName: json["ar_name"],
-    price: json["price"]?.toDouble(),
-    discount: json["discount"],
+    description: json["description"],
+    arDescription: json["ar_description"],
+    price: json["price"].toString(),
+    discount: json["discount"].toString(),
+    isAvailable: json["is_available"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    variationGroups: json["variation_groups"] == null ? [] : List<VariationGroup>.from(json["variation_groups"]!.map((x) => VariationGroup.fromJson(x))),
     imageUrl: json["image_url"],
     pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
+    "restaurant_id": restaurantId,
+    "category_id": categoryId,
+    "sub_category_id": subCategoryId,
     "name": name,
+    "image": image,
     "ar_name": arName,
+    "description": description,
+    "ar_description": arDescription,
     "price": price,
     "discount": discount,
+    "is_available": isAvailable,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "variation_groups": variationGroups == null ? [] : List<dynamic>.from(variationGroups!.map((x) => x.toJson())),
     "image_url": imageUrl,
     "pivot": pivot?.toJson(),
   };
 }
+class Variation {
+  int? id;
+  int? variationGroupId;
+  String? name;
+  String? image;
+  String? arName;
+  String? description;
+  String? arDescription;
+  double? price;
+  dynamic discount;
+  bool? isAvailable;
+  String? createdAt;
+  String? updatedAt;
+  String? imageUrl;
+
+  Variation({
+    this.id,
+    this.variationGroupId,
+    this.name,
+    this.image,
+    this.arName,
+    this.description,
+    this.arDescription,
+    this.price,
+    this.discount,
+    this.isAvailable,
+    this.createdAt,
+    this.updatedAt,
+    this.imageUrl,
+  });
+
+  factory Variation.fromJson(Map<String, dynamic> json) => Variation(
+    id: json["id"],
+    variationGroupId: json["variation_group_id"],
+    name: json["name"],
+    image: json["image"],
+    arName: json["ar_name"],
+    description: json["description"],
+    arDescription: json["ar_description"],
+    price: json["price"]?.toDouble(),
+    discount: json["discount"],
+    isAvailable: json["is_available"],
+    createdAt: json["created_at"],
+    updatedAt: json["updated_at"],
+    imageUrl: json["image_url"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "variation_group_id": variationGroupId,
+    "name": name,
+    "image": image,
+    "ar_name": arName,
+    "description": description,
+    "ar_description": arDescription,
+    "price": price,
+    "discount": discount,
+    "is_available": isAvailable,
+    "created_at": createdAt,
+    "updated_at": updatedAt,
+    "image_url": imageUrl,
+  };
+}
+
+class VariationGroup {
+  int? id;
+  int? itemId;
+  String? name;
+  String? arName;
+  String? description;
+  String? arDescription;
+  int? isMandatory;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  List<Variation>? variations;
+
+  VariationGroup({
+    this.id,
+    this.itemId,
+    this.name,
+    this.arName,
+    this.description,
+    this.arDescription,
+    this.isMandatory,
+    this.createdAt,
+    this.updatedAt,
+    this.variations,
+  });
+
+  factory VariationGroup.fromJson(Map<String, dynamic> json) => VariationGroup(
+    id: json["id"],
+    itemId: json["item_id"],
+    name: json["name"],
+    arName: json["ar_name"],
+    description: json["description"],
+    arDescription: json["ar_description"],
+    isMandatory: json["is_mandatory"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+      variations: json["variations"] == null ? [] : List<Variation>.from(json["variations"]!.map((x) => Variation.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "item_id": itemId,
+    "name": name,
+    "ar_name": arName,
+    "description": description,
+    "ar_description": arDescription,
+    "is_mandatory": isMandatory,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "variations": variations == null ? [] : List<VariationGroup>.from(variations!.map((x) => x.toJson())),
+  };
+}
+
+
 
 class Pivot {
   int? orderId;

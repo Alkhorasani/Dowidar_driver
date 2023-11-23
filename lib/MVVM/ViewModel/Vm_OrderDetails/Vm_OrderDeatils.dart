@@ -17,8 +17,13 @@ import '../Vm_CommonLayout/Vm_CommonLayout.dart';
 class Vm_OrderDetails extends GetxController {
   RxBool isLoading = false.obs;
   Rx<ModOrderDetails?> orderDetails = Rx<ModOrderDetails?>(null);
+  List<Variation>? allVariations = [];
+
 
   RxBool isMethodCash = false.obs;
+
+  RxBool hasVariations = false.obs;
+
 
   String? date;
   String? time;
@@ -97,6 +102,16 @@ class Vm_OrderDetails extends GetxController {
       if (orderData != null && orderData.data != null) {
         // Update the orderDetails with the fetched data
         orderDetails.value = orderData;
+        for (final item in orderDetails.value!.data!.order!.items!) {
+          if (item.variationGroups != null) {
+            for (final group in item.variationGroups!) {
+              allVariations?.addAll(group.variations!);
+            }
+          }
+        }
+        if (allVariations != null) {
+          hasVariations.value = true;
+        }
         isLoading.value = false; // Hide loading indicator
       } else {
         isLoading.value = false; // Hide loading indicator on failure

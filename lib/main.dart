@@ -33,7 +33,6 @@ import 'Routing/GetRoutes.dart';
 
           cmGlobalVariables.pBUserLatitude = position.latitude;
           cmGlobalVariables.pBUserLongitude = position.longitude;
-
           print("Latitude: ${cmGlobalVariables.pBUserLatitude}");
           print("Longitude: ${cmGlobalVariables.pBUserLongitude}");
 
@@ -50,7 +49,7 @@ import 'Routing/GetRoutes.dart';
       return Future.value(true);
     });
   }
-
+@pragma('vm:entry-point')
 Future<void> onBackgroundMsg(RemoteMessage msg) async {
   print("sas");
   await Firebase.initializeApp(
@@ -91,7 +90,6 @@ Future<void> main() async {
   cmAppStartup().FncPermissions();
 
   await FirebaseService.initializeFirebase();
-  // _initializeNotifications();
   FirebaseMessaging.onBackgroundMessage(onBackgroundMsg);
 
   cmAppStartup().fncGetDeviceInfo();
@@ -106,7 +104,7 @@ Future<void> main() async {
     "get_user_location_periodic_task",
     "get_user_location", // Specify the name of the task
     inputData: <String, dynamic>{
-      "message": "Your location is live, congratulations!",
+      " ": "Your location is live!",
     },
     frequency: Duration(minutes: 10), // Set the frequency of the task
   );
