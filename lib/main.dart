@@ -97,7 +97,7 @@ Future<void> main() async {
   Workmanager().initialize(
 
     callbackDispatcher, // The top level function, aka callbackDispatcher
-    isInDebugMode: true,
+    //isInDebugMode: true,
 
   );
   Workmanager().registerPeriodicTask(

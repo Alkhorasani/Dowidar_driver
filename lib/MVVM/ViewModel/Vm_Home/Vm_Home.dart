@@ -3,11 +3,13 @@ import 'package:dowidardriver/Enum/EnumStatus.dart';
 import 'package:dowidardriver/MVVM/Model/ModNewOrder/ModNewOrders.dart';
 import 'package:dowidardriver/MVVM/Model/ModOrderDetails/ModOrderDetials.dart';
 import 'package:dowidardriver/MVVM/Model/ModOrderStatus/ModOrderStatus.dart';
+import 'package:dowidardriver/ServiceLayer/Sl_DriverStatus.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_GetAllOrders.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_OrderAccRej.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_OrderDetails.dart';
 import 'package:dowidardriver/ServiceLayer/Sl_OrderStatus.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../ClassModules/cmFirebaseServices/cmFirebaseServices.dart';
 import '../../../ServiceLayer/Sl_DriverLocation.dart';
@@ -29,6 +31,8 @@ class Vm_Home extends GetxController {
   RxBool isSelectedfreen = false.obs;
   RxBool isSelectedYellow = false.obs;
   RxBool isSelectedPurple= false.obs;
+  RxBool isSelectedAll= false.obs;
+
 
   RxBool isArabic = false.obs;
 
@@ -45,6 +49,7 @@ class Vm_Home extends GetxController {
     isSelectedfreen.value = false;
     isSelectedPurple.value = false;
     isSelectedYellow.value = false;
+    isSelectedAll.value = false;
   }
 
   Future<bool> fnc_OrderDetails() async {
@@ -107,8 +112,25 @@ class Vm_Home extends GetxController {
     }
   }
 
+
+  Future<bool> fnc_UpdateDriverStatus() async {
+    try {
+      final l_SharedPreferences = await SharedPreferences.getInstance();
+      final id = l_SharedPreferences.getString('l_driverID') ?? '';
+      cmGlobalVariables.pbDriberID = id;
+      bool success = await Sl_DriverStatus().fnc_driverStatus();
+      return success;
+    } catch (e) {
+      print("Error in fnc_driverStatus: $e");
+      isLoadingAccOrRej.value = false;
+      return false; // You can handle the error as needed
+    }
+  }
+
   Future<bool> fnc_UpdateOrderStatus() async {
     try {
+
+
       isLoadingAccOrRej.value = true; // Show loading indicator
 
       ModOrderStatus l_ModOrderStatus = await Sl_OrderStatus().fnc_OrderStatus();

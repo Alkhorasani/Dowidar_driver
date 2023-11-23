@@ -13,9 +13,9 @@ class cm_HandleDeepLink {
     final Vm_CommonLayout l_Vm_CommonLayout = Get.put(Vm_CommonLayout());
     switch (deeplink) {
       case 'order':
-        l_Vm_CommonLayout.fnc_GetAllOrders();
+         l_Vm_CommonLayout.fnc_GetAllOrders();
 
-        Get.toNamed(AppRoutes.vwHome);
+        Get.toNamed(AppRoutes.vwHome, arguments: {'initialRoute': 1});
         break;
       case 'message':
         final l_SharedPreferences = await SharedPreferences.getInstance();

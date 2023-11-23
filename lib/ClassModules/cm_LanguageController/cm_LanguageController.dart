@@ -24,9 +24,9 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwHome.strError}": 'Error',
           "${cm_StringConstantsVwHome.strLocationoff}": 'Location Off',
           "${cm_StringConstantsVwHome.strError}": 'Error',
-          "${cm_StringConstantsVwHome.strRedCancelled}": 'Red = Cancelled',
-          "${cm_StringConstantsVwHome.strBlueProcessing}": 'Blue = Processing',
-          "${cm_StringConstantsVwHome.strGreenPending}": 'Green = Enroute',
+          "${cm_StringConstantsVwHome.strRedCancelled}": 'Cancelled',
+          "${cm_StringConstantsVwHome.strBlueProcessing}": 'Processing',
+          "${cm_StringConstantsVwHome.strGreenPending}": 'Enroute',
           "${cm_StringConstantsVwHome.strYoudont_haveanyorders}":
               cm_StringConstantsVwHome.strYoudont_haveanyorders ?? 'You don\'t have any orders',
           "${cm_StringConstantsVwHome.strOrderNO}": 'Order NO',
@@ -35,9 +35,10 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwHome.strAddress}": 'Address',
           "${cm_StringConstantsVwHome.strOrderAccepted}": 'Accept',
           "${cm_StringConstantsVwHome.strOrderRejected}": 'Reject',
-          "${cm_StringConstantsVwHome.strYellowWaiting}": 'Yellow = waiting',
-          "${cm_StringConstantsVwHome.strPurpleAccepted}": 'Purple = accepted',
+          "${cm_StringConstantsVwHome.strYellowWaiting}": 'Waiting',
+          "${cm_StringConstantsVwHome.strPurpleAccepted}": 'Accepted',
           "${cm_StringConstantsVwHome.strYoudont_haveOrderhistory}": 'You don\'t have orders history',
+          "${cm_StringConstantsVwHome.strAll}": 'All',
 
           "${cm_StringConstantsVwHome.strYoudont_haveNoneworders}":
               cm_StringConstantsVwHome.strYoudont_haveNoneworders ?? 'You don\'t have any new orders',
@@ -108,21 +109,23 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwHome.strError}": 'خطأ',
           "${cm_StringConstantsVwHome.strLocationoff}": 'إيقاف الموقع',
           "${cm_StringConstantsVwHome.strError}": 'خطأ',
-          "${cm_StringConstantsVwHome.strRedCancelled}": 'أحمر = تم الإلغاء',
-          "${cm_StringConstantsVwHome.strBlueProcessing}": 'أزرق = قيد المعالجة',
-          "${cm_StringConstantsVwHome.strGreenPending}": 'أخضر = قيد الانتظار',
+          "${cm_StringConstantsVwHome.strRedCancelled}": ' تم الإلغاء',
+          "${cm_StringConstantsVwHome.strBlueProcessing}": 'قيد المعالجة',
+          "${cm_StringConstantsVwHome.strGreenPending}": ' قيد الانتظار',
           "${cm_StringConstantsVwHome.strYoudont_haveanyorders}":
               cm_StringConstantsVwHome.strYoudont_haveanyorders ?? 'ليس لديك أي طلبات',
           "${cm_StringConstantsVwHome.strOrderNO}": 'رقم الطلب',
           "${cm_StringConstantsVwHome.strResturent}": 'المطعم',
           "${cm_StringConstantsVwHome.CreatedAt}": 'تم الإنشاء في',
           "${cm_StringConstantsVwHome.strAddress}": 'عنوان',
+
           "${cm_StringConstantsVwHome.strOrderAccepted}": 'يقبل',
           "${cm_StringConstantsVwHome.strOrderRejected}": 'يرفض',
-          "${cm_StringConstantsVwHome.strYellowWaiting}": 'الأصفر = الانتظار',
-          "${cm_StringConstantsVwHome.strPurpleAccepted}": 'الأرجواني = مقبول',
+          "${cm_StringConstantsVwHome.strYellowWaiting}": ' الانتظار',
+          "${cm_StringConstantsVwHome.strPurpleAccepted}": ' مقبول',
           "${cm_StringConstantsVwHome.strYoudont_haveNoneworders}": 'ليس لديك أي طلبات جديدة',
           "${cm_StringConstantsVwHome.strYoudont_haveOrderhistory}": "ليس لديك تاريخ طلبات.",
+          "${cm_StringConstantsVwHome.strAll}": 'الجميع',
 
           //VwCommonLayout
 
@@ -131,12 +134,15 @@ class cm_LanguageController extends Translations {
           "${cm_StringConstantsVwCommomLayout.strProfile}": 'الملف الشخصي',
           "${cm_StringConstantsVwCommomLayout.strSettings}": 'الإعدادات',
           "${cm_StringConstantsVwCommomLayout.strAlert}": 'تنبيه',
+          "${cm_StringConstantsVwHome.strAddress}": 'عنوان',
+
 
           //VwProfile
           "${cm_StringConstantsVwProfile.strMyPrsofile}": 'ملفي الشخصي',
           "${cm_StringConstantsVwProfile.strTitle}": 'العنوان',
           "${cm_StringConstantsVwProfile.strStatus}": 'الحالة',
           "${cm_StringConstantsVwProfile.strPhoneNumber}": 'رقم الهاتف',
+
 
           //VwOrderDetails
           "${cm_StringConstantsVwOrderDetails.strOrderDetails}": 'تفاصيل الطلب',

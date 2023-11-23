@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
+import 'package:dowidardriver/MVVM/ViewModel/Vm_CommonLayout/Vm_CommonLayout.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_OrderDetails/Vm_OrderDeatils.dart';
 import 'package:dowidardriver/Routing/AppRoutes.dart';
@@ -18,6 +19,7 @@ import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwOrderDetail
 import '../../../CustomWidgets/ArabicTextField.dart';
 import '../../../Enum/EnumStatus.dart';
 import '../../Model/ModOrderDetails/ModOrderDetials.dart';
+import '../../ViewModel/Vm_CommonLayout/Vm_CommonLayout.dart';
 import '../../ViewModel/Vm_Login/Vm_Login.dart';
 
 class Vw_OrderDetails extends StatefulWidget {
@@ -31,6 +33,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
   @override
   final Vm_OrderDetails l_VmOrderDetails = Get.put(Vm_OrderDetails());
   final Vm_Home lVm_Home = Get.find<Vm_Home>();
+  final Vm_CommonLayout l_Vm_CommonLayout  =  Get.find<Vm_CommonLayout>();
 
   DateTime? createdAt;
   String? date;
@@ -79,7 +82,10 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                             );
                             bool isCall = await lVm_Home.fnc_UpdateOrderStatus();
                             await l_VmOrderDetails.fnc_OrderDetails();
+                            await l_Vm_CommonLayout.fnc_GetAllOrders();
                             l_VmOrderDetails.orderDetails.refresh();
+                            l_Vm_CommonLayout.RxListModOrderPenidngNew?.refresh();
+
 
                             Get.back();
                             if (isCall) {

@@ -27,6 +27,7 @@ class cmGlobalVariables {
 
   static int? pBChatOrderId;
   static String? pBChatReciverId;
+  static String ? pBDriverStatus;
 
 
 

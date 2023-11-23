@@ -15,6 +15,7 @@ class Vm_CommonLayout extends GetxController {
   RxList<Order>? RxListModOrderPenidngNew = <Order>[].obs;
   RxBool isLoadingAllOrders = false.obs;
   RxBool isLoadingPendingOrders = false.obs;
+  RxBool isLoadingPendingNewOrders = false.obs;
   RxBool isLoadingOrderHistory = false.obs;
 
   Future<bool> fnc_GetAllOrders() async {
@@ -39,9 +40,10 @@ class Vm_CommonLayout extends GetxController {
         RxListModUserAllOrders?.value = l_list_ModGetAllOrders ?? [];
 
         RxListModUserProcessingEnrOrders?.clear();
-        RxListModUserProcessingEnrOrders?.value = RxListModUserAllOrders!.value
-            .where((order) => order.status == OrderStatus.PROCESSING || order.status == Status.OrderEnroute)
-            .toList();
+        // RxListModUserProcessingEnrOrders?.value = RxListModUserAllOrders!.value
+        //     .where((order) => order.status == OrderStatus.PROCESSING || order.status == Status.OrderEnroute)
+        //     .toList();
+        RxListModUserProcessingEnrOrders?.value = l_list_ModGetAllOrders ?? [];
 
         isLoadingAllOrders.value = false; // Hide loading indicator
 
@@ -93,7 +95,7 @@ class Vm_CommonLayout extends GetxController {
 
   bool fncNewOrdersWaitingFilter() {
     try {
-      isLoadingPendingOrders.value = true;
+      isLoadingPendingNewOrders.value = true;
 
       if (RxListModUserAllOrders != null) {
         final filteredOrders = RxListModUserAllOrders!
@@ -103,10 +105,10 @@ class Vm_CommonLayout extends GetxController {
             .toList();
         RxListModOrderPenidngNew?.clear();
         RxListModOrderPenidngNew?.assignAll(filteredOrders);
-        isLoadingPendingOrders.value = false;
+        isLoadingPendingNewOrders.value = false;
         return true; // Filtering and assignment succeeded
       } else {
-        isLoadingPendingOrders.value = false;
+        isLoadingPendingNewOrders.value = false;
 
         return false; // RxListModUserAllOrders is null
       }

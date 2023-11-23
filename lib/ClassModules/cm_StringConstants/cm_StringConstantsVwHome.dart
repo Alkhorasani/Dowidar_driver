@@ -15,9 +15,10 @@ class cm_StringConstantsVwHome {
   static String? strLocationLive = 'Location Live';
   static String? strLocationoff = 'Location Off';
   static String? strError = 'Error';
-  static String? strRedCancelled = 'Red = Cancelled';
-  static String? strBlueProcessing = 'Blue = Processing';
-  static String? strGreenPending = 'Green = Enroute';
+  static String? strRedCancelled = 'Cancelled';
+  static String? strBlueProcessing = 'Processing';
+  static String? strGreenPending = 'Enroute';
+  static String? strAll = 'All';
   static String? strYoudont_haveanyorders = 'You don\'t have any orders';
   static String? strOrderNO = 'Order NO';
   static String? strResturent = 'Restaurant';
@@ -27,7 +28,7 @@ class cm_StringConstantsVwHome {
   static String? strAddress = 'Address';
   static String? strOrderAccepted = 'Accept';
   static String? strOrderRejected = 'Reject';
-  static String? strYellowWaiting = 'Yellow = waiting';
-  static String? strPurpleAccepted = 'Purple = accepted';
+  static String? strYellowWaiting = 'Waiting';
+  static String? strPurpleAccepted = 'Accepted';
 
 }

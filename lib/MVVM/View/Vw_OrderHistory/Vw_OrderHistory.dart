@@ -224,10 +224,9 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${'${cm_StringConstantsVwHome.strOrderNO}:'.tr}",
+                                          "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
                                           style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black45,
@@ -247,7 +246,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                     Row(
                                       children: [
                                         Text(
-                                          "${'${cm_StringConstantsVwHome.strStatus}:'.tr}",
+                                          "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
                                           style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black45,
@@ -261,7 +260,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                             color: Colors.black,
                                             fontSize: 16,
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                     Row(
@@ -274,25 +273,24 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                             fontSize: 16,
                                           ),
                                         ),
-                                        Expanded(
-                                          child: Obx(() {
-                                            if (l_Vm_Home.isArabic.value == true) {
-                                              return CustomRestaurantNameText(
-                                                restaurantName: order.restaurant!.arName.toString(),
-                                              );
-                                            }
-                                            return Container(
-                                              child: Text(
-                                                order.restaurant!.name.toString(),
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
+                                        Obx(() {
+                                          if (l_Vm_Home.isArabic.value == true) {
+                                            return CustomRestaurantNameText(
+                                              restaurantName: order.restaurant!.arName
+                                                  .toString()
+                                                  .split('.')
+                                                  .last,
                                             );
-                                          }),
-                                        ),
+                                          }
+                                          return Text(
+                                            order.restaurant!.name.toString().split('.').last,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                            ),
+                                          );
+                                        }),
                                       ],
                                     ),
                                     Row(
@@ -320,7 +318,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "${'${cm_StringConstantsVwHome.strAddress}:'.tr}",
+                                            "${'${cm_StringConstantsVwHome.strAddress}'.tr}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black45,
@@ -330,7 +328,7 @@ class _Vw_OrderHistoryState extends State<Vw_OrderHistory> {
                                           Expanded(
                                             child: Text(
                                               order.restaurant!.address.toString(),
-                                              maxLines: 4,
+                                              maxLines: 2,
                                               // softWrap: true,
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.w500,
