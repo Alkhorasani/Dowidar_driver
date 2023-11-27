@@ -610,11 +610,13 @@
     });
 
     factory Location.fromJson(Map<String, dynamic> json) => Location(
-      latitude: json["latitude"]?.toDouble(),
-      longitude: json["longitude"]?.toDouble(),
-      lat: json["lat"]?.toDouble(),
-      lng: json["lng"]?.toDouble(),
+      latitude: double.tryParse(json["latitude"].toString()) ?? 0.0,
+      longitude: double.tryParse(json["longitude"].toString()) ?? 0.0,
+      lat: double.tryParse(json["lat"].toString()) ?? 0.0,
+      lng: double.tryParse(json["lng"].toString()) ?? 0.0,
     );
+
+
 
     Map<String, dynamic> toJson() => {
       "latitude": latitude,
