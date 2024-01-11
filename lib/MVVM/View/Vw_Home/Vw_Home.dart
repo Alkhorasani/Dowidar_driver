@@ -3,20 +3,15 @@ import 'package:dowidardriver/Enum/EnumStatus.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Login/Vm_Login.dart';
 import 'package:dowidardriver/Routing/AppRoutes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:workmanager/workmanager.dart';
 
-import '../../../ClassModules/cm_LanguageController/cm_LanguageController.dart';
 import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwHome.dart';
 import '../../../CustomWidgets/ArabicTextField.dart';
-import '../../../CustomWidgets/CustomNavigation_Bar.dart';
 import '../../Model/ModGetAllOrders/ModGetAllOrders.dart';
 import '../../ViewModel/Vm_CommonLayout/Vm_CommonLayout.dart';
 
@@ -68,7 +63,7 @@ class _Vw_HomeState extends State<Vw_Home> {
               appBar: AppBar(
                 automaticallyImplyLeading: false,
                 title: Text(
-                  "${'${cm_StringConstantsVwHome.strHome}'.tr}",
+                  '${cm_StringConstantsVwHome.strHome}'.tr,
                   style: GoogleFonts.ubuntu(
                       textStyle: const TextStyle(
                           fontSize: 22, color: Colors.black, fontWeight: FontWeight.w600, letterSpacing: .5)),
@@ -104,10 +99,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                   tabs: [
                     Tab(
 
-                      text: "${'${cm_StringConstantsVwHome.strCurrentOrders}'.tr}",
+                      text: '${cm_StringConstantsVwHome.strCurrentOrders}'.tr,
                     ),
                     Tab(
-                      text: "${'${cm_StringConstantsVwHome.strNewOrders}'.tr}",
+                      text: '${cm_StringConstantsVwHome.strNewOrders}'.tr,
                     ),
                   ],
                 ),
@@ -121,7 +116,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
+                          '${cm_StringConstantsVwHome.strStatus}'.tr,
                           style: GoogleFonts.ubuntu(
                             textStyle: const TextStyle(fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
                           ),
@@ -165,7 +160,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                 await l_Vm_Home.fnc_UpdateDriverStatus();
                                 Workmanager().cancelByUniqueName("get_user_location_task");
                                 Get.snackbar(
-                                  "${'${cm_StringConstantsVwHome.strAlert}'.tr}",
+                                  '${cm_StringConstantsVwHome.strAlert}'.tr,
                                   "",
                                   backgroundColor: Colors.deepOrange.withOpacity(0.2),
                                   icon: const Icon(Icons.error_outline, color: Colors.redAccent),
@@ -232,7 +227,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             child: Padding(
                                                 padding: const EdgeInsets.all(5.0),
                                                 child: Text(
-                                                  "${'${cm_StringConstantsVwHome.strAll}'.tr}",
+                                                  '${cm_StringConstantsVwHome.strAll}'.tr,
                                                   style: GoogleFonts.ubuntu(
                                                     textStyle: const TextStyle(
                                                       fontWeight: FontWeight.w700,
@@ -270,7 +265,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             child: Padding(
                                                 padding: const EdgeInsets.all(5.0),
                                                 child: Text(
-                                                  "${'${cm_StringConstantsVwHome.strBlueProcessing}'.tr}",
+                                                  '${cm_StringConstantsVwHome.strBlueProcessing}'.tr,
                                                   style: GoogleFonts.ubuntu(
                                                     textStyle: const TextStyle(
                                                       fontWeight: FontWeight.w700,
@@ -307,7 +302,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             child: Padding(
                                                 padding: const EdgeInsets.all(5.0),
                                                 child: Text(
-                                                  "${'${cm_StringConstantsVwHome.strGreenPending}'.tr}",
+                                                  '${cm_StringConstantsVwHome.strGreenPending}'.tr,
                                                   style: GoogleFonts.ubuntu(
                                                     textStyle: const TextStyle(
                                                       fontWeight: FontWeight.w700,
@@ -352,7 +347,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                         // Show "List is empty" message
                                         return Center(
                                           child: Text(
-                                            "${'${cm_StringConstantsVwHome.strYoudont_haveanyorders}'.tr}",
+                                            '${cm_StringConstantsVwHome.strYoudont_haveanyorders}'.tr,
                                             style: GoogleFonts.ubuntu(
                                               textStyle: const TextStyle(
                                                   fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
@@ -419,7 +414,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
+                                                              '${cm_StringConstantsVwHome.strOrderNO}'.tr,
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -439,7 +434,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
+                                                              '${cm_StringConstantsVwHome.strStatus}'.tr,
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -447,10 +442,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              "${status != null ? status
+                                                              status != null ? status
                                                                   .toString()
                                                                   .split('.')
-                                                                  .last : ''}",
+                                                                  .last : '',
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black,
@@ -462,7 +457,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.strResturent}:'.tr}",
+                                                              '${cm_StringConstantsVwHome.strResturent}:'.tr,
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -497,7 +492,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
+                                                              '${cm_StringConstantsVwHome.CreatedAt}'.tr,
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black45,
@@ -521,7 +516,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
                                                               Text(
-                                                                "${'${cm_StringConstantsVwHome.strAddress}'.tr}",
+                                                                '${cm_StringConstantsVwHome.strAddress}'.tr,
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black45,
@@ -605,7 +600,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                 child: Padding(
                                                     padding: const EdgeInsets.all(5.0),
                                                     child: Text(
-                                                      "${'${cm_StringConstantsVwHome.strYellowWaiting}'.tr}",
+                                                      '${cm_StringConstantsVwHome.strYellowWaiting}'.tr,
                                                       style: GoogleFonts.ubuntu(
                                                         textStyle: const TextStyle(
                                                           fontWeight: FontWeight.w700,
@@ -645,7 +640,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                 child: Padding(
                                                     padding: const EdgeInsets.all(5.0),
                                                     child: Text(
-                                                      "${'${cm_StringConstantsVwHome.strPurpleAccepted}'.tr}",
+                                                      '${cm_StringConstantsVwHome.strPurpleAccepted}'.tr,
                                                       style: GoogleFonts.ubuntu(
                                                         textStyle: const TextStyle(
                                                           fontWeight: FontWeight.w700,
@@ -691,7 +686,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             // Show "List is empty" message
                                             return Center(
                                               child: Text(
-                                                "${'${cm_StringConstantsVwHome.strYoudont_haveNoneworders}'.tr}",
+                                                '${cm_StringConstantsVwHome.strYoudont_haveNoneworders}'.tr,
                                                 style: GoogleFonts.ubuntu(
                                                   textStyle: const TextStyle(
                                                       fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
@@ -745,7 +740,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                           Row(
                                                             children: [
                                                               Text(
-                                                                "${'${cm_StringConstantsVwHome.strOrderNO}'.tr}",
+                                                                '${cm_StringConstantsVwHome.strOrderNO}'.tr,
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black45,
@@ -765,7 +760,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                           Row(
                                                             children: [
                                                               Text(
-                                                                "${'${cm_StringConstantsVwHome.strStatus}'.tr}",
+                                                                '${cm_StringConstantsVwHome.strStatus}'.tr,
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black45,
@@ -773,10 +768,10 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                "${status != null ? status
+                                                                status != null ? status
                                                                     .toString()
                                                                     .split('.')
-                                                                    .last : ''}",
+                                                                    .last : '',
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black,
@@ -788,7 +783,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                           Row(
                                                             children: [
                                                               Text(
-                                                                "${'${cm_StringConstantsVwHome.strResturent}:'.tr}",
+                                                                '${cm_StringConstantsVwHome.strResturent}:'.tr,
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black45,
@@ -824,7 +819,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                           Row(
                                                             children: [
                                                               Text(
-                                                                "${'${cm_StringConstantsVwHome.CreatedAt}'.tr}",
+                                                                '${cm_StringConstantsVwHome.CreatedAt}'.tr,
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black45,
@@ -848,7 +843,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Text(
-                                                                  "${'${cm_StringConstantsVwHome.strAddress}:'.tr}",
+                                                                  '${cm_StringConstantsVwHome.strAddress}:'.tr,
                                                                   style: const TextStyle(
                                                                     fontWeight: FontWeight.w500,
                                                                     color: Colors.black45,
@@ -938,8 +933,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                       ),
                                                                     ),
                                                                     child: Text(
-                                                                      "${'${cm_StringConstantsVwHome.strOrderAccepted}'
-                                                                          .tr}",
+                                                                      '${cm_StringConstantsVwHome.strOrderAccepted}'
+                                                                          .tr,
                                                                       style: GoogleFonts.ubuntu(
                                                                         textStyle: const TextStyle(
                                                                           fontWeight: FontWeight.w800,
@@ -1005,8 +1000,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                       ),
                                                                     ),
                                                                     child: Text(
-                                                                      "${'${cm_StringConstantsVwHome.strOrderRejected}'
-                                                                          .tr}",
+                                                                      '${cm_StringConstantsVwHome.strOrderRejected}'
+                                                                          .tr,
                                                                       style: GoogleFonts.ubuntu(
                                                                         textStyle: const TextStyle(
                                                                           fontWeight: FontWeight.w800,

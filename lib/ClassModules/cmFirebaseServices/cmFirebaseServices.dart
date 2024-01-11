@@ -42,6 +42,7 @@ class FirebaseService {
                 messagingSenderId: "583156775225",
                 appId: "1:583156775225:android:8d6464b077e996aef790e8",
               ));
+    FirebaseMessaging.instance.requestPermission();
     FirebaseService._firebaseMessaging = FirebaseMessaging.instance;
     await FirebaseService.initializeLocalNotifications();
     await FCMProvider.onMessage();
