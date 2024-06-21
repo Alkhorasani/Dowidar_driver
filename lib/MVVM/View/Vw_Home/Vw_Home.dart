@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dowidardriver/ClassModules/cmGlobalVariables/cmGlobalVariables.dart';
 import 'package:dowidardriver/Enum/EnumStatus.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Home/Vm_Home.dart';
@@ -16,8 +18,7 @@ import '../../Model/ModGetAllOrders/ModGetAllOrders.dart';
 import '../../ViewModel/Vm_CommonLayout/Vm_CommonLayout.dart';
 
 class Vw_Home extends StatefulWidget {
-
-  const Vw_Home({ super.key});
+  const Vw_Home({super.key});
 
   @override
   State<Vw_Home> createState() => _Vw_HomeState();
@@ -28,6 +29,7 @@ class _Vw_HomeState extends State<Vw_Home> {
   final Vm_Home l_Vm_Home = Get.put(Vm_Home());
   final Vm_CommonLayout l_Vm_CommonLayout = Get.find<Vm_CommonLayout>();
   int? initialRoute;
+  Timer? updateDriverLocTimer;
 
   @override
   void initState() {
@@ -50,7 +52,6 @@ class _Vw_HomeState extends State<Vw_Home> {
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double G_height, double G_width) {
       return DefaultTabController(
-
         initialIndex: initialRoute!,
         length: 2, // Number of tabs
         child: SafeArea(
@@ -98,7 +99,6 @@ class _Vw_HomeState extends State<Vw_Home> {
 
                   tabs: [
                     Tab(
-
                       text: '${cm_StringConstantsVwHome.strCurrentOrders}'.tr,
                     ),
                     Tab(
@@ -118,7 +118,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                         Text(
                           '${cm_StringConstantsVwHome.strStatus}'.tr,
                           style: GoogleFonts.ubuntu(
-                            textStyle: const TextStyle(fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
+                            textStyle: const TextStyle(
+                                fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
                           ),
                         ),
                         Obx(() {
@@ -140,13 +141,18 @@ class _Vw_HomeState extends State<Vw_Home> {
                                 Get.dialog(
                                   const Center(
                                     child:
-                                    CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                        CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                   ),
                                   barrierDismissible: false,
                                 );
 
                                 bool isCall = await l_Vm_Home.fnc_UpdateDriverLocation();
                                 await l_Vm_Home.fnc_UpdateDriverStatus();
+
+                                updateDriverLocTimer = Timer.periodic(const Duration(seconds: 5), (_) async {
+                                  await l_Vm_Home.fnc_UpdateDriverLocation();
+                                });
+
                                 Get.back(); // Close the loading indicator dialog
 
                                 if (isCall) {
@@ -155,6 +161,7 @@ class _Vw_HomeState extends State<Vw_Home> {
 
                                 l_Vm_Home.isActiveSwitch.value = value;
                               } else {
+                                updateDriverLocTimer?.cancel();
                                 cmGlobalVariables.pBDriverStatus = "inactive";
                                 l_Vm_Home.isActiveSwitch.value = value;
                                 await l_Vm_Home.fnc_UpdateDriverStatus();
@@ -240,14 +247,12 @@ class _Vw_HomeState extends State<Vw_Home> {
                                           );
                                         }),
                                       ),
-
                                       GestureDetector(
                                         onTap: () {
                                           l_Vm_Home.isSelectedred.value = false;
                                           l_Vm_Home.isSelectedblue.value = true;
                                           l_Vm_Home.isSelectedfreen.value = false;
                                           l_Vm_Home.isSelectedAll.value = false;
-
 
                                           l_Vm_Home.fncfilterProcessing();
                                           l_Vm_CommonLayout.RxListModUserProcessingEnrOrders?.refresh();
@@ -258,7 +263,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             decoration: BoxDecoration(
                                               color: l_Vm_Home.isSelectedblue.value == true
                                                   ? Colors.blue
-                                                  : Colors.blue.withOpacity(0.3), // Set the background color to white
+                                                  : Colors.blue
+                                                      .withOpacity(0.3), // Set the background color to white
 
                                               borderRadius: BorderRadius.circular(12),
                                             ),
@@ -284,7 +290,6 @@ class _Vw_HomeState extends State<Vw_Home> {
                                           l_Vm_Home.isSelectedblue.value = false;
                                           l_Vm_Home.isSelectedfreen.value = true;
                                           l_Vm_Home.isSelectedAll.value = false;
-
 
                                           l_Vm_Home.fncfilterEnroute();
                                           // l_Vm_CommonLayout.fnc_GetAllOrders();
@@ -350,21 +355,25 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             '${cm_StringConstantsVwHome.strYoudont_haveanyorders}'.tr,
                                             style: GoogleFonts.ubuntu(
                                               textStyle: const TextStyle(
-                                                  fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
+                                                  fontSize: 25,
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.w600),
                                             ),
                                           ),
                                         );
                                       } else {
                                         return ListView.separated(
-                                          itemCount: l_Vm_CommonLayout.RxListModUserProcessingEnrOrders!.length,
+                                          itemCount:
+                                              l_Vm_CommonLayout.RxListModUserProcessingEnrOrders!.length,
                                           shrinkWrap: true,
-                                          separatorBuilder: (context, index) =>
-                                              SizedBox(
-                                                height: G_height * 0.02,
-                                              ),
-                                          padding: EdgeInsets.only(left: G_width * 0.03, right: G_width * 0.03),
+                                          separatorBuilder: (context, index) => SizedBox(
+                                            height: G_height * 0.02,
+                                          ),
+                                          padding:
+                                              EdgeInsets.only(left: G_width * 0.03, right: G_width * 0.03),
                                           itemBuilder: (context, index) {
-                                            final order = l_Vm_CommonLayout.RxListModUserProcessingEnrOrders![index];
+                                            final order =
+                                                l_Vm_CommonLayout.RxListModUserProcessingEnrOrders![index];
                                             final status = order.status;
 
                                             // Define the color based on the order status
@@ -407,7 +416,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                     ],
                                                   ),
                                                   child: Padding(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                                                    padding: const EdgeInsets.symmetric(
+                                                        horizontal: 16.0, vertical: 8),
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
@@ -442,10 +452,9 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              status != null ? status
-                                                                  .toString()
-                                                                  .split('.')
-                                                                  .last : '',
+                                                              status != null
+                                                                  ? status.toString().split('.').last
+                                                                  : '',
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black,
@@ -467,16 +476,14 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                             Obx(() {
                                                               if (l_Vm_Home.isArabic.value == true) {
                                                                 return CustomRestaurantNameText(
-                                                                  restaurantName: order.restaurant!
-                                                                      .arName
+                                                                  restaurantName: order.restaurant!.arName
                                                                       .toString()
                                                                       .split('.')
                                                                       .last,
                                                                 );
                                                               }
                                                               return Text(
-                                                                order.restaurant!
-                                                                    .name
+                                                                order.restaurant!.name
                                                                     .toString()
                                                                     .split('.')
                                                                     .last,
@@ -500,9 +507,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              "${DateFormat('hh:mm a').format(
-                                                                  order.createdAt!)}:${DateFormat('dd/MM').format(
-                                                                  order.createdAt!)}",
+                                                              "${DateFormat('hh:mm a').format(order.createdAt!)}:${DateFormat('dd/MM').format(order.createdAt!)}",
                                                               style: const TextStyle(
                                                                 fontWeight: FontWeight.w500,
                                                                 color: Colors.black,
@@ -559,13 +564,12 @@ class _Vw_HomeState extends State<Vw_Home> {
                           height: G_height,
                           width: G_width,
                           child: Obx(() {
-                            if(l_Vm_CommonLayout.isLoadingPendingNewOrders.value ==true){
+                            if (l_Vm_CommonLayout.isLoadingPendingNewOrders.value == true) {
                               print("loaidng");
                               print("loaidng");
                               print("loaidng");
                               return CircularProgressIndicator();
-                            }
-                            else{
+                            } else {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -689,7 +693,9 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                 '${cm_StringConstantsVwHome.strYoudont_haveNoneworders}'.tr,
                                                 style: GoogleFonts.ubuntu(
                                                   textStyle: const TextStyle(
-                                                      fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
+                                                      fontSize: 25,
+                                                      color: Colors.grey,
+                                                      fontWeight: FontWeight.w600),
                                                 ),
                                               ),
                                             );
@@ -697,13 +703,14 @@ class _Vw_HomeState extends State<Vw_Home> {
                                             return ListView.separated(
                                               itemCount: l_Vm_CommonLayout.RxListModOrderPenidngNew!.length,
                                               shrinkWrap: true,
-                                              separatorBuilder: (context, index) =>
-                                                  SizedBox(
-                                                    height: G_height * 0.02,
-                                                  ),
-                                              padding: EdgeInsets.only(left: G_width * 0.03, right: G_width * 0.03),
+                                              separatorBuilder: (context, index) => SizedBox(
+                                                height: G_height * 0.02,
+                                              ),
+                                              padding: EdgeInsets.only(
+                                                  left: G_width * 0.03, right: G_width * 0.03),
                                               itemBuilder: (context, index) {
-                                                final order = l_Vm_CommonLayout.RxListModOrderPenidngNew![index];
+                                                final order =
+                                                    l_Vm_CommonLayout.RxListModOrderPenidngNew![index];
                                                 final items = order.items;
                                                 final resturent = order.restaurant;
                                                 final status = order.status;
@@ -718,7 +725,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                 } else if (order.status == OrderStatus.PENDING) {
                                                   tileColor = Colors.orangeAccent.withOpacity(0.3);
                                                 } else {
-                                                  tileColor = Colors.white; // Default color for other statuses
+                                                  tileColor =
+                                                      Colors.white; // Default color for other statuses
                                                 }
 
                                                 return GestureDetector(
@@ -768,10 +776,9 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                status != null ? status
-                                                                    .toString()
-                                                                    .split('.')
-                                                                    .last : '',
+                                                                status != null
+                                                                    ? status.toString().split('.').last
+                                                                    : '',
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black,
@@ -783,7 +790,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                           Row(
                                                             children: [
                                                               Text(
-                                                                '${cm_StringConstantsVwHome.strResturent}:'.tr,
+                                                                '${cm_StringConstantsVwHome.strResturent}:'
+                                                                    .tr,
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black45,
@@ -793,17 +801,14 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               Obx(() {
                                                                 if (l_Vm_Home.isArabic.value == true) {
                                                                   return CustomRestaurantNameText(
-                                                                    restaurantName:
-                                                                    order.restaurant!
-                                                                        .arName
+                                                                    restaurantName: order.restaurant!.arName
                                                                         .toString()
                                                                         .split('.')
                                                                         .last,
                                                                   );
                                                                 }
                                                                 return Text(
-                                                                  order.restaurant!
-                                                                      .name
+                                                                  order.restaurant!.name
                                                                       .toString()
                                                                       .split('.')
                                                                       .last,
@@ -827,9 +832,7 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                "${DateFormat('hh:mm a').format(
-                                                                    order.createdAt!)}:${DateFormat('dd/MM').format(
-                                                                    order.createdAt!)}",
+                                                                "${DateFormat('hh:mm a').format(order.createdAt!)}:${DateFormat('dd/MM').format(order.createdAt!)}",
                                                                 style: const TextStyle(
                                                                   fontWeight: FontWeight.w500,
                                                                   color: Colors.black,
@@ -843,7 +846,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Text(
-                                                                  '${cm_StringConstantsVwHome.strAddress}:'.tr,
+                                                                  '${cm_StringConstantsVwHome.strAddress}:'
+                                                                      .tr,
                                                                   style: const TextStyle(
                                                                     fontWeight: FontWeight.w500,
                                                                     color: Colors.black45,
@@ -869,7 +873,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                             if (l_Vm_Home.isSelectedPurple.isTrue) {
                                                               return Center(
                                                                 child: Padding(
-                                                                  padding: EdgeInsets.only(top: G_height * 0.01),
+                                                                  padding:
+                                                                      EdgeInsets.only(top: G_height * 0.01),
                                                                   child: Text(
                                                                     "Please wait for the restaurant to accept.",
                                                                     style: GoogleFonts.ubuntu(
@@ -879,7 +884,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                         fontWeight: FontWeight.w800,
                                                                       ),
                                                                     ),
-                                                                    textAlign: TextAlign.center, // Center-align the text
+                                                                    textAlign: TextAlign
+                                                                        .center, // Center-align the text
                                                                   ),
                                                                 ),
                                                               );
@@ -891,10 +897,12 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                     onPressed: () async {
                                                                       cmGlobalVariables.pBisAccepted = true;
 
-                                                                      print("Button pressed at index: $index");
+                                                                      print(
+                                                                          "Button pressed at index: $index");
                                                                       cmGlobalVariables.pBOrderId = order.id;
                                                                       cmGlobalVariables.pBOrderStatusId =
-                                                                          cmGlobalVariables.pBOrderId = order.id;
+                                                                          cmGlobalVariables.pBOrderId =
+                                                                              order.id;
                                                                       cmGlobalVariables.pBOrderStatus =
                                                                           Status.Orderconfirmed;
                                                                       print(cmGlobalVariables.pBOrderId);
@@ -902,20 +910,26 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                       Get.dialog(
                                                                         const Center(
                                                                           child:
-                                                                          CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                                                              CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                                                         ),
                                                                         barrierDismissible: false,
                                                                       );
 
-                                                                      bool isCall = await l_Vm_Home.fnc_OrderAccRej();
+                                                                      bool isCall =
+                                                                          await l_Vm_Home.fnc_OrderAccRej();
                                                                       //await l_Vm_Home.fnc_UpdateOrderStatus();
-                                                                      await l_Vm_CommonLayout.fnc_GetAllOrders();
-                                                                      await l_Vm_CommonLayout.fncNewOrdersWaitingFilter();
-                                                                      l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
-                                                                      l_Vm_CommonLayout.RxListModOrderPenidngNew
+                                                                      await l_Vm_CommonLayout
+                                                                          .fnc_GetAllOrders();
+                                                                      await l_Vm_CommonLayout
+                                                                          .fncNewOrdersWaitingFilter();
+                                                                      l_Vm_CommonLayout.RxListModUserAllOrders
+                                                                          ?.refresh();
+                                                                      l_Vm_CommonLayout
+                                                                              .RxListModOrderPenidngNew
                                                                           ?.refresh();
 
-                                                                      l_Vm_CommonLayout.isLoadingPendingOrders.refresh();
+                                                                      l_Vm_CommonLayout.isLoadingPendingOrders
+                                                                          .refresh();
                                                                       Get.back(); // Close the loading indicator dialog
 
                                                                       if (isCall) {
@@ -929,7 +943,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                       foregroundColor: Colors.black,
                                                                       backgroundColor: Colors.green.shade200,
                                                                       shape: RoundedRectangleBorder(
-                                                                        borderRadius: BorderRadius.circular(10.0),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10.0),
                                                                       ),
                                                                     ),
                                                                     child: Text(
@@ -940,7 +955,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                           fontWeight: FontWeight.w800,
                                                                           fontSize: 15,
                                                                           color: Colors.white,
-                                                                          letterSpacing: 0.5, // Removed the period before 5
+                                                                          letterSpacing:
+                                                                              0.5, // Removed the period before 5
                                                                         ),
                                                                       ),
                                                                     ),
@@ -955,10 +971,12 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                     onPressed: () async {
                                                                       cmGlobalVariables.pBisAccepted = false;
 
-                                                                      print("Button pressed at index: $index");
+                                                                      print(
+                                                                          "Button pressed at index: $index");
                                                                       cmGlobalVariables.pBOrderId = order.id;
                                                                       cmGlobalVariables.pBOrderStatusId =
-                                                                          cmGlobalVariables.pBOrderId = order.id;
+                                                                          cmGlobalVariables.pBOrderId =
+                                                                              order.id;
                                                                       cmGlobalVariables.pBOrderStatus =
                                                                           Status.Ordercancelled;
                                                                       print(cmGlobalVariables.pBOrderId);
@@ -966,22 +984,28 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                       Get.dialog(
                                                                         const Center(
                                                                           child:
-                                                                          CircularProgressIndicator(), // Replace with your desired loading indicator widget
+                                                                              CircularProgressIndicator(), // Replace with your desired loading indicator widget
                                                                         ),
                                                                         barrierDismissible: false,
                                                                       );
 
-                                                                      bool isCall = await l_Vm_Home.fnc_OrderAccRej();
+                                                                      bool isCall =
+                                                                          await l_Vm_Home.fnc_OrderAccRej();
                                                                       //await l_Vm_Home.fnc_UpdateOrderStatus();
-                                                                      await l_Vm_CommonLayout.fnc_GetAllOrders();
-                                                                      await l_Vm_CommonLayout.fncNewOrdersWaitingFilter();
+                                                                      await l_Vm_CommonLayout
+                                                                          .fnc_GetAllOrders();
+                                                                      await l_Vm_CommonLayout
+                                                                          .fncNewOrdersWaitingFilter();
                                                                       //await l_Vm_CommonLayout.fncNewOrdersAcceptedFilter();
 
-                                                                      l_Vm_CommonLayout.RxListModUserAllOrders?.refresh();
-                                                                      l_Vm_CommonLayout.RxListModOrderPenidngNew
+                                                                      l_Vm_CommonLayout.RxListModUserAllOrders
+                                                                          ?.refresh();
+                                                                      l_Vm_CommonLayout
+                                                                              .RxListModOrderPenidngNew
                                                                           ?.refresh();
 
-                                                                      l_Vm_CommonLayout.isLoadingPendingOrders.refresh();
+                                                                      l_Vm_CommonLayout.isLoadingPendingOrders
+                                                                          .refresh();
 
                                                                       Get.back(); // Close the loading indicator dialog
 
@@ -994,9 +1018,11 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                       elevation: 4,
                                                                       // Set the width and height as needed
                                                                       foregroundColor: Colors.black,
-                                                                      backgroundColor: Colors.redAccent.shade100,
+                                                                      backgroundColor:
+                                                                          Colors.redAccent.shade100,
                                                                       shape: RoundedRectangleBorder(
-                                                                        borderRadius: BorderRadius.circular(10.0),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10.0),
                                                                       ),
                                                                     ),
                                                                     child: Text(
@@ -1007,7 +1033,8 @@ class _Vw_HomeState extends State<Vw_Home> {
                                                                           fontWeight: FontWeight.w800,
                                                                           fontSize: 15,
                                                                           color: Colors.white,
-                                                                          letterSpacing: 0.5, // Removed the period before 5
+                                                                          letterSpacing:
+                                                                              0.5, // Removed the period before 5
                                                                         ),
                                                                       ),
                                                                     ),
@@ -1042,7 +1069,6 @@ class _Vw_HomeState extends State<Vw_Home> {
                                   )
                                 ],
                               );
-
                             }
                           }),
                         ),
@@ -1069,14 +1095,8 @@ class _Vw_HomeState extends State<Vw_Home> {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               //Get device's screen height and width.
-              double height = MediaQuery
-                  .of(context)
-                  .size
-                  .height;
-              double width = MediaQuery
-                  .of(context)
-                  .size
-                  .width;
+              double height = MediaQuery.of(context).size.height;
+              double width = MediaQuery.of(context).size.width;
 
               if (width >= 300 && width < 500) {
                 return _WidgetportraitMode(height, width);

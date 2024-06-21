@@ -4,23 +4,15 @@ import 'package:dowidardriver/MVVM/ViewModel/Vm_CommonLayout/Vm_CommonLayout.dar
 import 'package:dowidardriver/MVVM/ViewModel/Vm_Home/Vm_Home.dart';
 import 'package:dowidardriver/MVVM/ViewModel/Vm_OrderDetails/Vm_OrderDeatils.dart';
 import 'package:dowidardriver/Routing/AppRoutes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../ClassModules/AppImages/cmGlobal_AppImages.dart';
-import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwHome.dart';
+
 import '../../../ClassModules/cm_StringConstants/cm_StringConstantsVwOrderDetails.dart';
 import '../../../CustomWidgets/ArabicTextField.dart';
 import '../../../Enum/EnumStatus.dart';
-import '../../Model/ModOrderDetails/ModOrderDetials.dart';
-import '../../ViewModel/Vm_CommonLayout/Vm_CommonLayout.dart';
-import '../../ViewModel/Vm_Login/Vm_Login.dart';
 
 class Vw_OrderDetails extends StatefulWidget {
   const Vw_OrderDetails({Key? key});
@@ -33,7 +25,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
   @override
   final Vm_OrderDetails l_VmOrderDetails = Get.put(Vm_OrderDetails());
   final Vm_Home lVm_Home = Get.find<Vm_Home>();
-  final Vm_CommonLayout l_Vm_CommonLayout  =  Get.find<Vm_CommonLayout>();
+  final Vm_CommonLayout l_Vm_CommonLayout = Get.find<Vm_CommonLayout>();
 
   DateTime? createdAt;
   String? date;
@@ -57,9 +49,10 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                 return Padding(
                   padding: EdgeInsets.only(left: G_width * 0.23),
                   child: Text(
-                    "${'${cm_StringConstantsVwOrderDetails.strYourOrderDeliverd}'.tr}",
+                    '${cm_StringConstantsVwOrderDetails.strYourOrderDeliverd}'.tr,
                     style: GoogleFonts.ubuntu(
-                      textStyle: const TextStyle(fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
+                      textStyle:
+                          const TextStyle(fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
                     ),
                   ),
                 );
@@ -71,8 +64,8 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                       children: <Widget>[
                         ElevatedButton(
                           onPressed: () async {
-                            cmGlobalVariables.pBOrderStatusId =
-                                cmGlobalVariables.pBOrderId = l_VmOrderDetails.orderDetails.value?.data?.order?.id;
+                            cmGlobalVariables.pBOrderStatusId = cmGlobalVariables.pBOrderId =
+                                l_VmOrderDetails.orderDetails.value?.data?.order?.id;
                             cmGlobalVariables.pBOrderStatus = Status.OrderDeliverd;
                             Get.dialog(
                               const Center(
@@ -85,7 +78,6 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                             await l_Vm_CommonLayout.fnc_GetAllOrders();
                             l_VmOrderDetails.orderDetails.refresh();
                             l_Vm_CommonLayout.RxListModOrderPenidngNew?.refresh();
-
 
                             Get.back();
                             if (isCall) {
@@ -102,7 +94,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                             ),
                           ),
                           child: Text(
-                            "${'${cm_StringConstantsVwOrderDetails.strDelivered}'.tr}",
+                            '${cm_StringConstantsVwOrderDetails.strDelivered}'.tr,
                             style: GoogleFonts.ubuntu(
                               textStyle: const TextStyle(
                                 fontWeight: FontWeight.w800,
@@ -120,9 +112,10 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                   return Padding(
                     padding: EdgeInsets.only(left: G_width * 0.23),
                     child: Text(
-                      "${'${cm_StringConstantsVwOrderDetails.strOrderEnroute}'.tr}",
+                      '${cm_StringConstantsVwOrderDetails.strOrderEnroute}'.tr,
                       style: GoogleFonts.ubuntu(
-                        textStyle: const TextStyle(fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
+                        textStyle:
+                            const TextStyle(fontSize: 25, color: Colors.grey, fontWeight: FontWeight.w600),
                       ),
                     ),
                   );
@@ -141,13 +134,13 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
 
                 Get.toNamed(AppRoutes.vwChat);
               },
-              child: Icon(Icons.message),
               mini: true, // Set to true to make it a small FAB
-              backgroundColor: Colors.deepOrange, // Customize the background color
+              backgroundColor: Colors.deepOrange,
+              child: const Icon(Icons.message), // Customize the background color
             ),
             appBar: AppBar(
               title: Text(
-                "${'${cm_StringConstantsVwOrderDetails.strOrderDetails}'.tr}",
+                '${cm_StringConstantsVwOrderDetails.strOrderDetails}'.tr,
                 style: GoogleFonts.ubuntu(
                     textStyle: const TextStyle(
                         fontSize: 22, color: Colors.black, fontWeight: FontWeight.w600, letterSpacing: .5)),
@@ -163,7 +156,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
               color: Colors.white,
               child: Obx(() {
                 if (l_VmOrderDetails.isLoading.isTrue) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(), // Show loading indicator
                   );
                 } else if (l_VmOrderDetails.orderDetails != null) {
@@ -176,20 +169,20 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: G_width * 0.03),
-                          child: Container(
+                          child: SizedBox(
                             width: G_height * 0.450,
                             child: Card(
                               color: Colors.white,
                               elevation: 15,
-                              margin: EdgeInsets.all(16),
+                              margin: const EdgeInsets.all(16),
                               child: Container(
-                                padding: EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${'${cm_StringConstantsVwOrderDetails.strRestaurantInfo}'.tr}",
-                                      style: TextStyle(
+                                      '${cm_StringConstantsVwOrderDetails.strRestaurantInfo}'.tr,
+                                      style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -209,18 +202,20 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                           children: [
                                             IconButton(
                                               onPressed: () {
-                                                double? lat = l_VmOrderDetails
-                                                    .orderDetails.value?.data?.order?.restaurant?.location?.latitude;
-                                                double? lng = l_VmOrderDetails
-                                                    .orderDetails.value?.data?.order?.restaurant?.location?.longitude;
+                                                double? lat = l_VmOrderDetails.orderDetails.value?.data?.order
+                                                    ?.restaurant?.location?.lat;
+                                                double? lng = l_VmOrderDetails.orderDetails.value?.data?.order
+                                                    ?.restaurant?.location?.lng;
                                                 if (lat != null && lng != null) {
-                                                  launch("https://www.google.com/maps/search/?api=1&query=$lat,$lng");
+                                                  launch(
+                                                      "https://www.google.com/maps/search/?api=1&query=$lat,$lng");
                                                 }
                                               },
-                                              icon: Icon(Icons.pin_drop, size: 35, color: Colors.deepOrange),
+                                              icon: const Icon(Icons.pin_drop,
+                                                  size: 35, color: Colors.deepOrange),
                                             ),
                                             Text(
-                                              "${'${cm_StringConstantsVwOrderDetails.strLocation}'.tr}",
+                                              '${cm_StringConstantsVwOrderDetails.strLocation}'.tr,
                                               style: GoogleFonts.ubuntu(
                                                 textStyle: const TextStyle(
                                                   fontWeight: FontWeight.w700,
@@ -246,10 +241,11 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                                 }
                                                 // Handle button press for the map icon
                                               },
-                                              icon: Icon(Icons.phone, size: 32, color: Colors.deepOrange),
+                                              icon:
+                                                  const Icon(Icons.phone, size: 32, color: Colors.deepOrange),
                                             ),
                                             Text(
-                                              "${'${cm_StringConstantsVwOrderDetails.strPhone}'.tr}",
+                                              '${cm_StringConstantsVwOrderDetails.strPhone}'.tr,
                                               style: GoogleFonts.ubuntu(
                                                 textStyle: const TextStyle(
                                                   fontWeight: FontWeight.w700,
@@ -285,15 +281,15 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                             child: Card(
                               color: Colors.white,
                               elevation: 15,
-                              margin: EdgeInsets.all(16),
+                              margin: const EdgeInsets.all(16),
                               child: Container(
-                                padding: EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${'${cm_StringConstantsVwOrderDetails.strClientInfo}'.tr}",
-                                      style: TextStyle(
+                                      '${cm_StringConstantsVwOrderDetails.strClientInfo}'.tr,
+                                      style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -318,18 +314,20 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                           children: [
                                             IconButton(
                                               onPressed: () {
-                                                double? lat =
-                                                    l_VmOrderDetails.orderDetails.value?.data?.order?.user?.latitude;
-                                                double? lng =
-                                                    l_VmOrderDetails.orderDetails.value?.data?.order?.user?.longitude;
+                                                double? lat = l_VmOrderDetails
+                                                    .orderDetails.value?.data?.order?.user?.latitude;
+                                                double? lng = l_VmOrderDetails
+                                                    .orderDetails.value?.data?.order?.user?.longitude;
                                                 if (lat != null && lng != null) {
-                                                  launch("https://www.google.com/maps/search/?api=1&query=$lat,$lng");
+                                                  launch(
+                                                      "https://www.google.com/maps/search/?api=1&query=$lat,$lng");
                                                 }
                                               },
-                                              icon: Icon(Icons.pin_drop, size: 35, color: Colors.deepOrange),
+                                              icon: const Icon(Icons.pin_drop,
+                                                  size: 35, color: Colors.deepOrange),
                                             ),
                                             Text(
-                                              "${'${cm_StringConstantsVwOrderDetails.strLocation}'.tr}",
+                                              '${cm_StringConstantsVwOrderDetails.strLocation}'.tr,
                                               style: GoogleFonts.ubuntu(
                                                 textStyle: const TextStyle(
                                                   fontWeight: FontWeight.w700,
@@ -349,17 +347,18 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                           children: [
                                             IconButton(
                                               onPressed: () {
-                                                String? phoneNumber =
-                                                    l_VmOrderDetails.orderDetails.value?.data?.order?.user?.phone;
+                                                String? phoneNumber = l_VmOrderDetails
+                                                    .orderDetails.value?.data?.order?.user?.phone;
                                                 if (phoneNumber != null) {
                                                   launch("tel:$phoneNumber");
                                                 }
                                                 // Handle button press for the map icon
                                               },
-                                              icon: Icon(Icons.phone, size: 35, color: Colors.deepOrange),
+                                              icon:
+                                                  const Icon(Icons.phone, size: 35, color: Colors.deepOrange),
                                             ),
                                             Text(
-                                              "${'${cm_StringConstantsVwOrderDetails.strPhone}'.tr}",
+                                              '${cm_StringConstantsVwOrderDetails.strPhone}'.tr,
                                               style: GoogleFonts.ubuntu(
                                                 textStyle: const TextStyle(
                                                   fontWeight: FontWeight.w700,
@@ -395,15 +394,15 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                             child: Card(
                               color: Colors.white,
                               elevation: 15,
-                              margin: EdgeInsets.all(16),
+                              margin: const EdgeInsets.all(16),
                               child: Container(
-                                padding: EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${'${cm_StringConstantsVwOrderDetails.strOrderInfo}'.tr}",
-                                      style: TextStyle(
+                                      '${cm_StringConstantsVwOrderDetails.strOrderInfo}'.tr,
+                                      style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -436,7 +435,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                           child: Row(
                             children: [
                               Text(
-                                "${'${cm_StringConstantsVwOrderDetails.strItems}'.tr}",
+                                '${cm_StringConstantsVwOrderDetails.strItems}'.tr,
                                 style: GoogleFonts.ubuntu(
                                     textStyle: const TextStyle(
                                         fontSize: 22,
@@ -449,15 +448,14 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                         ),
                         SizedBox(height: G_height * 0.01),
                         ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: l_VmOrderDetails.orderDetails.value!.data!.order!.items!.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: l_VmOrderDetails.orderDetails.value?.data?.order?.items?.length ?? 0,
                           shrinkWrap: true,
                           padding: EdgeInsets.only(left: G_width * 0.07, right: G_width * 0.07),
                           itemBuilder: (context, index) {
                             final item = l_VmOrderDetails.orderDetails.value!.data!.order!.items![index];
 
-
-                                                      Color tileColor = Colors.deepOrange.withOpacity(0.3);
+                            Color tileColor = Colors.deepOrange.withOpacity(0.3);
 
                             return GestureDetector(
                               onTap: () async {},
@@ -489,8 +487,10 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                                     // Same as the border radius above
                                                     child: CachedNetworkImage(
                                                       imageUrl: item.imageUrl.toString(),
-                                                      placeholder: (context, url) => CircularProgressIndicator(),
-                                                      errorWidget: (context, url, error) => Icon(Icons.error),
+                                                      placeholder: (context, url) =>
+                                                          const CircularProgressIndicator(),
+                                                      errorWidget: (context, url, error) =>
+                                                          const Icon(Icons.error),
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
@@ -514,15 +514,16 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                                     return buildRow("", item.name.toString());
                                                   }
                                                 }),
-                                                buildRow("${'${cm_StringConstantsVwOrderDetails.strItemQty}:'.tr}",
+                                                buildRow('${cm_StringConstantsVwOrderDetails.strItemQty}:'.tr,
                                                     item.pivot!.quantity.toString()),
                                                 Obx(() {
                                                   if (l_VmOrderDetails.isMethodCash.value == false)
                                                     return buildRow(
-                                                        "${'${cm_StringConstantsVwOrderDetails.strItemPrice}:'.tr}",
+                                                        '${cm_StringConstantsVwOrderDetails.strItemPrice}:'
+                                                            .tr,
                                                         item.price.toString());
                                                   else {
-                                                    return Text("  ");
+                                                    return const Text("  ");
                                                   }
                                                 }),
                                               ],
@@ -543,12 +544,13 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
 
                                       Obx(() {
                                         if (l_VmOrderDetails.hasVariations.value == false) {
-                                          return Text("");
+                                          return const Text("");
                                         } else {
                                           return ListView.builder(
                                             shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemCount:  l_VmOrderDetails.allVariations?.length, // Handle null case
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemCount:
+                                                l_VmOrderDetails.allVariations?.length, // Handle null case
                                             itemBuilder: (context, index) {
                                               // Check for null or invalid inde
 
@@ -577,11 +579,13 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                                                 child: ClipRRect(
                                                                   borderRadius: BorderRadius.circular(10.0),
                                                                   child: CachedNetworkImage(
-                                                                    imageUrl: l_VmOrderDetails.allVariations![index].imageUrl.toString(),
+                                                                    imageUrl: l_VmOrderDetails
+                                                                        .allVariations![index].imageUrl
+                                                                        .toString(),
                                                                     placeholder: (context, url) =>
-                                                                        CircularProgressIndicator(),
+                                                                        const CircularProgressIndicator(),
                                                                     errorWidget: (context, url, error) =>
-                                                                        Icon(Icons.error),
+                                                                        const Icon(Icons.error),
                                                                     fit: BoxFit.cover,
                                                                   ),
                                                                 ),
@@ -597,24 +601,31 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                                                                 Obx(() {
                                                                   if (lVm_Home.isArabic.value == true) {
                                                                     return CustomRestaurantNameText(
-                                                                      restaurantName:
-                                                                      l_VmOrderDetails. allVariations![index].arName.toString(),
+                                                                      restaurantName: l_VmOrderDetails
+                                                                          .allVariations![index].arName
+                                                                          .toString(),
                                                                     );
                                                                   } else {
                                                                     return buildRow(
                                                                       "",
-                                                                      l_VmOrderDetails. allVariations![index].name.toString(),
+                                                                      l_VmOrderDetails
+                                                                          .allVariations![index].name
+                                                                          .toString(),
                                                                     );
                                                                   }
                                                                 }),
                                                                 Obx(() {
-                                                                  if (l_VmOrderDetails.isMethodCash.value == false) {
+                                                                  if (l_VmOrderDetails.isMethodCash.value ==
+                                                                      false) {
                                                                     return buildRow(
-                                                                      "${'${cm_StringConstantsVwOrderDetails.strItemPrice}:'.tr}",
-                                                                      l_VmOrderDetails. allVariations![index].price.toString(),
+                                                                      '${cm_StringConstantsVwOrderDetails.strItemPrice}:'
+                                                                          .tr,
+                                                                      l_VmOrderDetails
+                                                                          .allVariations![index].price
+                                                                          .toString(),
                                                                     );
                                                                   } else {
-                                                                    return Text("  ");
+                                                                    return const Text("  ");
                                                                   }
                                                                 }),
                                                               ],
@@ -642,7 +653,7 @@ class _Vw_OrderDetailsState extends State<Vw_OrderDetails> {
                   );
                 } else {
                   // Handle the case when data is not available
-                  return Text('Data not available');
+                  return const Text('Data not available');
                 }
               }),
             )),
