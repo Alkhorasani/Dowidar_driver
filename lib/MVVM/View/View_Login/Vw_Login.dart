@@ -57,12 +57,13 @@ class _Vw_LoginState extends State<Vw_Login> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                        top: G_height * 0.20,
+                        top: G_height * 0.10,
                       ),
                       child: Center(
                           child: Container(
+                            height: 200,
                               decoration: BoxDecoration(
-                                color: Colors.deepOrange.withOpacity(0.1), // Set the background color to white
+                                color: Colors.black54, // Set the background color to white
 
                                 borderRadius: BorderRadius.circular(16),
                               ),

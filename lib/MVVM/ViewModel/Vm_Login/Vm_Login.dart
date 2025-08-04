@@ -103,7 +103,7 @@ class Vm_Login extends GetxController {
 
 
   Future<bool> fncBtnOntap_Login() async {
-    cmGlobalVariables.pbEmail = phoneController.text;
+    cmGlobalVariables.pbEmail =  phoneController.text;
     cmGlobalVariables.pbPassword = passswordController.text;
 
     try {
