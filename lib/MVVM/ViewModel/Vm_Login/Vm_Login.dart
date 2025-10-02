@@ -29,13 +29,29 @@ class Vm_Login extends GetxController {
   fncSetuserData(ModUserData l_ModUserData) async {
     final l_SharedPreferences = await SharedPreferences.getInstance();
 
-    l_SharedPreferences.setString('l_driverPhone', l_ModUserData.data?.user?.phone ?? '');
-    l_SharedPreferences.setString('l_driverEmail', l_ModUserData.data?.user?.email ?? '');
-    l_SharedPreferences.setString('l_driverStatus', l_ModUserData.data?.user?.status ?? '');
-    l_SharedPreferences.setString('l_token', l_ModUserData.data?.accessToken ?? '');
-    l_SharedPreferences.setString('l_driverID', l_ModUserData.data?.user?.id ?? '');
-    l_SharedPreferences.setString('l_driverPasword', cmGlobalVariables.pbPassword ?? '');
-    l_SharedPreferences.setString('l_driverfullname', l_ModUserData.data?.user?.fullName ?? '');
+    final phone = l_ModUserData.data?.user?.phone ?? '';
+    final email = l_ModUserData.data?.user?.email ?? '';
+    final status = l_ModUserData.data?.user?.status ?? '';
+    final accessToken = l_ModUserData.data?.accessToken ?? '';
+    final driverID = l_ModUserData.data?.user?.id ?? '';
+    final password = cmGlobalVariables.pbPassword ?? '';
+    final fullName = l_ModUserData.data?.user?.fullName ?? '';
+
+    l_SharedPreferences.setString('l_driverPhone', phone);
+    l_SharedPreferences.setString('l_driverEmail', email);
+    l_SharedPreferences.setString('l_driverStatus', status);
+    l_SharedPreferences.setString('l_token', accessToken);
+    l_SharedPreferences.setString('l_driverID', driverID);
+    l_SharedPreferences.setString('l_driverPasword', password);
+    l_SharedPreferences.setString('l_driverfullname', fullName);
+
+    print('User data saved to SharedPreferences:');
+    print('  - Phone: $phone');
+    print('  - Email: $email');
+    print('  - Status: $status');
+    print('  - Access Token: ${accessToken.isNotEmpty ? "${accessToken.substring(0, 20)}..." : "EMPTY"}');
+    print('  - Driver ID: $driverID');
+    print('  - Full Name: $fullName');
   }
 
   fncGetUserData() async {
@@ -90,12 +106,24 @@ class Vm_Login extends GetxController {
 
   Future<void> fncTokenUpdate() async {
     try {
-      cmGlobalVariables.pBFirebaseNotificationToken =  await FirebaseService.getDeviceToken();
-       await Sl_FirebaseNotifications().FncaddUserDevice();
-       print('called');
+      // First get the Firebase token
+      String? firebaseToken = await FirebaseService.getDeviceToken();
+      
+      if (firebaseToken == null || firebaseToken.isEmpty) {
+        throw Exception("Failed to retrieve Firebase notification token");
+      }
+      
+      cmGlobalVariables.pBFirebaseNotificationToken = firebaseToken;
+      print('Firebase token retrieved: ${firebaseToken.substring(0, 20)}...');
+      
+      // Then update the device token on the server
+      await Sl_FirebaseNotifications().FncaddUserDevice();
+      print('Device token update completed successfully');
 
     } catch (e, stack) {
-      throw Exception([e, stack]);
+      print('Error in fncTokenUpdate: $e');
+      print('Stack trace: $stack');
+      throw Exception("Token update failed: $e");
     }
   }
 
@@ -107,13 +135,25 @@ class Vm_Login extends GetxController {
     cmGlobalVariables.pbPassword = passswordController.text;
 
     try {
+      // First attempt to login
       if (await fnc_Userlogin() == true) {
-        await fncTokenUpdate();
+        // Login successful, now try to update device token
+        // Don't fail the entire login if device token update fails
+        try {
+          await fncTokenUpdate();
+          print('Login completed successfully with device token update');
+        } catch (tokenError) {
+          print("Warning: Device token update failed but login was successful: $tokenError");
+          // Log the error but don't prevent the user from logging in
+        }
         return true;
+      } else {
+        print("Login failed - invalid credentials or server error");
+        return false;
       }
     } catch (e) {
       print("Error in fncBtnOntap_Login: $e");
+      return false;
     }
-    return false;
   }
 }
