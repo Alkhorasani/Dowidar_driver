@@ -1,24 +1,22 @@
 {
   "project_info": {
-    "project_number": "320122979095",
-    "project_id": "dowidar",
-    "storage_bucket": "dowidar.firebasestorage.app"
+    "project_number": "583156775225",
+    "firebase_url": "https://dowidar-7e981-default-rtdb.firebaseio.com",
+    "project_id": "dowidar-7e981",
+    "storage_bucket": "dowidar-7e981.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:320122979095:android:2711509e21ec4d3276ad52",
+        "mobilesdk_app_id": "1:583156775225:android:8d6464b077e996aef790e8",
         "android_client_info": {
-          "package_name": "com.tibah.dowidar"
+          "package_name": "com.dowidar.driverAPP"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDTYg6EznvIOB6iha6fsDWDt6mA6tvkOY8"
-        },
-        {
-          "current_key": "AIzaSyC2KjHon6H6VFwC8aqswoD9Cc2VNDMl7lM"
+          "current_key": "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc"
         }
       ],
       "services": {
@@ -29,18 +27,34 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:320122979095:android:5c0f1eee6fc62e3b76ad52",
+        "mobilesdk_app_id": "1:583156775225:android:ec7b1c7666d42505f790e8",
         "android_client_info": {
-          "package_name": "com.tibah.dowidardriver"
+          "package_name": "com.dowidar.restaurantapp"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDTYg6EznvIOB6iha6fsDWDt6mA6tvkOY8"
-        },
+          "current_key": "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583156775225:android:12d72938bc129458f790e8",
+        "android_client_info": {
+          "package_name": "com.dowidar.userapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
         {
-          "current_key": "AIzaSyC2KjHon6H6VFwC8aqswoD9Cc2VNDMl7lM"
+          "current_key": "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc"
         }
       ],
       "services": {

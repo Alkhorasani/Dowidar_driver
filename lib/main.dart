@@ -49,24 +49,22 @@ void callbackDispatcher() {
 @pragma('vm:entry-point')
 Future<void> onBackgroundMsg(RemoteMessage msg) async {
   print("sas");
-  if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-        options: Platform.isAndroid
-            ? const FirebaseOptions(
-                apiKey: "AIzaSyDTYg6EznvIOB6iha6fsDWDt6mA6tvkOY8",
-                projectId: "dowidar",
-                storageBucket: "dowidar.firebasestorage.app",
-                messagingSenderId: "320122979095",
-                appId: "1:320122979095:android:5c0f1eee6fc62e3b76ad52",
-              )
-            : const FirebaseOptions(
-                apiKey: "AIzaSyDTYg6EznvIOB6iha6fsDWDt6mA6tvkOY8",
-                projectId: "dowidar",
-                storageBucket: "dowidar.firebasestorage.app",
-                messagingSenderId: "320122979095",
-                appId: "1:320122979095:android:5c0f1eee6fc62e3b76ad52",
-              ));
-  }
+  await Firebase.initializeApp(
+      options: Platform.isAndroid
+          ? const FirebaseOptions(
+              apiKey: "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc",
+              projectId: "dowidar-7e981",
+              storageBucket: "dowidar-7e981.appspot.com",
+              messagingSenderId: "583156775225",
+              appId: "1:583156775225:android:8d6464b077e996aef790e8",
+            )
+          : const FirebaseOptions(
+              apiKey: "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc",
+              projectId: "dowidar-7e981",
+              storageBucket: "dowidar-7e981.appspot.com",
+              messagingSenderId: "583156775225",
+              appId: "1:583156775225:android:8d6464b077e996aef790e8",
+            ));
 
   print("Handling a background message: ${msg.messageId}");
   FirebaseService.localNotification(msg);
@@ -90,8 +88,7 @@ Future<void> main() async {
   await FirebaseService.initializeFirebase();
   FirebaseMessaging.onBackgroundMessage(onBackgroundMsg);
 
-  // Ensure device info is properly initialized
-  await cmAppStartup().fncGetDeviceInfo();
+  cmAppStartup().fncGetDeviceInfo();
 
   Workmanager().initialize(
     callbackDispatcher, // The top level function, aka callbackDispatcher

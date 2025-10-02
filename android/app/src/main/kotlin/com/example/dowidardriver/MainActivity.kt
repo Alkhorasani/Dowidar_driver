@@ -1,4 +1,4 @@
-package com.tibah.dowidardriver
+package com.example.dowidardriver
 
 import io.flutter.embedding.android.FlutterActivity
 

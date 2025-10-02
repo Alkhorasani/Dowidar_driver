@@ -19,9 +19,8 @@ class Sl_UserLogin {
       List<int> lUtfContent = utf8.encode(lJsonString);
       String dynamicUrl =
           ApiUrls.userLogin + "phone=${cmGlobalVariables.pbEmail}&password=${cmGlobalVariables.pbPassword}";
-      print('Dynamic Login URL: ${dynamicUrl}');
       final lResponse = await HttpCalls().Fnc_HttpWeb(dynamicUrl, lUtfContent);
-      print('Login Response Body: ${lResponse.body}');
+
       if (lResponse.statusCode == 200) {
         print(lResponse.body);
         final Map<String, dynamic> jsonMap = jsonDecode(lResponse.body);

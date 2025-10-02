@@ -17,46 +17,40 @@ _handleOnTapNotification(RemoteMessage message) {
   String reciverid = message.data['sender_id'];
   (message.notification!.body!);
 
-  cm_HandleDeepLink().handleDeepLink(
-      deeplink: type, payLoad: Orderid, payLoadrecid: reciverid);
+  cm_HandleDeepLink().handleDeepLink(deeplink: type, payLoad: Orderid, payLoadrecid: reciverid);
 }
 
 class FirebaseService {
   static FirebaseMessaging? _firebaseMessaging;
 
-  static FirebaseMessaging get firebaseMessaging =>
-      FirebaseService._firebaseMessaging ?? FirebaseMessaging.instance;
+  static FirebaseMessaging get firebaseMessaging => FirebaseService._firebaseMessaging ?? FirebaseMessaging.instance;
 
   static Future<void> initializeFirebase() async {
-    if (Firebase.apps.isEmpty) {
-      await Firebase.initializeApp(
-          options: Platform.isAndroid
-              ? const FirebaseOptions(
-                  apiKey: "AIzaSyDTYg6EznvIOB6iha6fsDWDt6mA6tvkOY8",
-                  projectId: "dowidar",
-                  storageBucket: "dowidar.firebasestorage.app",
-                  messagingSenderId: "320122979095",
-                  appId: "1:320122979095:android:5c0f1eee6fc62e3b76ad52",
-                )
-              : const FirebaseOptions(
-                  apiKey: "AIzaSyDTYg6EznvIOB6iha6fsDWDt6mA6tvkOY8",
-                  projectId: "dowidar",
-                  storageBucket: "dowidar.firebasestorage.app",
-                  messagingSenderId: "320122979095",
-                  appId: "1:320122979095:android:5c0f1eee6fc62e3b76ad52",
-                ));
-    }
+    await Firebase.initializeApp(
+        options: Platform.isAndroid
+            ? const FirebaseOptions(
+                apiKey: "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc",
+                projectId: "dowidar-7e981",
+                storageBucket: "dowidar-7e981.appspot.com",
+                messagingSenderId: "583156775225",
+                appId: "1:583156775225:android:8d6464b077e996aef790e8",
+              )
+            : const FirebaseOptions(
+                apiKey: "AIzaSyDX2sizGQUlA7vYnh4F_dzrx9ReF5Kjgrc",
+                projectId: "dowidar-7e981",
+                storageBucket: "dowidar-7e981.appspot.com",
+                messagingSenderId: "583156775225",
+                appId: "1:583156775225:android:8d6464b077e996aef790e8",
+              ));
     FirebaseMessaging.instance.requestPermission();
     FirebaseService._firebaseMessaging = FirebaseMessaging.instance;
     await FirebaseService.initializeLocalNotifications();
     await FCMProvider.onMessage();
   }
 
-  static Future<String?> getDeviceToken() async =>
-      await FirebaseMessaging.instance.getToken();
+  static Future<String?> getDeviceToken() async => await FirebaseMessaging.instance.getToken();
 
-  static final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static Future<void> initializeLocalNotifications() async {
     const InitializationSettings initSettings = InitializationSettings(
@@ -69,22 +63,19 @@ class FirebaseService {
     await FirebaseService._localNotificationsPlugin.initialize(
       initSettings,
       onDidReceiveNotificationResponse: FCMProvider.handleOnTapNotification,
-      onDidReceiveBackgroundNotificationResponse:
-          FCMProvider.handleOnTapNotification,
+      onDidReceiveBackgroundNotificationResponse: FCMProvider.handleOnTapNotification,
     );
     print("Before initialize");
 
     /// need this for ios foregournd notification
-    await FirebaseService.firebaseMessaging
-        .setForegroundNotificationPresentationOptions(
+    await FirebaseService.firebaseMessaging.setForegroundNotificationPresentationOptions(
       alert: true, // Required to display a heads up notification
       badge: true,
       sound: true,
     );
   }
 
-  static NotificationDetails platformChannelSpecifics =
-      const NotificationDetails(
+  static NotificationDetails platformChannelSpecifics = const NotificationDetails(
     android: AndroidNotificationDetails(
       "New Order",
       "New Order",
@@ -100,11 +91,9 @@ class FirebaseService {
 
     String type = message.data['type'];
     if (type == 'message') {
-      NotificationBody notificationBody =
-          notificationBodyFromJson(message.notification!.body!);
+      NotificationBody notificationBody = notificationBodyFromJson(message.notification!.body!);
       var ios = const DarwinNotificationDetails();
-      AndroidNotificationDetails normalChannel = AndroidNotificationDetails(
-          "com.tibah.dowidardriver", "Dowidar Driver",
+      AndroidNotificationDetails normalChannel = AndroidNotificationDetails("com.dowidar.driverAPP", "Dowidar Driver",
           priority: Priority.high,
           importance: Importance.high,
           icon: '@mipmap/ic_launcher',
@@ -128,26 +117,24 @@ class FirebaseService {
         android: normalChannel,
         iOS: ios,
       );
-      await FirebaseService._localNotificationsPlugin.show(message.hashCode,
-          message.notification!.title, message.notification!.body, platform,
+      await FirebaseService._localNotificationsPlugin.show(
+          message.hashCode, message.notification!.title, message.notification!.body, platform,
           payload: jsonEncode(message.data));
     } else {
       l_Vm_CommonLayout.fnc_GetAllOrders();
-      await FirebaseService._localNotificationsPlugin.show(
-          message.hashCode,
-          message.notification!.title,
-          message.notification!.body,
-          FirebaseService.platformChannelSpecifics,
+      await FirebaseService._localNotificationsPlugin.show(message.hashCode, message.notification!.title,
+          message.notification!.body, FirebaseService.platformChannelSpecifics,
           payload: jsonEncode(message.data));
     }
   }
+
+
 
 // for receiving message when app is in background or foreground
 }
 
 class FCMProvider {
-  static Future<void> handleOnTapNotification(
-      NotificationResponse? response) async {
+  static Future<void> handleOnTapNotification(NotificationResponse? response) async {
     print("On Tap");
     print("On Tap");
     print("On Tap");
@@ -156,9 +143,7 @@ class FCMProvider {
     Map<String, dynamic> payload = jsonDecode(response.payload!);
     NotificationPayload payloadData = NotificationPayload.fromJson(payload);
     cm_HandleDeepLink().handleDeepLink(
-        deeplink: payloadData.type ?? '',
-        payLoad: payloadData.orderId,
-        payLoadrecid: payloadData.recId);
+        deeplink: payloadData.type ?? '', payLoad: payloadData.orderId, payLoadrecid: payloadData.recId);
   }
 
   static Future<void> onMessage() async {
@@ -180,8 +165,7 @@ class FCMProvider {
   Future<void> setupInteractedMessage() async {
     // Get any messages which caused the application to open from
     // a terminated state.
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
+    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
 
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
@@ -215,13 +199,10 @@ class BannerNotificationPayload {
 
   String toRawJson() => json.encode(toJson());
 
-  factory BannerNotificationPayload.fromJson(Map<String, dynamic> json) =>
-      BannerNotificationPayload(
+  factory BannerNotificationPayload.fromJson(Map<String, dynamic> json) => BannerNotificationPayload(
         id: (json["id"] is String) ? int.parse(json['id']) : json['id'],
         type: json["type"],
-        data: json['data'] != null
-            ? DiscountData.fromJson(json['data'] as Map<String, dynamic>)
-            : null,
+        data: json['data'] != null ? DiscountData.fromJson(json['data'] as Map<String, dynamic>) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -260,11 +241,9 @@ class DiscountData {
   }
 }
 
-NotificationPayload notificationPayloadFromJson(String str) =>
-    NotificationPayload.fromJson(json.decode(str));
+NotificationPayload notificationPayloadFromJson(String str) => NotificationPayload.fromJson(json.decode(str));
 
-String notificationPayloadToJson(NotificationPayload data) =>
-    json.encode(data.toJson());
+String notificationPayloadToJson(NotificationPayload data) => json.encode(data.toJson());
 
 class NotificationPayload {
   String? type;
@@ -273,8 +252,7 @@ class NotificationPayload {
 
   NotificationPayload({this.type, this.orderId, this.recId});
 
-  factory NotificationPayload.fromJson(Map<String, dynamic> json) =>
-      NotificationPayload(
+  factory NotificationPayload.fromJson(Map<String, dynamic> json) => NotificationPayload(
         type: json["type"],
         orderId: json["order_id"],
         recId: json["sender_id"],
@@ -287,11 +265,9 @@ class NotificationPayload {
       };
 }
 
-NotificationBody notificationBodyFromJson(String str) =>
-    NotificationBody.fromJson(json.decode(str));
+NotificationBody notificationBodyFromJson(String str) => NotificationBody.fromJson(json.decode(str));
 
-String notificationBodyToJson(NotificationBody data) =>
-    json.encode(data.toJson());
+String notificationBodyToJson(NotificationBody data) => json.encode(data.toJson());
 
 class NotificationBody {
   dynamic userProfile;
@@ -306,8 +282,7 @@ class NotificationBody {
     this.content,
   });
 
-  factory NotificationBody.fromJson(Map<String, dynamic> json) =>
-      NotificationBody(
+  factory NotificationBody.fromJson(Map<String, dynamic> json) => NotificationBody(
         userProfile: json["user-profile"],
         name: json["name"],
         orderId: json["order_id"],

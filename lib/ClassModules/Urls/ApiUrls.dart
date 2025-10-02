@@ -1,6 +1,6 @@
 class ApiUrls {
   // static String Pb_BaseAPIURL = "https://dowidar.tregix.com/api";
-  static String Pb_BaseAPIURL = "https://jac-api.baydani-awadh.com/api";
+  static String Pb_BaseAPIURL = "https://dowidar-api.baydani-awadh.com/api";
   static String userLogin = "/login?";
   static String getAllOrders = "/driver/orders?";
   static String orderDetails = "/order/get?";
