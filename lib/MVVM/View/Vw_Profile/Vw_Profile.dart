@@ -57,7 +57,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                         height: PrHeight * 0.30,
                         padding: EdgeInsets.all(PrHeight * 0.010),
                         decoration: BoxDecoration(
-                          color: Colors.black45,
+                          color: Colors.deepOrange.withOpacity(0.4),
                           image: DecorationImage(
                             image: AssetImage(cmGlobal_Appimages.splashScreen),
                             fit: BoxFit.none,
@@ -120,7 +120,7 @@ class _VwUserProfileState extends State<VwUserProfile> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: PrHeight * 0.01),
+                            SizedBox(height: PrHeight * 0.03),
                             Row(
                               children: [
                                 SizedBox(width: PrWidth * 0.03), // Add a minor space from the left side

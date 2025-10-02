@@ -28,8 +28,7 @@ class _Vw_splashScreenState extends State<Vw_splashScreen> {
         child: Scaffold(
           backgroundColor: Colors.black,
           body: Center(
-            child: Image.asset(cmGlobal_Appimages.splashScreen,
-            color: Colors.white,),
+            child: Image.asset(cmGlobal_Appimages.splashScreen),
           ),
         ),
       );

@@ -9,7 +9,7 @@ import '../MVVM/Model/ModUserLogin/PeraModel.dart';
 
 class Sl_UserLogin {
   Future<ModUserData> fnc_Userlogin_apiCall() async {
-     //String? countryCode = "+966" + cmGlobalVariables.pbEmail!;
+    // String? countryCode = "+966" + cmGlobalVariables.pbEmail!;
 
     try {
       ParametrizedLoginModel lParametrizedLoginModel =
@@ -19,12 +19,9 @@ class Sl_UserLogin {
       List<int> lUtfContent = utf8.encode(lJsonString);
       String dynamicUrl =
           ApiUrls.userLogin + "phone=${cmGlobalVariables.pbEmail}&password=${cmGlobalVariables.pbPassword}";
-
-      print(dynamicUrl);
-
+      print('Dynamic Login URL: ${dynamicUrl}');
       final lResponse = await HttpCalls().Fnc_HttpWeb(dynamicUrl, lUtfContent);
-
-      print(lResponse.body);
+      print('Login Response Body: ${lResponse.body}');
       if (lResponse.statusCode == 200) {
         print(lResponse.body);
         final Map<String, dynamic> jsonMap = jsonDecode(lResponse.body);
